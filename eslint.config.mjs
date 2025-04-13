@@ -1,8 +1,9 @@
-import globals from 'globals';
 import tsPlugin from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
-import prettierPlugin from 'eslint-plugin-prettier';
 import prettierConfig from 'eslint-config-prettier';
+import importPlugin from 'eslint-plugin-import';
+import prettierPlugin from 'eslint-plugin-prettier';
+import globals from 'globals';
 
 export default [
   {
@@ -10,6 +11,7 @@ export default [
     plugins: {
       '@typescript-eslint': tsPlugin,
       prettier: prettierPlugin,
+      import: importPlugin,
     },
     languageOptions: {
       parser: tsParser,
@@ -22,6 +24,25 @@ export default [
       '@typescript-eslint/no-unused-vars': 'warn',
       'no-console': 'warn',
       'prettier/prettier': 'error',
+      curly: ['error', 'all'],
+      'lines-between-class-members': ['error', 'always'],
+      'import/order': [
+        'error',
+        {
+          groups: [
+            'builtin',
+            'external',
+            'internal',
+            'parent',
+            'sibling',
+            'index',
+          ],
+          alphabetize: {
+            order: 'asc',
+            caseInsensitive: true,
+          },
+        },
+      ],
     },
   },
 ];
