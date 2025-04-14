@@ -1,4 +1,4 @@
-import { BlackjackResult } from '@managers/blackjack/blackjackEnums.ts';
+import { BlackjackResult } from '@managers/blackjack/constants.ts';
 import { Deck } from '@managers/blackjack/Deck.ts';
 import { Hand } from '@managers/blackjack/Hand.ts';
 

@@ -1,4 +1,4 @@
-import { Rank, Suit } from '@managers/blackjack/blackjackEnums.ts';
+import { Rank, Suit } from '@managers/blackjack/constants.ts';
 
 export class Card {
   constructor(

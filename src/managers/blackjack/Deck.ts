@@ -1,5 +1,5 @@
-import { Rank, Suit } from '@managers/blackjack/blackjackEnums.ts';
 import { Card } from '@managers/blackjack/Card.ts';
+import { Rank, Suit } from '@managers/blackjack/constants.ts';
 
 const rankValues: Array<{ rank: Rank; value: number }> = [
   { rank: Rank.TWO, value: 2 },

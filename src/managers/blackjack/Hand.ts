@@ -1,5 +1,5 @@
-import { Rank } from '@managers/blackjack/blackjackEnums.ts';
 import { Card } from '@managers/blackjack/Card.ts';
+import { Rank } from '@managers/blackjack/constants.ts';
 
 const BLACKJACK = 21;
 
