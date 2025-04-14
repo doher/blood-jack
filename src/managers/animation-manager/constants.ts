@@ -1,5 +1,3 @@
-import { getAnimationAssetPath, getImagePath } from './helpers.ts';
-
 export const enum AnimationLoadingKey {
   DEALER_TALK = 'DEALER_TALK',
   DEALER_ANGRY_TALK = 'DEALER_ANGRY_TALK',
@@ -9,50 +7,47 @@ export const enum AnimationLoadingKey {
   RAIN = 'RAIN',
 }
 
-interface AnimationLoadingLayout {
-  loadingKey: string;
+type AnimationLoadingLayout = {
+  key: AnimationLoadingKey;
   imagePath: string;
   atlasDataPath: string;
-}
+};
 
 export const ANIMATION_LOADING_LAYOUTS: AnimationLoadingLayout[] = [
   {
-    loadingKey: AnimationLoadingKey.DEALER_TALK,
-    atlasDataPath: getAnimationAssetPath('dealer/talk/talkAnimation.json'),
-    imagePath: getImagePath(getAnimationAssetPath('dealer/talk/')),
+    key: AnimationLoadingKey.DEALER_TALK,
+    imagePath: 'assets/animations/dealer/talk/',
+    atlasDataPath: 'animations/dealer/talk/talkAnimation.json',
   },
   {
-    loadingKey: AnimationLoadingKey.DEALER_ANGRY_TALK,
-    atlasDataPath: getAnimationAssetPath(
-      'dealer/angry-talk/angryAnimation.json',
-    ),
-    imagePath: getImagePath(getAnimationAssetPath('dealer/angry-talk/')),
+    key: AnimationLoadingKey.DEALER_ANGRY_TALK,
+    imagePath: 'assets/animations/dealer/angry-talk/',
+    atlasDataPath: 'animations/dealer/angry-talk/angryAnimation.json',
   },
   {
-    loadingKey: AnimationLoadingKey.DEALER_SMILE,
-    atlasDataPath: getAnimationAssetPath('dealer/smile/smileAnimation.json'),
-    imagePath: getImagePath(getAnimationAssetPath('dealer/smile/')),
+    key: AnimationLoadingKey.DEALER_SMILE,
+    imagePath: 'assets/animations/dealer/smile/',
+    atlasDataPath: 'animations/dealer/smile/smileAnimation.json',
   },
   {
-    loadingKey: AnimationLoadingKey.DEALER_SMILE,
-    atlasDataPath: getAnimationAssetPath('dealer/smile/smileAnimation.json'),
-    imagePath: getImagePath(getAnimationAssetPath('dealer/smile/')),
+    key: AnimationLoadingKey.DEALER_SMILE,
+    imagePath: 'assets/animations/dealer/smile/',
+    atlasDataPath: 'animations/dealer/smile/smileAnimation.json',
   },
   {
-    loadingKey: AnimationLoadingKey.DEALER_SAD,
-    atlasDataPath: getAnimationAssetPath('dealer/sad/sadAnimation.json'),
-    imagePath: getImagePath(getAnimationAssetPath('dealer/sad/')),
+    key: AnimationLoadingKey.DEALER_SAD,
+    imagePath: 'assets/animations/dealer/sad/',
+    atlasDataPath: 'animations/dealer/sad/sadAnimation.json',
   },
   {
-    loadingKey: AnimationLoadingKey.DEALER_EAR_MOVEMENT,
-    atlasDataPath: getAnimationAssetPath(
-      'dealer/movements-ears/movementsEarsAnimation.json',
-    ),
-    imagePath: getImagePath(getAnimationAssetPath('dealer/movements-ears/')),
+    key: AnimationLoadingKey.DEALER_EAR_MOVEMENT,
+    imagePath: 'assets/animations/dealer/movements-ears/',
+    atlasDataPath:
+      'animations/dealer/movements-ears/movementsEarsAnimation.json',
   },
   {
-    loadingKey: AnimationLoadingKey.RAIN,
-    atlasDataPath: getAnimationAssetPath('rain/rain.json'),
-    imagePath: getImagePath(getAnimationAssetPath('rain/')),
+    key: AnimationLoadingKey.RAIN,
+    imagePath: 'assets/animations/rain/',
+    atlasDataPath: 'animations/rain/rain.json',
   },
 ];

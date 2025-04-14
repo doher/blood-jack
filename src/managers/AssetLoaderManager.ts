@@ -1,40 +1,28 @@
-import 'phaser';
+import { BitmapFontAsset } from './game-object-factory/bitmapConstants.ts';
 
-interface ImageAsset {
-  key: string;
-  path: string;
-}
-
-interface SpriteSheetAsset {
+type SpriteSheetAsset = {
   key: string;
   imagePath: string;
   atlasDataPath: string;
-}
+};
 
-interface BitmapFontAsset {
-  key: string;
-  imagePath: string;
-  fontDataPath: string;
-}
-
-interface AudioAsset {
+type AudioAsset = {
   key: string;
   paths: string[] | string;
-}
+};
 
-interface FontAsset {
+type FontAsset = {
   key: string;
   url: string;
   options?: FontFaceDescriptors;
-}
+};
 
 export class AssetLoaderManager {
-  private scene: Phaser.Scene;
   private loader: Phaser.Loader.LoaderPlugin;
+
   private static instance: AssetLoaderManager | null = null;
 
   private constructor(scene: Phaser.Scene) {
-    this.scene = scene;
     this.loader = scene.load;
     this.loader.setPath('assets');
   }
@@ -49,7 +37,7 @@ export class AssetLoaderManager {
   }
 
   public loadImage(config: ImageAsset): this {
-    this.loader.image(config.key, config.path);
+    this.loader.image(config.key, config.imagePath);
     return this;
   }
 
