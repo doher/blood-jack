@@ -5,7 +5,7 @@ class GameObjectFactory {
     scene: Phaser.Scene,
     layout: GameObjectDescription,
   ): Phaser.GameObjects.Sprite => {
-    const image = scene.add.sprite(
+    const sprite = scene.add.sprite(
       layout.position.x,
       layout.position.y,
       layout.key,
@@ -13,11 +13,11 @@ class GameObjectFactory {
     );
 
     if (layout.origin) {
-      image.setOrigin(layout.origin.x, layout.origin.y);
+      sprite.setOrigin(layout.origin.x, layout.origin.y);
     }
 
     if (layout.tint) {
-      image.setTint(
+      sprite.setTint(
         layout.tint.topLeft,
         layout.tint.topRight,
         layout.tint.bottomLeft,
@@ -26,18 +26,18 @@ class GameObjectFactory {
     }
 
     if (layout.scale) {
-      image.setScale(layout.scale.x, layout.scale.y);
+      sprite.setScale(layout.scale.x, layout.scale.y);
     }
 
     if (layout.rotation) {
-      image.setRotation(layout.rotation);
+      sprite.setRotation(layout.rotation);
     }
 
     if (layout.blendMode) {
-      image.setBlendMode(layout.blendMode);
+      sprite.setBlendMode(layout.blendMode);
     }
 
-    return image;
+    return sprite;
   };
 }
 

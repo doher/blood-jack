@@ -1,5 +1,6 @@
 import { AnimationLoadingKey } from './constants.ts';
 
+// TODO move to other file
 export const enum AnimationPlayingKey {
   DEALER_TALK_PLAY = 'DEALER_TALK_PLAY',
   DEALER_ANGRY_TALK_PLAY = 'DEALER_ANGRY_TALK_PLAY',
