@@ -1,4 +1,5 @@
 import { BitmapFontAsset } from './game-object-factory/bitmapConstants.ts';
+import { ImageAsset } from './game-object-factory/imageConstants.ts';
 
 type SpriteSheetAsset = {
   key: string;

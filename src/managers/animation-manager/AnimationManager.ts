@@ -10,12 +10,12 @@ export const enum AnimationPlayingKey {
   RAIN_PLAY = 'RAIN_PLAY',
 }
 
-interface AnimationRegistrationLayout {
+type AnimationRegistrationLayout = {
   key: AnimationPlayingKey;
   frames: AnimationLoadingKey;
   frameRate: 32;
   repeat: number;
-}
+};
 
 export const ANIMATIONS_TO_CREATE: AnimationRegistrationLayout[] = [
   {
@@ -57,12 +57,11 @@ export const ANIMATIONS_TO_CREATE: AnimationRegistrationLayout[] = [
 ];
 
 export class AnimationManager {
-  private scene: Phaser.Scene;
   private animationManager: Phaser.Animations.AnimationManager;
+
   private static instance: AnimationManager | null = null;
 
   private constructor(scene: Phaser.Scene) {
-    this.scene = scene;
     this.animationManager = scene.anims;
   }
 
