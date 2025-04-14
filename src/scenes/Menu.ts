@@ -1,6 +1,6 @@
 import { Scene } from 'phaser';
-import { SceneType } from './constants.ts';
 import { SceneManager } from '../managers/SceneManager.ts';
+import { SceneType } from './constants.ts';
 
 export class Menu extends Scene {
   private sceneManager: SceneManager;

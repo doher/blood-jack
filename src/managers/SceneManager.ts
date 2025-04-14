@@ -1,6 +1,8 @@
 export class SceneManager {
   private game: Phaser.Game;
+
   private static instance: SceneManager | null = null;
+
   private constructor(game: Phaser.Game) {
     this.game = game;
   }

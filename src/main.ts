@@ -1,7 +1,7 @@
 import { AUTO, Game, Scale, Types } from 'phaser';
 import { Boot } from './scenes/Boot';
-import { Menu } from './scenes/Menu.ts';
 import { MainGame } from './scenes/MainGame.ts';
+import { Menu } from './scenes/Menu.ts';
 
 const config: Types.Core.GameConfig = {
   type: AUTO,

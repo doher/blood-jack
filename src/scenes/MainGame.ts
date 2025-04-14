@@ -1,9 +1,9 @@
 import { Scene } from 'phaser';
-import { SceneType } from './constants.ts';
-import { gameObjectFactory } from '../managers/game-object-factory/GameObjectFactory.ts';
-import { AnimationLoadingKey } from '../managers/animation-manager/constants.ts';
-import { SceneManager } from '../managers/SceneManager.ts';
 import { AnimationPlayingKey } from '../managers/animation-manager/AnimationManager.ts';
+import { AnimationLoadingKey } from '../managers/animation-manager/constants.ts';
+import { gameObjectFactory } from '../managers/game-object-factory/GameObjectFactory.ts';
+import { SceneManager } from '../managers/SceneManager.ts';
+import { SceneType } from './constants.ts';
 
 export class MainGame extends Scene {
   private sceneManager: SceneManager;
