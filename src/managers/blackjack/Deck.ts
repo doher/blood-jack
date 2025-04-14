@@ -1,25 +1,26 @@
-import { Card, Rank, Suit } from '@actors/blackjack/Card.ts';
+import { Rank, Suit } from '@managers/blackjack/blackjackEnums.ts';
+import { Card } from '@managers/blackjack/Card.ts';
+
+const rankValues: Array<{ rank: Rank; value: number }> = [
+  { rank: Rank.TWO, value: 2 },
+  { rank: Rank.THREE, value: 3 },
+  { rank: Rank.FOUR, value: 4 },
+  { rank: Rank.FIVE, value: 5 },
+  { rank: Rank.SIX, value: 6 },
+  { rank: Rank.SEVEN, value: 7 },
+  { rank: Rank.EIGHT, value: 8 },
+  { rank: Rank.NINE, value: 9 },
+  { rank: Rank.TEN, value: 10 },
+  { rank: Rank.JACK, value: 10 },
+  { rank: Rank.QUEEN, value: 10 },
+  { rank: Rank.KING, value: 10 },
+  { rank: Rank.ACE, value: 1 },
+];
 
 export class Deck {
   private cards: Card[] = [];
 
-  private ranks: Array<{ rank: Rank; value: number }> = [
-    { rank: '2', value: 2 },
-    { rank: '3', value: 3 },
-    { rank: '4', value: 4 },
-    { rank: '5', value: 5 },
-    { rank: '6', value: 6 },
-    { rank: '7', value: 7 },
-    { rank: '8', value: 8 },
-    { rank: '9', value: 9 },
-    { rank: '10', value: 10 },
-    { rank: 'J', value: 10 },
-    { rank: 'Q', value: 10 },
-    { rank: 'K', value: 10 },
-    { rank: 'A', value: 1 },
-  ];
-
-  private suits: Suit[] = ['spades', 'hearts', 'diamonds', 'clubs'];
+  private suits: Suit[] = [Suit.SPADES, Suit.HEARTS, Suit.DIAMONDS, Suit.CLUBS];
 
   constructor(private numberOfDecks: number) {
     this.init();
@@ -39,7 +40,7 @@ export class Deck {
     this.cards = [];
 
     for (let deck = 0; deck < this.numberOfDecks; deck += 1) {
-      for (const { rank, value } of this.ranks) {
+      for (const { rank, value } of rankValues) {
         for (const suit of this.suits) {
           this.cards.push(new Card(rank, value, suit));
         }

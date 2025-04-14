@@ -1,7 +1,9 @@
-import { Deck } from '@actors/blackjack/Deck.ts';
-import { Hand } from '@actors/blackjack/Hand.ts';
+import { BlackjackResult } from '@managers/blackjack/blackjackEnums.ts';
+import { Deck } from '@managers/blackjack/Deck.ts';
+import { Hand } from '@managers/blackjack/Hand.ts';
 
-export type BlackjackResult = 'PLAYER_WIN' | 'DEALER_WIN' | 'PUSH';
+const START_CARD_AMOUNT = 2;
+const DEALER_HIT_THRESHOLD = 17;
 
 export class Blackjack {
   private deck: Deck;
@@ -20,7 +22,7 @@ export class Blackjack {
     this.playerHand.clear();
     this.dealerHand.clear();
 
-    for (let numberOfCard = 0; numberOfCard < 2; numberOfCard += 1) {
+    for (let amount = 0; amount < START_CARD_AMOUNT; amount += 1) {
       this.playerHand.addCard(this.deck.drawCard());
       this.dealerHand.addCard(this.deck.drawCard());
     }
@@ -30,33 +32,33 @@ export class Blackjack {
     this.playerHand.addCard(this.deck.drawCard());
   }
 
-  public dealerPlay(): void {
-    while (this.dealerHand.getValue() < 17) {
+  public playDealer(): void {
+    while (this.dealerHand.getValue() < DEALER_HIT_THRESHOLD) {
       this.dealerHand.addCard(this.deck.drawCard());
     }
   }
 
   public determineResult(): BlackjackResult {
     if (this.playerHand.isBust()) {
-      return 'DEALER_WIN';
+      return BlackjackResult.DEALER_WIN;
     }
 
     if (this.dealerHand.isBust()) {
-      return 'PLAYER_WIN';
+      return BlackjackResult.PLAYER_WIN;
     }
 
     const playerValue = this.playerHand.getValue();
     const dealerValue = this.dealerHand.getValue();
 
     if (playerValue > dealerValue) {
-      return 'PLAYER_WIN';
+      return BlackjackResult.PLAYER_WIN;
     }
 
     if (dealerValue > playerValue) {
-      return 'DEALER_WIN';
+      return BlackjackResult.DEALER_WIN;
     }
 
-    return 'PUSH';
+    return BlackjackResult.PUSH;
   }
 
   public getPlayerHand(): Hand {

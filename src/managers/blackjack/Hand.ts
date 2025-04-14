@@ -1,4 +1,7 @@
-import { Card } from '@actors/blackjack/Card.ts';
+import { Rank } from '@managers/blackjack/blackjackEnums.ts';
+import { Card } from '@managers/blackjack/Card.ts';
+
+const BLACKJACK = 21;
 
 export class Hand {
   private cards: Card[] = [];
@@ -22,13 +25,13 @@ export class Hand {
     for (const card of this.cards) {
       total += card.value;
 
-      if (card.rank === 'A') {
+      if (card.rank === Rank.ACE) {
         acesCount += 1;
       }
     }
 
     while (acesCount > 0) {
-      if (total + 10 <= 21) {
+      if (total + 10 <= BLACKJACK) {
         total += 10;
       }
 
@@ -39,6 +42,6 @@ export class Hand {
   }
 
   public isBust(): boolean {
-    return this.getValue() > 21;
+    return this.getValue() > BLACKJACK;
   }
 }
