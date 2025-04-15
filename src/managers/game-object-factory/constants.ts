@@ -1,24 +1,24 @@
-export interface Position {
+export type Position = {
   x: number;
   y: number;
-}
+};
 
-export interface Scale {
+export type Scale = {
   x: number;
   y: number;
-}
+};
 
-export interface Origin {
+export type Origin = {
   x: number;
   y: number;
-}
+};
 
-export interface Tint {
+export type Tint = {
   topLeft: number;
   topRight?: number;
   bottomLeft?: number;
   bottomRight?: number;
-}
+};
 
 export interface GameObjectDescription {
   position: Position;
@@ -32,3 +32,14 @@ export interface GameObjectDescription {
   hide?: boolean;
   blendMode?: number;
 }
+
+export type GameObjectsBitmapTextDescription = {
+  position: Position;
+  font: string;
+  text?: string | string[];
+  size?: number;
+  align?: number;
+  tint?: Tint;
+  origin?: Origin;
+  rotation?: number;
+};

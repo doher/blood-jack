@@ -1,8 +1,10 @@
 import { Scene } from 'phaser';
 import { AnimationLoadingKey } from '../managers/animation-manager/constants.ts';
+import { Rank, Suit } from '../managers/blackjack/constants.ts';
 import { gameObjectFactory } from '../managers/game-object-factory/GameObjectFactory.ts';
-import { SceneType } from './constants.ts';
 import { ImageLoadingKey } from '../managers/game-object-factory/imageConstants.ts';
+import { CardView } from '../views/card-view/CardView.ts';
+import { SceneType } from './constants.ts';
 
 export class MainGame extends Scene {
   constructor() {
@@ -14,7 +16,7 @@ export class MainGame extends Scene {
   }
 
   public create() {
-    const background = gameObjectFactory.createSprite(this, {
+    gameObjectFactory.createSprite(this, {
       key: AnimationLoadingKey.BACKGROUND_JAIL,
       position: {
         x: 1920 / 2,
@@ -26,7 +28,7 @@ export class MainGame extends Scene {
       },
     });
 
-    const table = gameObjectFactory.createSprite(this, {
+    gameObjectFactory.createSprite(this, {
       key: ImageLoadingKey.TABLE,
       position: {
         x: 1920 / 2,
@@ -37,5 +39,7 @@ export class MainGame extends Scene {
         y: 0.5,
       },
     });
+
+    new CardView(this, { rank: Rank.TWO, suit: Suit.SPADES });
   }
 }

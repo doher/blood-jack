@@ -1,7 +1,7 @@
 import { Card } from './Card.ts';
 import { Rank, Suit } from './constants.ts';
 
-const rankValues: Array<{ rank: Rank; value: number }> = [
+const ranksValues: Array<{ rank: Rank; value: number }> = [
   { rank: Rank.TWO, value: 2 },
   { rank: Rank.THREE, value: 3 },
   { rank: Rank.FOUR, value: 4 },
@@ -40,7 +40,7 @@ export class Deck {
     this.cards = [];
 
     for (let deck = 0; deck < this.numberOfDecks; deck += 1) {
-      for (const { rank, value } of rankValues) {
+      for (const { rank, value } of ranksValues) {
         for (const suit of this.suits) {
           this.cards.push(new Card(rank, value, suit));
         }

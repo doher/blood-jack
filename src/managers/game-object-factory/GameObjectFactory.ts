@@ -1,6 +1,42 @@
-import { GameObjectDescription } from './constants.ts';
+import type {
+  GameObjectDescription,
+  GameObjectsBitmapTextDescription,
+} from './constants.ts';
 
 class GameObjectFactory {
+  public createBitmapText = (
+    scene: Phaser.Scene,
+    layout: GameObjectsBitmapTextDescription,
+  ): Phaser.GameObjects.BitmapText => {
+    const bitmapText = scene.add.bitmapText(
+      layout.position.x,
+      layout.position.y,
+      layout.font,
+      layout.text,
+      layout.size,
+      layout.align,
+    );
+
+    if (layout.origin) {
+      bitmapText.setOrigin(layout.origin.x, layout.origin.y);
+    }
+
+    if (layout.tint) {
+      bitmapText.setTint(
+        layout.tint.topLeft,
+        layout.tint.topRight,
+        layout.tint.bottomLeft,
+        layout.tint.bottomRight,
+      );
+    }
+
+    if (layout.rotation) {
+      bitmapText.setRotation(layout.rotation);
+    }
+
+    return bitmapText;
+  };
+
   public createSprite = (
     scene: Phaser.Scene,
     layout: GameObjectDescription,

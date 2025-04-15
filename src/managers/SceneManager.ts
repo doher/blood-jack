@@ -19,7 +19,7 @@ export class SceneManager {
   /**
    * Start scene (current wil be stopped)
    * @param key - sceneKey
-   * @param data - extra data to add to scene
+   * @param data - extra data to add to a scene
    */
   public start(key: string, data?: object): void {
     this.game.scene.start(key, data);
