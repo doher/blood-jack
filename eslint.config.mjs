@@ -43,6 +43,14 @@ export default [
           },
         },
       ],
+      '@typescript-eslint/consistent-type-imports': [
+        'error',
+        {
+          prefer: 'type-imports',
+          disallowTypeAnnotations: true,
+        },
+      ],
     },
+    ignores: ['dist', 'node_modules'],
   },
 ];

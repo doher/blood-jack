@@ -29,7 +29,7 @@ export class SceneManager {
    * Switch scene (current not be stopped)
    * @param from - from sceneKey
    * @param to - to sceneKey
-   * @param data - extra data to add to scene
+   * @param data - extra data to add to a scene
    */
   public switchTo(from: string, to: string, data?: object): void {
     this.game.scene.switch(from, to, data);

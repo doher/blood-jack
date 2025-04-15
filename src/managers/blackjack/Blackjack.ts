@@ -1,6 +1,6 @@
-import { BlackjackResult } from '@managers/blackjack/constants.ts';
-import { Deck } from '@managers/blackjack/Deck.ts';
-import { Hand } from '@managers/blackjack/Hand.ts';
+import { BlackjackResult } from './constants.ts';
+import { Deck } from './Deck.ts';
+import { Hand } from './Hand.ts';
 
 const START_CARD_AMOUNT = 2;
 const DEALER_HIT_THRESHOLD = 17;

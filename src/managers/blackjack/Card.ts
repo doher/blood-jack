@@ -1,4 +1,4 @@
-import { Rank, Suit } from '@managers/blackjack/constants.ts';
+import type { Rank, Suit } from './constants.ts';
 
 export class Card {
   constructor(
