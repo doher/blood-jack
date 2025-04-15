@@ -1,4 +1,4 @@
-const enum ImageLoadingKey {
+export const enum ImageLoadingKey {
   CARD_FRONT = 'CARD_FRONT',
   CARD_BACK = 'CARD_BACK',
   CLUBS = 'CLUBS',
@@ -9,6 +9,7 @@ const enum ImageLoadingKey {
   SMALL_DIAMONDS = 'SMALL_DIAMONDS',
   SMALL_HEARTS = 'SMALL_HEARTS',
   SMALL_SPADES = 'SMALL_SPADES',
+  TABLE = 'TABLE',
 }
 
 export type ImageAsset = {
@@ -56,5 +57,9 @@ export const IMAGE_LAYOUTS: ImageAsset[] = [
   {
     key: ImageLoadingKey.SMALL_SPADES,
     imagePath: 'images/card/small-suits/small-spades.png',
+  },
+  {
+    key: ImageLoadingKey.TABLE,
+    imagePath: 'images/table/table.png',
   },
 ];

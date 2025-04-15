@@ -8,12 +8,13 @@ export const enum AnimationPlayingKey {
   DEALER_SAD_PLAY = 'DEALER_SAD_PLAY',
   DEALER_EAR_MOVEMENT_PLAY = 'DEALER_EAR_MOVEMENT_PLAY',
   RAIN_PLAY = 'RAIN_PLAY',
+  BACKGROUND_JAIL_PLAY = 'BACKGROUND_JAIL_PLAY',
 }
 
 type AnimationRegistrationLayout = {
   key: AnimationPlayingKey;
   frames: AnimationLoadingKey;
-  frameRate: 32;
+  frameRate: 32 | 16;
   repeat: number;
 };
 
@@ -52,6 +53,12 @@ export const ANIMATIONS_TO_CREATE: AnimationRegistrationLayout[] = [
     key: AnimationPlayingKey.RAIN_PLAY,
     frames: AnimationLoadingKey.RAIN,
     frameRate: 32,
+    repeat: -1,
+  },
+  {
+    key: AnimationPlayingKey.BACKGROUND_JAIL_PLAY,
+    frames: AnimationLoadingKey.BACKGROUND_JAIL,
+    frameRate: 16,
     repeat: -1,
   },
 ];

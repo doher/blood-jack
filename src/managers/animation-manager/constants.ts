@@ -5,6 +5,7 @@ export const enum AnimationLoadingKey {
   DEALER_SAD = 'DEALER_SAD',
   DEALER_EAR_MOVEMENT = 'DEALER_EAR_MOVEMENT',
   RAIN = 'RAIN',
+  BACKGROUND_JAIL = 'BACKGROUND_JAIL',
 }
 
 type AnimationLoadingLayout = {
@@ -49,5 +50,10 @@ export const ANIMATION_LOADING_LAYOUTS: AnimationLoadingLayout[] = [
     key: AnimationLoadingKey.RAIN,
     imagePath: 'assets/animations/rain/',
     atlasDataPath: 'animations/rain/rain.json',
+  },
+  {
+    key: AnimationLoadingKey.BACKGROUND_JAIL,
+    imagePath: 'assets/animations/background/',
+    atlasDataPath: 'animations/background/backgroundAnimation.json',
   },
 ];
