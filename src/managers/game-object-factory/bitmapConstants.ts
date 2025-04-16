@@ -1,4 +1,4 @@
-const enum BitmapFontLoadingKey {
+export const enum BitmapFontLoadingKey {
   CARD_VALUES = 'CARD_VALUES',
 }
 

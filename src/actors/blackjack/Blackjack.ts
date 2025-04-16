@@ -1,6 +1,7 @@
-import { BlackjackResult } from '@managers/blackjack/constants.ts';
-import { Deck } from '@managers/blackjack/Deck.ts';
-import { Hand } from '@managers/blackjack/Hand.ts';
+import { EventBus } from '../../EventBus.ts';
+import { BlackjackEvents, BlackjackResult } from './constants.ts';
+import { Deck } from './Deck.ts';
+import { Hand } from './Hand.ts';
 
 const START_CARD_AMOUNT = 2;
 const DEALER_HIT_THRESHOLD = 17;
@@ -16,6 +17,12 @@ export class Blackjack {
     this.deck = new Deck(numberOfDecks);
     this.playerHand = new Hand();
     this.dealerHand = new Hand();
+
+    this.setupListeners();
+  }
+
+  public setupListeners() {
+    EventBus.on(BlackjackEvents.START_GAME, this.startGame, this);
   }
 
   public startGame(): void {

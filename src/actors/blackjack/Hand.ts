@@ -1,5 +1,5 @@
-import { Card } from '@managers/blackjack/Card.ts';
-import { Rank } from '@managers/blackjack/constants.ts';
+import type { Card } from './Card.ts';
+import { Rank } from './constants.ts';
 
 const BLACKJACK = 21;
 

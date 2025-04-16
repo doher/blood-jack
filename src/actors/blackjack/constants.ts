@@ -26,3 +26,7 @@ export const enum BlackjackResult {
   DEALER_WIN = 'DEALER_WIN',
   PUSH = 'PUSH',
 }
+
+export const enum BlackjackEvents {
+  START_GAME = 'START_GAME',
+}
