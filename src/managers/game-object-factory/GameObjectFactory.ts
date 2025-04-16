@@ -1,12 +1,10 @@
-import type {
-  GameObjectDescription,
-  GameObjectsBitmapTextDescription,
-} from './constants.ts';
+import { SpriteDescription, TextDescription } from './constants.ts';
+import type { BitmapTextDescription } from './constants.ts';
 
 class GameObjectFactory {
   public createBitmapText = (
     scene: Phaser.Scene,
-    layout: GameObjectsBitmapTextDescription,
+    layout: BitmapTextDescription,
   ): Phaser.GameObjects.BitmapText => {
     const bitmapText = scene.add.bitmapText(
       layout.position.x,
@@ -39,7 +37,7 @@ class GameObjectFactory {
 
   public createSprite = (
     scene: Phaser.Scene,
-    layout: GameObjectDescription,
+    layout: SpriteDescription,
   ): Phaser.GameObjects.Sprite => {
     const sprite = scene.add.sprite(
       layout.position.x,
@@ -73,8 +71,49 @@ class GameObjectFactory {
       sprite.setBlendMode(layout.blendMode);
     }
 
+    if (layout.hide) {
+      sprite.setVisible(false);
+    }
+
     return sprite;
   };
+
+  public createText(
+    scene: Phaser.Scene,
+    layout: TextDescription,
+  ): Phaser.GameObjects.Text {
+    const text = scene.add.text(layout.position.x, layout.position.y, '');
+
+    if (layout.origin) {
+      text.setOrigin(layout.origin.x, layout.origin.y);
+    }
+
+    if (layout.fontSize) {
+      text.setFontSize(layout.fontSize);
+    }
+
+    if (layout.color) {
+      text.setColor(layout.color);
+    }
+
+    if (layout.fontFamily) {
+      text.setFontFamily(layout.fontFamily);
+    }
+
+    if (layout.stroke) {
+      text.setStroke(layout.stroke, 3);
+    }
+
+    if (layout.maxLines) {
+      text.setMaxLines(layout.maxLines);
+    }
+
+    if (layout.hide) {
+      text.setVisible(false);
+    }
+
+    return text;
+  }
 }
 
 export const gameObjectFactory = new GameObjectFactory();

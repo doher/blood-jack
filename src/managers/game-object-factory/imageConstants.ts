@@ -10,6 +10,9 @@ export const enum ImageLoadingKey {
   SMALL_HEARTS = 'SMALL_HEARTS',
   SMALL_SPADES = 'SMALL_SPADES',
   TABLE = 'TABLE',
+  EYE_BACK = 'EYE_BACK',
+  EYE_TOP = 'EYE_TOP',
+  MESSAGE = 'MESSAGE',
 }
 
 export type ImageAsset = {
@@ -61,5 +64,17 @@ export const IMAGE_LAYOUTS: ImageAsset[] = [
   {
     key: ImageLoadingKey.TABLE,
     imagePath: 'images/table/table.png',
+  },
+  {
+    key: ImageLoadingKey.EYE_BACK,
+    imagePath: 'images/monsterEye/eyeBack.png',
+  },
+  {
+    key: ImageLoadingKey.EYE_TOP,
+    imagePath: 'images/monsterEye/eyeTop.png',
+  },
+  {
+    key: ImageLoadingKey.MESSAGE,
+    imagePath: 'images/message/message.png',
   },
 ];
