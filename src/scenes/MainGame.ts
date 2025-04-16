@@ -3,8 +3,12 @@ import { AnimationLoadingKey } from '../managers/animation-manager/constants.ts'
 import { gameObjectFactory } from '../managers/game-object-factory/GameObjectFactory.ts';
 import { ImageLoadingKey } from '../managers/game-object-factory/imageConstants.ts';
 import { SceneType } from './constants.ts';
+import { Dealer } from '../actors/dealer/Dealer.ts';
+import { AnimationPlayingKey } from '../managers/animation-manager/AnimationManager.ts';
 
 export class MainGame extends Scene {
+  private dealer: Dealer;
+
   constructor() {
     super(SceneType.GAME);
   }
@@ -37,5 +41,19 @@ export class MainGame extends Scene {
         y: 0.5,
       },
     });
+
+    this.dealer = new Dealer(this);
+
+    this.dealer.talkText(
+      [
+        'Pypypy Pypypy Pypypy',
+        'Lets play Blackjack, 2 rounds, after last round is russian roulette',
+      ],
+      AnimationPlayingKey.DEALER_ANGRY_TALK_PLAY,
+    );
+  }
+
+  public update() {
+    this.dealer.handlePlayerCursor();
   }
 }

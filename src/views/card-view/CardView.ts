@@ -1,6 +1,6 @@
 import { Suit } from '../../actors/blackjack/constants.ts';
 import { BitmapFontLoadingKey } from '../../managers/game-object-factory/bitmapConstants.ts';
-import type { GameObjectsBitmapTextDescription } from '../../managers/game-object-factory/constants.ts';
+import type { BitmapTextDescription } from '../../managers/game-object-factory/constants.ts';
 import { gameObjectFactory } from '../../managers/game-object-factory/GameObjectFactory.ts';
 import { ImageLoadingKey } from '../../managers/game-object-factory/imageConstants.ts';
 import type { Config } from './constants.ts';
@@ -45,7 +45,7 @@ export class CardView extends Phaser.GameObjects.Container {
 
     const isBlackSuit = [Suit.CLUBS, Suit.SPADES].includes(config.suit);
 
-    const textLayout: GameObjectsBitmapTextDescription = {
+    const textLayout: BitmapTextDescription = {
       position: {
         x: 0,
         y: 0,

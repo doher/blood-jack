@@ -20,26 +20,33 @@ export type Tint = {
   bottomRight?: number;
 };
 
-export interface GameObjectDescription {
+export type GameObjectDescription = {
   position: Position;
+  origin?: Origin;
+  hide?: boolean;
+};
+
+export type SpriteDescription = GameObjectDescription & {
   key: string;
   frame?: string | number;
   gameId?: string;
-  origin?: Origin;
-  scale?: Scale;
   tint?: Tint;
   rotation?: number;
-  hide?: boolean;
   blendMode?: number;
-}
+  scale?: Scale;
+};
 
-export type GameObjectsBitmapTextDescription = {
-  position: Position;
+export type TextDescription = GameObjectDescription & {
+  fontSize: number | string;
+  color?: string;
+  fontFamily?: string;
+  stroke?: string;
+  maxLines?: number;
+};
+
+export type BitmapTextDescription = GameObjectDescription & {
   font: string;
   text?: string | string[];
   size?: number;
   align?: number;
-  tint?: Tint;
-  origin?: Origin;
-  rotation?: number;
 };

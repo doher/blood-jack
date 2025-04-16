@@ -1,0 +1,7 @@
+export const enum DealerEvents {
+  TALK_JUST_ANIMATION = 'TALK_JUST_ANIMATION',
+  EAR_DANCING = 'EAR_DANCING',
+  SMILE = 'SMILE',
+  SAD = 'SAD',
+  TALK_WITH_TEXT = 'TALK_WITH_TEXT',
+}
