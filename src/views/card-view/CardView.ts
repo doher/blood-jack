@@ -1,4 +1,4 @@
-import { Suit } from '../../managers/blackjack/constants.ts';
+import { Suit } from '../../actors/blackjack/constants.ts';
 import { BitmapFontLoadingKey } from '../../managers/game-object-factory/bitmapConstants.ts';
 import type { GameObjectsBitmapTextDescription } from '../../managers/game-object-factory/constants.ts';
 import { gameObjectFactory } from '../../managers/game-object-factory/GameObjectFactory.ts';

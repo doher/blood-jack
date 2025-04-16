@@ -1,4 +1,5 @@
-import { BlackjackResult } from './constants.ts';
+import { EventBus } from '../../EventBus.ts';
+import { BlackjackEvents, BlackjackResult } from './constants.ts';
 import { Deck } from './Deck.ts';
 import { Hand } from './Hand.ts';
 
@@ -16,6 +17,12 @@ export class Blackjack {
     this.deck = new Deck(numberOfDecks);
     this.playerHand = new Hand();
     this.dealerHand = new Hand();
+
+    this.setupListeners();
+  }
+
+  public setupListeners() {
+    EventBus.on(BlackjackEvents.START_GAME, this.startGame, this);
   }
 
   public startGame(): void {

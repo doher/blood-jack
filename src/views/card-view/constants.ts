@@ -1,4 +1,4 @@
-import type { Rank, Suit } from '../../managers/blackjack/constants.ts';
+import type { Rank, Suit } from '../../actors/blackjack/constants.ts';
 import { ImageLoadingKey } from '../../managers/game-object-factory/imageConstants.ts';
 
 export type Config = {
