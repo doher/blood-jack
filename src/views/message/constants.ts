@@ -1,4 +1,4 @@
-import { AnimationPlayingKey } from '../../managers/animation-manager/AnimationManager.ts';
+import type { AnimationPlayingKey } from '../../managers/animation-manager/AnimationManager.ts';
 
 export interface Message {
   startType: (

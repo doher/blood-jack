@@ -1,7 +1,7 @@
+import { EventBus } from '../../EventBus.ts';
 import { AnimationPlayingKey } from '../../managers/animation-manager/AnimationManager.ts';
 import { SoundLoadingKey } from '../../managers/sound-manager/constants.ts';
 import { SoundManager } from '../../managers/sound-manager/SoundManager.ts';
-import { EventBus } from '../../EventBus.ts';
 
 const DEFAULT_TALK_DIVIDER = 10;
 const ANGRY_TALK_DIVIDER = 10;
@@ -55,7 +55,7 @@ export class VoiceSystem {
   }
 
   public say(
-    textForEmulate,
+    textForEmulate: string,
     animTypeToTalkKey:
       | AnimationPlayingKey.DEALER_TALK_PLAY
       | AnimationPlayingKey.DEALER_ANGRY_TALK_PLAY,
@@ -86,7 +86,7 @@ export class VoiceSystem {
       this.startVoices(voiceKeys, voiceSpeed);
     });
 
-    this.soundManager.play(voiceKey).rate(voiceSpeed);
+    this.soundManager.play(voiceKey)?.rate(voiceSpeed);
   }
 
   private generateVoiceKeysToSay(voiceLongValue: number) {

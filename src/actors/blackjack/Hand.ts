@@ -1,7 +1,5 @@
 import type { Card } from './Card.ts';
-import { Rank } from './constants.ts';
-
-const BLACKJACK = 21;
+import { BLACKJACK, Rank } from './constants.ts';
 
 export class Hand {
   private cards: Card[] = [];

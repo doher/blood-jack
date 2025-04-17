@@ -1,4 +1,4 @@
-import { SpriteDescription, TextDescription } from './constants.ts';
+import type { SpriteDescription, TextDescription } from './constants.ts';
 import type { BitmapTextDescription } from './constants.ts';
 
 class GameObjectFactory {

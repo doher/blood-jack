@@ -49,4 +49,6 @@ export type BitmapTextDescription = GameObjectDescription & {
   text?: string | string[];
   size?: number;
   align?: number;
+  rotation?: number;
+  tint?: Tint;
 };

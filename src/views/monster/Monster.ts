@@ -1,14 +1,16 @@
-import Container = Phaser.GameObjects.Container;
-import { Position } from '../../managers/game-object-factory/constants.ts';
-import Sprite = Phaser.GameObjects.Sprite;
-import { gameObjectFactory } from '../../managers/game-object-factory/GameObjectFactory.ts';
-import { AnimationLoadingKey } from '../../managers/animation-manager/constants.ts';
-import { MonsterEye } from './MonsterEye.ts';
-import { MonsterAnimation, MonsterObjectsId } from './constants.ts';
-import { AnimationPlayingKey } from '../../managers/animation-manager/AnimationManager.ts';
-import ANIMATION_COMPLETE_KEY = Phaser.Animations.Events.ANIMATION_COMPLETE_KEY;
-import { EventBus } from '../../EventBus.ts';
 import { DealerEvents } from '../../actors/dealer/constants.ts';
+import { EventBus } from '../../EventBus.ts';
+import { AnimationPlayingKey } from '../../managers/animation-manager/AnimationManager.ts';
+import { AnimationLoadingKey } from '../../managers/animation-manager/constants.ts';
+import type { Position } from '../../managers/game-object-factory/constants.ts';
+import { gameObjectFactory } from '../../managers/game-object-factory/GameObjectFactory.ts';
+import type { MonsterAnimation } from './constants.ts';
+import { MonsterObjectsId } from './constants.ts';
+import { MonsterEye } from './MonsterEye.ts';
+
+import ANIMATION_COMPLETE_KEY = Phaser.Animations.Events.ANIMATION_COMPLETE_KEY;
+import Container = Phaser.GameObjects.Container;
+import Sprite = Phaser.GameObjects.Sprite;
 
 export class Monster extends Container implements MonsterAnimation {
   private gameObjectsMap = new Map<string, Phaser.GameObjects.GameObject>();

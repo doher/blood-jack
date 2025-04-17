@@ -1,8 +1,8 @@
-import { gameObjectFactory } from '../managers/game-object-factory/GameObjectFactory.ts';
-import { AnimationLoadingKey } from '../managers/animation-manager/constants.ts';
 import { AnimationPlayingKey } from '../managers/animation-manager/AnimationManager.ts';
-import { SoundManager } from '../managers/sound-manager/SoundManager.ts';
+import { AnimationLoadingKey } from '../managers/animation-manager/constants.ts';
+import { gameObjectFactory } from '../managers/game-object-factory/GameObjectFactory.ts';
 import { SoundLoadingKey } from '../managers/sound-manager/constants.ts';
+import { SoundManager } from '../managers/sound-manager/SoundManager.ts';
 import { SCREEN_HALF_H, SCREEN_HALF_W } from './constants.ts';
 
 export class Rain {

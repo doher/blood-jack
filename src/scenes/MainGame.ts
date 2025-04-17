@@ -1,17 +1,23 @@
 import { Scene } from 'phaser';
-import { AnimationLoadingKey } from '../managers/animation-manager/constants.ts';
-import { gameObjectFactory } from '../managers/game-object-factory/GameObjectFactory.ts';
-import { ImageLoadingKey } from '../managers/game-object-factory/imageConstants.ts';
-import { SceneType } from './constants.ts';
 import { Dealer } from '../actors/dealer/Dealer.ts';
 import { AnimationPlayingKey } from '../managers/animation-manager/AnimationManager.ts';
+import { AnimationLoadingKey } from '../managers/animation-manager/constants.ts';
+import { BlackjackManager } from '../managers/blackjack-score-manager/BlackjackManager.ts';
+import { gameObjectFactory } from '../managers/game-object-factory/GameObjectFactory.ts';
+import { ImageLoadingKey } from '../managers/game-object-factory/imageConstants.ts';
+import { SoundManager } from '../managers/sound-manager/SoundManager.ts';
 import { Rain } from '../views/Rain.ts';
+import { SceneType } from './constants.ts';
 
 export class MainGame extends Scene {
   private dealer: Dealer;
 
+  private blackjackManager: BlackjackManager;
+
   constructor() {
     super(SceneType.GAME);
+
+    SoundManager.getInstance();
   }
 
   public preload() {
@@ -47,6 +53,8 @@ export class MainGame extends Scene {
       },
     });
 
+    this.blackjackManager = new BlackjackManager(this);
+
     this.dealer = new Dealer(this);
     this.dealer.talkText(
       [
@@ -58,6 +66,7 @@ export class MainGame extends Scene {
   }
 
   public update() {
+    this.blackjackManager.handleGameStates();
     this.dealer.handlePlayerCursor();
   }
 }

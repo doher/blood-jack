@@ -4,6 +4,7 @@ import { ImageLoadingKey } from '../../managers/game-object-factory/imageConstan
 export type Config = {
   rank: Rank;
   suit: Suit;
+  isClosed?: boolean;
 };
 
 export const ranksTexts: Record<Rank, string> = {

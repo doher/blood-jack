@@ -1,14 +1,13 @@
-import { Monster } from '../../views/monster/Monster.ts';
-import { Scene } from 'phaser';
-import { SCREEN_HALF_H, SCREEN_HALF_W } from '../../views/constants.ts';
-import { AnimationPlayingKey } from '../../managers/animation-manager/AnimationManager.ts';
-import { MonsterAnimation } from '../../views/monster/constants.ts';
+import type { Scene } from 'phaser';
 import { EventBus } from '../../EventBus.ts';
-import { DealerEvents } from './constants.ts';
-import { MessageView } from '../../views/message/MessageView.ts';
-import { SoundManager } from '../../managers/sound-manager/SoundManager.ts';
-import { VoiceSystem } from './VoiceSystem.ts';
+import type { AnimationPlayingKey } from '../../managers/animation-manager/AnimationManager.ts';
+import { SCREEN_HALF_H, SCREEN_HALF_W } from '../../views/constants.ts';
 import { MessageEvents } from '../../views/message/constants.ts';
+import { MessageView } from '../../views/message/MessageView.ts';
+import type { MonsterAnimation } from '../../views/monster/constants.ts';
+import { Monster } from '../../views/monster/Monster.ts';
+import { DealerEvents } from './constants.ts';
+import { VoiceSystem } from './VoiceSystem.ts';
 
 export class Dealer implements MonsterAnimation {
   public view: Monster;
@@ -16,8 +15,6 @@ export class Dealer implements MonsterAnimation {
   public message: MessageView;
 
   public voiceSystem: VoiceSystem;
-
-  private soundManager: SoundManager;
 
   private onTalkingState = false;
 
@@ -39,7 +36,6 @@ export class Dealer implements MonsterAnimation {
   }
 
   private initializeManagers() {
-    this.soundManager = SoundManager.getInstance();
     this.voiceSystem = VoiceSystem.getInstance();
   }
 
