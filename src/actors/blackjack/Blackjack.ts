@@ -85,6 +85,8 @@ export class Blackjack {
       return;
     }
 
+    this.currentStake *= 2;
+
     this.hit();
     this.stand();
   }
