@@ -1,3 +1,4 @@
+import { Howl } from 'howler';
 import { EventBus } from '../../EventBus.ts';
 
 type SoundLoadCallback = () => void;
@@ -7,14 +8,13 @@ type SoundLayout = {
   url: string;
 };
 
-import { Howl } from 'howler';
-
 export class HowlerLoader {
   private static instance: HowlerLoader | null = null;
 
   public sounds: Map<string, Howl> = new Map<string, Howl>();
 
   private loadedCount: number = 0;
+
   private totalToLoad: number = 0;
 
   public static getInstance(): HowlerLoader {
@@ -33,19 +33,22 @@ export class HowlerLoader {
     this.totalToLoad = soundLayouts.length;
     this.loadedCount = 0;
 
-    soundLayouts.forEach((soundLayout) => {
-      this.sounds[soundLayout.name] = new Howl({
-        src: soundLayout.url,
-        onload: () => {
-          this.handleLoad(onComplete);
-        },
-        onloaderror: (id, error) => {
-          this.handleLoadError(soundLayout.name, error, onComplete);
-        },
-        onend: () => {
-          EventBus.emit(soundLayout.name);
-        },
-      });
+    soundLayouts.forEach(({ name, url }) => {
+      this.sounds.set(
+        name,
+        new Howl({
+          src: url,
+          onload: () => {
+            this.handleLoad(onComplete);
+          },
+          onloaderror: (_id, error) => {
+            this.handleLoadError(name, error, onComplete);
+          },
+          onend: () => {
+            EventBus.emit(name);
+          },
+        }),
+      );
     });
   }
 

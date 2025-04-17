@@ -1,3 +1,5 @@
+export const BLACKJACK = 21;
+
 export const enum Suit {
   CLUBS = 'CLUBS',
   DIAMONDS = 'DIAMONDS',
@@ -28,5 +30,8 @@ export const enum BlackjackResult {
 }
 
 export const enum BlackjackEvents {
-  START_GAME = 'START_GAME',
+  DEAL = 'DEAL',
 }
+
+export const DEFAULT_BALANCE = 500;
+export const STAKE = 5;

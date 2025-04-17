@@ -5,9 +5,9 @@ import { AssetLoaderManager } from '../managers/AssetLoaderManager.ts';
 import { BITMAP_FONT_LAYOUTS } from '../managers/game-object-factory/bitmapConstants.ts';
 import { IMAGE_LAYOUTS } from '../managers/game-object-factory/imageConstants.ts';
 import { SceneManager } from '../managers/SceneManager.ts';
-import { SceneType } from './constants.ts';
-import { HowlerLoader } from '../managers/sound-manager/HowlerLoader.ts';
 import { SoundLoadingKey } from '../managers/sound-manager/constants.ts';
+import { HowlerLoader } from '../managers/sound-manager/HowlerLoader.ts';
+import { SceneType } from './constants.ts';
 
 export class Boot extends Scene {
   private assetLoaderManager: AssetLoaderManager;

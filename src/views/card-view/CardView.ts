@@ -15,10 +15,28 @@ export class CardView extends Phaser.GameObjects.Container {
     super(scene);
 
     this.scene.add.existing(this);
+    this.setScale(3, 3);
     this.create(config);
   }
 
   private create(config: Config) {
+    if (config.isClosed) {
+      const cardBack = gameObjectFactory.createSprite(this.scene, {
+        key: ImageLoadingKey.CARD_BACK,
+        position: {
+          x: 0,
+          y: 0,
+        },
+        origin: {
+          x: 0.5,
+          y: 0.5,
+        },
+      });
+
+      this.add(cardBack);
+      return;
+    }
+
     const cardFront = gameObjectFactory.createSprite(this.scene, {
       key: ImageLoadingKey.CARD_FRONT,
       position: {
@@ -101,9 +119,6 @@ export class CardView extends Phaser.GameObjects.Container {
       },
       rotation: Math.PI,
     });
-
-    this.setPosition(1920 / 2, 1080 / 2);
-    this.setScale(3, 3);
 
     this.add([cardFront, suit, smallSuit, revertedSuit, text, revertedText]);
   }

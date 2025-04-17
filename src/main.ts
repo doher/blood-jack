@@ -1,4 +1,5 @@
-import { AUTO, Game, Scale, Types } from 'phaser';
+import type { Types } from 'phaser';
+import { AUTO, Game, Scale } from 'phaser';
 import { Boot } from './scenes/Boot';
 import { MainGame } from './scenes/MainGame.ts';
 import { Menu } from './scenes/Menu.ts';

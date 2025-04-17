@@ -1,4 +1,4 @@
-import { Howl } from 'howler';
+import type { Howl } from 'howler';
 import { HowlerLoader } from './HowlerLoader.ts';
 
 export class SoundManager {
@@ -20,8 +20,8 @@ export class SoundManager {
     return SoundManager.instance;
   }
 
-  public get(key: string): Howl {
-    return this.sounds[key];
+  public get(key: string): Howl | undefined {
+    return this.sounds.get(key);
   }
 
   public isPlaying = (key: string): boolean => {
@@ -37,20 +37,24 @@ export class SoundManager {
     loop = false,
     doRestart = false,
     volume = 1,
-  ): Howl => {
+  ): Howl | undefined => {
     const sound = this.get(key);
 
-    if (sound) {
-      sound.volume(volume);
-      if (!sound.playing() || doRestart) {
-        sound.play();
-        sound.loop(loop);
-      }
+    if (!sound) {
+      return;
     }
+
+    sound.volume(volume);
+
+    if (!sound.playing() || doRestart) {
+      sound.play();
+      sound.loop(loop);
+    }
+
     return sound;
   };
 
-  public stop(key: string): Howl {
+  public stop(key: string): Howl | undefined {
     const sound = this.get(key);
 
     if (!sound) {
@@ -61,7 +65,7 @@ export class SoundManager {
     return sound;
   }
 
-  public pause = (key: string): Howl => {
+  public pause = (key: string): Howl | undefined => {
     const sound = this.get(key);
 
     if (!sound) {
@@ -72,7 +76,12 @@ export class SoundManager {
     return sound;
   };
 
-  public fadeOut(key: string, from: number, duration: number, to = 0): Howl {
+  public fadeOut(
+    key: string,
+    from: number,
+    duration: number,
+    to = 0,
+  ): Howl | undefined {
     const sound = this.get(key);
 
     if (!sound) {
@@ -91,7 +100,7 @@ export class SoundManager {
   ): void => {
     const sound = this.fadeOut(key, from, duration, to);
     sound?.once('fade', () => {
-      if (this.get(key).volume() === 0) {
+      if (this.get(key)?.volume() === 0) {
         this.stop(key);
       }
     });
@@ -102,7 +111,7 @@ export class SoundManager {
     from: number,
     duration: number,
     to = 1,
-  ): Howl => {
+  ): Howl | undefined => {
     const sound = this.get(key);
 
     if (!sound) {
@@ -118,7 +127,7 @@ export class SoundManager {
     duration: number,
     to = 1,
     loop = false,
-  ): Howl => {
+  ): Howl | undefined => {
     const sound = this.play(key, loop, false, from);
 
     if (sound) {

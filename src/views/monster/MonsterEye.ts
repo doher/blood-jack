@@ -1,11 +1,12 @@
-import Container = Phaser.GameObjects.Container;
-import { Position } from '../../managers/game-object-factory/constants.ts';
+import type { Position } from '../../managers/game-object-factory/constants.ts';
 import { gameObjectFactory } from '../../managers/game-object-factory/GameObjectFactory.ts';
 import { ImageLoadingKey } from '../../managers/game-object-factory/imageConstants.ts';
-import Sprite = Phaser.GameObjects.Sprite;
-import { MonsterObjectsId } from './constants.ts';
-import { SoundManager } from '../../managers/sound-manager/SoundManager.ts';
 import { SoundLoadingKey } from '../../managers/sound-manager/constants.ts';
+import { SoundManager } from '../../managers/sound-manager/SoundManager.ts';
+import { MonsterObjectsId } from './constants.ts';
+
+import Container = Phaser.GameObjects.Container;
+import Sprite = Phaser.GameObjects.Sprite;
 
 export class MonsterEye extends Container {
   private gameObjectsMap = new Map<string, Phaser.GameObjects.GameObject>();
