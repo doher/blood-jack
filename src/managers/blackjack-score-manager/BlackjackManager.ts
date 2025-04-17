@@ -1,13 +1,16 @@
 import { Blackjack } from '../../actors/blackjack/Blackjack.ts';
-import { BLACKJACK } from '../../actors/blackjack/constants.ts';
+import {
+  BLACKJACK,
+  BlackjackEvents,
+} from '../../actors/blackjack/constants.ts';
 import { EventBus } from '../../EventBus.ts';
 import { CardView } from '../../views/card-view/CardView.ts';
 import { BlackjackMangerEvents, GameStates } from './constants.ts';
 
 export class BlackjackManager {
-  private currentState: GameStates;
+  public blackjack: Blackjack;
 
-  private blackjack: Blackjack;
+  private currentState: GameStates;
 
   constructor(private scene: Phaser.Scene) {
     this.blackjack = new Blackjack(4);
@@ -21,6 +24,11 @@ export class BlackjackManager {
       this.changeGameState,
       this,
     );
+
+    EventBus.on(BlackjackEvents.DEAL, this.deal, this);
+    EventBus.on(BlackjackEvents.HIT, this.playerTurn, this);
+    EventBus.on(BlackjackEvents.STAND, this.dealerTurn, this);
+    EventBus.on(BlackjackEvents.DOUBLE, this.dealerTurn, this);
   }
 
   public handleGameStates() {
@@ -49,15 +57,30 @@ export class BlackjackManager {
     this.blackjack.deal();
 
     const playerHand = this.blackjack.getPlayerHand();
-    const playerCards = playerHand.getCards();
     const playerScore = playerHand.getValue();
+
+    this.dealPlayerCards();
+    this.dealDealerCards();
+
+    if (playerScore === BLACKJACK) {
+      this.currentState = GameStates.PLAYER_WIN;
+      return;
+    }
+
+    this.currentState = GameStates.PLAYER_TURN;
+  }
+
+  private dealPlayerCards() {
+    const playerHand = this.blackjack.getPlayerHand();
+    const playerCards = playerHand.getCards();
 
     playerCards.forEach(({ suit, rank }, index) => {
       const card = new CardView(this.scene, { suit, rank });
-
       card.setPosition(960 + 100 * index, 950);
     });
+  }
 
+  private dealDealerCards() {
     const dealerHand = this.blackjack.getDealerHand();
     const dealerCards = dealerHand.getCards();
 
@@ -70,18 +93,17 @@ export class BlackjackManager {
 
       card.setPosition(960 + 100 * index, 650);
     });
-
-    if (playerScore === BLACKJACK) {
-      this.currentState = GameStates.PLAYER_WIN;
-      return;
-    }
-
-    this.currentState = GameStates.PLAYER_TURN;
   }
 
-  public playerTurn(): void {}
+  public playerTurn(): void {
+    this.blackjack.hit();
+    /// TODO rerender player cards
+  }
 
-  public dealerTurn(): void {}
+  public dealerTurn(): void {
+    console.log('dealerTurn');
+    this.blackjack.stand();
+  }
 
   private changeGameState(newState: GameStates) {
     this.currentState = newState;

@@ -24,6 +24,12 @@ export class SoundManager {
     return this.sounds.get(key);
   }
 
+  public muteAll() {
+    this.sounds.forEach((value, _key) => {
+      value.mute(true);
+    });
+  }
+
   public isPlaying = (key: string): boolean => {
     const sound: Howl | undefined = this.get(key);
     if (sound) {

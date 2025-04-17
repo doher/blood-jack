@@ -3,7 +3,10 @@ import { AnimationManager } from '../managers/animation-manager/AnimationManager
 import { ANIMATION_LOADING_LAYOUTS } from '../managers/animation-manager/constants.ts';
 import { AssetLoaderManager } from '../managers/AssetLoaderManager.ts';
 import { BITMAP_FONT_LAYOUTS } from '../managers/game-object-factory/bitmapConstants.ts';
-import { IMAGE_LAYOUTS } from '../managers/game-object-factory/imageConstants.ts';
+import {
+  IMAGE_LAYOUTS,
+  SPRITE_SHEET_LAYOUTS,
+} from '../managers/game-object-factory/imageConstants.ts';
 import { SceneManager } from '../managers/SceneManager.ts';
 import { SoundLoadingKey } from '../managers/sound-manager/constants.ts';
 import { HowlerLoader } from '../managers/sound-manager/HowlerLoader.ts';
@@ -41,13 +44,15 @@ export class Boot extends Scene {
   }
 
   private addAssetsToLoadQueue() {
-    ANIMATION_LOADING_LAYOUTS.forEach((layout) => {
-      this.assetLoaderManager.loadSpriteSheet({
-        key: layout.key,
-        atlasDataPath: layout.atlasDataPath,
-        imagePath: layout.imagePath,
-      });
-    });
+    [...ANIMATION_LOADING_LAYOUTS, ...SPRITE_SHEET_LAYOUTS].forEach(
+      (layout) => {
+        this.assetLoaderManager.loadSpriteSheet({
+          key: layout.key,
+          atlasDataPath: layout.atlasDataPath,
+          imagePath: layout.imagePath,
+        });
+      },
+    );
 
     BITMAP_FONT_LAYOUTS.forEach((layout) => {
       this.assetLoaderManager.loadBitmapFont({

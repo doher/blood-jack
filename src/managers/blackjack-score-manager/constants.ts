@@ -10,5 +10,5 @@ export const enum GameStates {
 }
 
 export const enum BlackjackMangerEvents {
-  CHANGE_GAME_STATE = 'CHANGE_GAME_STATE',
+  CHANGE_GAME_STATE = 'BlackjackMangerEvents_CHANGE_GAME_STATE',
 }

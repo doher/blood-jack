@@ -24,14 +24,14 @@ export type GameObjectDescription = {
   position: Position;
   origin?: Origin;
   hide?: boolean;
+  tint?: Tint;
+  rotation?: number;
 };
 
 export type SpriteDescription = GameObjectDescription & {
   key: string;
   frame?: string | number;
   gameId?: string;
-  tint?: Tint;
-  rotation?: number;
   blendMode?: number;
   scale?: Scale;
 };
@@ -42,6 +42,8 @@ export type TextDescription = GameObjectDescription & {
   fontFamily?: string;
   stroke?: string;
   maxLines?: number;
+  letterSpacing?: number;
+  text?: string;
 };
 
 export type BitmapTextDescription = GameObjectDescription & {

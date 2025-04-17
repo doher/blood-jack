@@ -15,7 +15,7 @@ const CHANCE_BBB = 0.75;
 const CHANCE_PYPYPYPY = 0.4;
 
 export const enum VoiceSystemEvent {
-  ALL_VOICES_IN_CHAIN_PLAYED = 'ALL_VOICES_IN_CHAIN_PLAYED',
+  ALL_VOICES_IN_CHAIN_PLAYED = 'VoiceSystemEvent_ALL_VOICES_IN_CHAIN_PLAYED',
 }
 
 export class VoiceSystem {

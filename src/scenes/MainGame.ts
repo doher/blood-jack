@@ -8,11 +8,16 @@ import { ImageLoadingKey } from '../managers/game-object-factory/imageConstants.
 import { SoundManager } from '../managers/sound-manager/SoundManager.ts';
 import { Rain } from '../views/Rain.ts';
 import { SceneType } from './constants.ts';
+import { PlayerUI } from '../actors/player-ui/PlayerUI.ts';
+import { SCREEN_HALF_H, SCREEN_HALF_W } from '../views/constants.ts';
+import { Player } from '../actors/Player.ts';
 
 export class MainGame extends Scene {
   private dealer: Dealer;
 
   private blackjackManager: BlackjackManager;
+
+  private playerUI: PlayerUI;
 
   constructor() {
     super(SceneType.GAME);
@@ -32,8 +37,8 @@ export class MainGame extends Scene {
     gameObjectFactory.createSprite(this, {
       key: AnimationLoadingKey.BACKGROUND_JAIL,
       position: {
-        x: 1920 / 2,
-        y: 1080 / 2,
+        x: SCREEN_HALF_W,
+        y: SCREEN_HALF_H,
       },
       origin: {
         x: 0.5,
@@ -44,8 +49,8 @@ export class MainGame extends Scene {
     gameObjectFactory.createSprite(this, {
       key: ImageLoadingKey.TABLE,
       position: {
-        x: 1920 / 2,
-        y: 1080 / 2 + 200,
+        x: SCREEN_HALF_W,
+        y: SCREEN_HALF_H + 200,
       },
       origin: {
         x: 0.5,
@@ -63,10 +68,16 @@ export class MainGame extends Scene {
       ],
       AnimationPlayingKey.DEALER_ANGRY_TALK_PLAY,
     );
+
+    this.playerUI = new PlayerUI(this);
+
+    SoundManager.getInstance().muteAll();
+
+    new Player(this, this.blackjackManager.blackjack);
   }
 
   public update() {
-    this.blackjackManager.handleGameStates();
+    // this.blackjackManager.handleGameStates();
     this.dealer.handlePlayerCursor();
   }
 }
