@@ -52,14 +52,6 @@ export class AssetLoaderManager {
     return this;
   }
 
-  public loadAudio(config: AudioAsset): this {
-    const audioPaths = Array.isArray(config.paths)
-      ? config.paths
-      : [config.paths];
-    this.loader.audio(config.key, audioPaths);
-    return this;
-  }
-
   public start(
     onComplete?: () => void,
     onError?: (error: Error) => void,

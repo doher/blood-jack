@@ -4,4 +4,5 @@ export const enum DealerEvents {
   SMILE = 'SMILE',
   SAD = 'SAD',
   TALK_WITH_TEXT = 'TALK_WITH_TEXT',
+  GO_TO_IDLE = 'GO_TO_IDLE',
 }

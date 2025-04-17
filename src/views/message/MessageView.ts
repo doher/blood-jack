@@ -9,6 +9,7 @@ import { DealerEvents } from '../../actors/dealer/constants.ts';
 import { AnimationPlayingKey } from '../../managers/animation-manager/AnimationManager.ts';
 import Container = Phaser.GameObjects.Container;
 import Sprite = Phaser.GameObjects.Sprite;
+import { VoiceSystem } from '../../actors/dealer/VoiceSystem.ts';
 
 const START_POSITION: Position = {
   x: 330,
@@ -18,7 +19,7 @@ const START_POSITION: Position = {
 const DEFAULT_TALK_SPEED = 80;
 const ANGRY_TALK_SPEED = 60;
 
-const DEFAULT_TALK_DIVIDER = 12;
+const DEFAULT_TALK_DIVIDER = 14;
 const ANGRY_TALK_DIVIDER = 15;
 
 const DELAY_BEFORE_TALK_ANIMATION = 500;
@@ -86,6 +87,8 @@ export class MessageView extends Container implements Message {
     this.showBackground();
     EventBus.emit(MessageEvents.START_TALK);
     this.scene.time.delayedCall(DELAY_BEFORE_TALK_ANIMATION, () => {
+      VoiceSystem.getInstance().say(textToType, animTypeToTalkKey);
+
       EventBus.emit(
         DealerEvents.TALK_JUST_ANIMATION,
         AnimationPlayingKey.DEALER_TALK_PLAY,

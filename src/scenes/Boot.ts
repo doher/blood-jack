@@ -6,6 +6,8 @@ import { BITMAP_FONT_LAYOUTS } from '../managers/game-object-factory/bitmapConst
 import { IMAGE_LAYOUTS } from '../managers/game-object-factory/imageConstants.ts';
 import { SceneManager } from '../managers/SceneManager.ts';
 import { SceneType } from './constants.ts';
+import { HowlerLoader } from '../managers/sound-manager/HowlerLoader.ts';
+import { SoundLoadingKey } from '../managers/sound-manager/constants.ts';
 
 export class Boot extends Scene {
   private assetLoaderManager: AssetLoaderManager;
@@ -13,6 +15,12 @@ export class Boot extends Scene {
   private animationManager: AnimationManager;
 
   private sceneManager: SceneManager;
+
+  private howlerLoader: HowlerLoader;
+
+  private isPhaserCompleteLoading = false;
+
+  private isHowlerCompleteLoading = false;
 
   constructor() {
     super(SceneType.BOOT);
@@ -22,10 +30,12 @@ export class Boot extends Scene {
     this.initializeManagers();
     this.addAssetsToLoadQueue();
     this.startAssetLoader();
+    this.startHowlerLoader();
   }
 
   private initializeManagers() {
     this.assetLoaderManager = AssetLoaderManager.getInstance(this);
+    this.howlerLoader = HowlerLoader.getInstance();
     this.animationManager = AnimationManager.getInstance(this);
     this.sceneManager = SceneManager.getInstance(this.game);
   }
@@ -62,7 +72,62 @@ export class Boot extends Scene {
     );
   }
 
+  private startHowlerLoader() {
+    this.howlerLoader.load(
+      [
+        {
+          name: SoundLoadingKey.DEALER_BBB,
+          url: '/assets/sounds/dealer/talk/BBB.wav',
+        },
+        {
+          name: SoundLoadingKey.DEALER_BB,
+          url: '/assets/sounds/dealer/talk/BB.wav',
+        },
+        {
+          name: SoundLoadingKey.DEALER_B,
+          url: '/assets/sounds/dealer/talk/B.wav',
+        },
+        {
+          name: SoundLoadingKey.DEALER_PYPYPY,
+          url: '/assets/sounds/dealer/talk/PYPYPY.wav',
+        },
+        {
+          name: SoundLoadingKey.DEALER_PYPY,
+          url: '/assets/sounds/dealer/talk/PYPY.wav',
+        },
+        {
+          name: SoundLoadingKey.DEALER_PY,
+          url: '/assets/sounds/dealer/talk/PY.wav',
+        },
+        {
+          name: SoundLoadingKey.DEALER_CLICK,
+          url: '/assets/sounds/dealer/clickEffect/clickEffect.mp3',
+        },
+        {
+          name: SoundLoadingKey.RAIN,
+          url: '/assets/sounds/rain/rainSound.mp3',
+        },
+      ],
+      () => {
+        this.afterLoadSounds();
+      },
+    );
+  }
+
   private afterLoadAssets() {
+    this.isPhaserCompleteLoading = true;
+    this.tryLoadingGame();
+  }
+
+  private afterLoadSounds() {
+    this.isHowlerCompleteLoading = true;
+    this.tryLoadingGame();
+  }
+
+  private tryLoadingGame() {
+    if (!this.isHowlerCompleteLoading || !this.isPhaserCompleteLoading) {
+      return;
+    }
     this.animationManager.registrationAnimation();
     this.sceneManager.start(SceneType.MENU);
   }

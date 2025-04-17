@@ -4,6 +4,8 @@ import { gameObjectFactory } from '../../managers/game-object-factory/GameObject
 import { ImageLoadingKey } from '../../managers/game-object-factory/imageConstants.ts';
 import Sprite = Phaser.GameObjects.Sprite;
 import { MonsterObjectsId } from './constants.ts';
+import { SoundManager } from '../../managers/sound-manager/SoundManager.ts';
+import { SoundLoadingKey } from '../../managers/sound-manager/constants.ts';
 
 export class MonsterEye extends Container {
   private gameObjectsMap = new Map<string, Phaser.GameObjects.GameObject>();
@@ -44,6 +46,7 @@ export class MonsterEye extends Container {
         y: 0.8,
       },
     });
+    this.eyeBack.setInteractive().on('pointerdown', () => this.eyeBlink());
     this.gameObjectsMap.set(MonsterObjectsId.EYE_BACK, this.eyeBack);
 
     this.eyeTop = gameObjectFactory.createSprite(this.scene, {
@@ -60,6 +63,21 @@ export class MonsterEye extends Container {
     this.gameObjectsMap.set(MonsterObjectsId.EYE_TOP, this.eyeTop);
     this.rotation = 0.05;
     this.add([this.eyeBack, this.eyeTop]);
+  }
+
+  private eyeBlink() {
+    SoundManager.getInstance().play(SoundLoadingKey.DEALER_CLICK, false, true);
+
+    this.scene.tweens.add({
+      targets: this,
+      scaleY: 0.4,
+      duration: 135,
+      yoyo: true,
+      repeat: 0,
+      onComplete: () => {
+        this.setScale(1);
+      },
+    });
   }
 
   public handlePlayerCursor() {

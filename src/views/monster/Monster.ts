@@ -7,6 +7,8 @@ import { MonsterEye } from './MonsterEye.ts';
 import { MonsterAnimation, MonsterObjectsId } from './constants.ts';
 import { AnimationPlayingKey } from '../../managers/animation-manager/AnimationManager.ts';
 import ANIMATION_COMPLETE_KEY = Phaser.Animations.Events.ANIMATION_COMPLETE_KEY;
+import { EventBus } from '../../EventBus.ts';
+import { DealerEvents } from '../../actors/dealer/constants.ts';
 
 export class Monster extends Container implements MonsterAnimation {
   private gameObjectsMap = new Map<string, Phaser.GameObjects.GameObject>();
@@ -66,6 +68,14 @@ export class Monster extends Container implements MonsterAnimation {
         });
         this.scene.time.delayedCall(1500, () => {
           this.scene.tweens.killTweensOf(this.monsterBody);
+
+          this.monsterBody.once(
+            ANIMATION_COMPLETE_KEY + AnimationPlayingKey.DEALER_SMILE_PLAY,
+            () => {
+              EventBus.emit(DealerEvents.GO_TO_IDLE);
+            },
+          );
+
           this.monsterBody.playReverse(AnimationPlayingKey.DEALER_SMILE_PLAY);
         });
       },
@@ -125,6 +135,7 @@ export class Monster extends Container implements MonsterAnimation {
             ANIMATION_COMPLETE_KEY + AnimationPlayingKey.DEALER_SAD_PLAY,
             () => {
               this.scene.tweens.killTweensOf(this.monsterEye);
+              EventBus.emit(DealerEvents.GO_TO_IDLE);
             },
           );
 
@@ -165,7 +176,9 @@ export class Monster extends Container implements MonsterAnimation {
     this.monsterBody.on(
       ANIMATION_COMPLETE_KEY + AnimationPlayingKey.DEALER_EAR_MOVEMENT_PLAY,
       () => {
-        currentPlayingCount += 1;
+        if (countTimes !== -1) {
+          currentPlayingCount += 1;
+        }
         if (currentPlayingCount === countTimes) {
           this.monsterBody.off(
             ANIMATION_COMPLETE_KEY +
@@ -206,6 +219,7 @@ export class Monster extends Container implements MonsterAnimation {
           duration: 100,
           ease: Phaser.Math.Easing.Linear,
         });
+        EventBus.emit(DealerEvents.GO_TO_IDLE);
       } else {
         this.monsterBody.play(animKey);
       }

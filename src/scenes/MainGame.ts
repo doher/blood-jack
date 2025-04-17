@@ -5,6 +5,7 @@ import { ImageLoadingKey } from '../managers/game-object-factory/imageConstants.
 import { SceneType } from './constants.ts';
 import { Dealer } from '../actors/dealer/Dealer.ts';
 import { AnimationPlayingKey } from '../managers/animation-manager/AnimationManager.ts';
+import { Rain } from '../views/Rain.ts';
 
 export class MainGame extends Scene {
   private dealer: Dealer;
@@ -18,6 +19,10 @@ export class MainGame extends Scene {
   }
 
   public create() {
+    /// TODO add background for rain
+
+    new Rain(this);
+
     gameObjectFactory.createSprite(this, {
       key: AnimationLoadingKey.BACKGROUND_JAIL,
       position: {
@@ -43,7 +48,6 @@ export class MainGame extends Scene {
     });
 
     this.dealer = new Dealer(this);
-
     this.dealer.talkText(
       [
         'Pypypy Pypypy Pypypy',

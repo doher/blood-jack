@@ -67,11 +67,11 @@ export const IMAGE_LAYOUTS: ImageAsset[] = [
   },
   {
     key: ImageLoadingKey.EYE_BACK,
-    imagePath: 'images/monsterEye/eyeBack.png',
+    imagePath: 'images/monster-eye/eyeBack.png',
   },
   {
     key: ImageLoadingKey.EYE_TOP,
-    imagePath: 'images/monsterEye/eyeTop.png',
+    imagePath: 'images/monster-eye/eyeTop.png',
   },
   {
     key: ImageLoadingKey.MESSAGE,
