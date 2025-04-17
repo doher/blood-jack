@@ -1,4 +1,4 @@
-import { Position } from '../../managers/game-object-factory/constants.ts';
+import type { Position } from '../../managers/game-object-factory/constants.ts';
 
 const STAKE_BUTTONS_X_OFFSET = 200;
 

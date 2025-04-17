@@ -1,4 +1,4 @@
-import { ImageLoadingKey } from '../game-object-factory/imageConstants.ts';
+import type { ImageLoadingKey } from '../game-object-factory/imageConstants.ts';
 
 export const enum AnimationLoadingKey {
   DEALER_TALK = 'DEALER_TALK',

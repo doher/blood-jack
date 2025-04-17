@@ -1,4 +1,4 @@
-import { SpriteSheetLoadingLayout } from '../animation-manager/constants.ts';
+import type { SpriteSheetLoadingLayout } from '../animation-manager/constants.ts';
 
 export const enum UiControlsFrame {
   BLACK_BUTTON = 'blackBtn.png',

@@ -1,11 +1,11 @@
 import { EventBus } from '../EventBus.ts';
-import { UIElementName, UIEvent } from './player-ui/PlayerUI.ts';
+import type { Blackjack } from './blackjack/Blackjack.ts';
 import {
   BlackjackEvents,
   DEFAULT_BALANCE,
   STAKE,
 } from './blackjack/constants.ts';
-import { Blackjack } from './blackjack/Blackjack.ts';
+import { UIElementName, UIEvent } from './player-ui/PlayerUI.ts';
 
 export class Player {
   constructor(

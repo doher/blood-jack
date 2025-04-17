@@ -1,18 +1,17 @@
-import {
+import { UIEvent } from '../../actors/player-ui/PlayerUI.ts';
+import { EventBus } from '../../EventBus.ts';
+import type {
   Position,
   Scale,
   TextDescription,
 } from '../../managers/game-object-factory/constants.ts';
-import {
-  ImageLoadingKey,
-  UiControlsFrame,
-} from '../../managers/game-object-factory/imageConstants.ts';
-import Sprite = Phaser.GameObjects.Sprite;
 import { gameObjectFactory } from '../../managers/game-object-factory/GameObjectFactory.ts';
-import { EventBus } from '../../EventBus.ts';
+import type { UiControlsFrame } from '../../managers/game-object-factory/imageConstants.ts';
+import { ImageLoadingKey } from '../../managers/game-object-factory/imageConstants.ts';
+
+import Sprite = Phaser.GameObjects.Sprite;
 import Container = Phaser.GameObjects.Container;
 import Text = Phaser.GameObjects.Text;
-import { UIEvent } from '../../actors/player-ui/PlayerUI.ts';
 
 export class Label extends Container {
   public background: Sprite;
@@ -20,7 +19,7 @@ export class Label extends Container {
   public textField: Text;
 
   constructor(
-    private scene: Phaser.Scene,
+    public scene: Phaser.Scene,
     private labelPosition: Position,
     private frame: UiControlsFrame,
     private labelScale: Scale,

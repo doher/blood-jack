@@ -1,18 +1,17 @@
-import {
+import { UIEvent } from '../../actors/player-ui/PlayerUI.ts';
+import { EventBus } from '../../EventBus.ts';
+import type {
   Position,
   Scale,
   TextDescription,
 } from '../../managers/game-object-factory/constants.ts';
-import {
-  ImageLoadingKey,
-  UiControlsFrame,
-} from '../../managers/game-object-factory/imageConstants.ts';
-import Sprite = Phaser.GameObjects.Sprite;
 import { gameObjectFactory } from '../../managers/game-object-factory/GameObjectFactory.ts';
-import { EventBus } from '../../EventBus.ts';
+import type { UiControlsFrame } from '../../managers/game-object-factory/imageConstants.ts';
+import { ImageLoadingKey } from '../../managers/game-object-factory/imageConstants.ts';
+
 import Container = Phaser.GameObjects.Container;
 import Text = Phaser.GameObjects.Text;
-import { UIEvent } from '../../actors/player-ui/PlayerUI.ts';
+import Sprite = Phaser.GameObjects.Sprite;
 
 export class Button extends Container {
   public background: Sprite;
@@ -26,7 +25,7 @@ export class Button extends Container {
   private isClicked = false;
 
   constructor(
-    private scene: Phaser.Scene,
+    public scene: Phaser.Scene,
     private buttonPosition: Position,
     private frame: UiControlsFrame,
     private buttonScale: Scale,

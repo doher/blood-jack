@@ -25,7 +25,7 @@ export class SoundManager {
   }
 
   public muteAll() {
-    this.sounds.forEach((value, _key) => {
+    this.sounds.forEach((value) => {
       value.mute(true);
     });
   }

@@ -1,7 +1,7 @@
-import Container = Phaser.GameObjects.Container;
-import { SCREEN_HALF_H, SCREEN_HALF_W } from '../../views/constants.ts';
-import { Button } from '../../views/button/button.ts';
 import { UiControlsFrame } from '../../managers/game-object-factory/imageConstants.ts';
+import { Button } from '../../views/button/button.ts';
+import { SCREEN_HALF_H, SCREEN_HALF_W } from '../../views/constants.ts';
+import { Label } from '../../views/label/label.ts';
 import {
   ALL_IN_BUTTON_POSITION,
   DEALER_BALANCE_POSITION,
@@ -13,7 +13,8 @@ import {
   SHOP_BUTTON_POSITION,
   STAND_BUTTON_POSITION,
 } from './constants.ts';
-import { Label } from '../../views/label/label.ts';
+
+import Container = Phaser.GameObjects.Container;
 
 export const enum UIEvent {
   DISABLE_ALL_BUTTONS = 'UIEvent_DISABLE_ALL_BUTTONS',
@@ -37,18 +38,26 @@ export const enum UIElementName {
 
 export class PlayerUI extends Container {
   public deal: Button;
+
   public increaseStake: Button;
+
   public decreaseStake: Button;
+
   public allin: Button;
+
   public stand: Button;
+
   public double: Button;
+
   public hit: Button;
+
   public shop: Button;
 
   public playerBalance: Label;
+
   public dealerBalance: Label;
 
-  constructor(private scene: Phaser.Scene) {
+  constructor(public scene: Phaser.Scene) {
     super(scene, SCREEN_HALF_W, SCREEN_HALF_H);
     this.create();
     this.scene.add.existing(this);
