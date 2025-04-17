@@ -46,6 +46,7 @@ export class Blackjack {
   }
 
   public deal(): void {
+    // todo: disable deal button
     this.playerBalance.bet(this.currentStake);
     this.dealerBalance.bet(this.currentStake);
 
@@ -137,6 +138,7 @@ export class Blackjack {
   }
 
   public playDealerTurn(): void {
+    // todo: use recursion
     while (this.dealerHand.getValue() < DEALER_HIT_THRESHOLD) {
       this.dealerHand.addCard(this.deck.drawCard());
     }
