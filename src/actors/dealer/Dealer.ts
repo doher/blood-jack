@@ -25,7 +25,10 @@ export class Dealer implements MonsterAnimation {
   }
 
   private createGameObjects() {
-    this.view = new Monster(this.scene, { x: SCREEN_HALF_W, y: SCREEN_HALF_H });
+    this.view = new Monster(this.scene, {
+      x: SCREEN_HALF_W + 15,
+      y: SCREEN_HALF_H,
+    });
     this.scene.add.existing(this.view);
 
     this.message = new MessageView(this.scene, {

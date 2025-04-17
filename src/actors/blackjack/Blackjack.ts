@@ -1,8 +1,4 @@
 import { EventBus } from '../../EventBus.ts';
-import {
-  BlackjackMangerEvents,
-  GameStates,
-} from '../../managers/blackjack-score-manager/constants.ts';
 import { Balance } from './Balance.ts';
 import {
   BlackjackEvents,
@@ -17,6 +13,8 @@ const START_CARD_AMOUNT = 2;
 const DEALER_HIT_THRESHOLD = 17;
 
 export class Blackjack {
+  public currentStake: number = STAKE;
+
   private deck: Deck;
 
   private readonly playerHand: Hand;
@@ -26,8 +24,6 @@ export class Blackjack {
   private readonly playerBalance: Balance;
 
   private readonly dealerBalance: Balance;
-
-  private currentStake: number = 0;
 
   constructor(numberOfDecks: number = 1) {
     this.deck = new Deck(numberOfDecks);
@@ -42,7 +38,12 @@ export class Blackjack {
   }
 
   public setupEventListeners() {
+    /// TODO bring to manager
     EventBus.on(BlackjackEvents.DEAL, this.deal, this);
+    EventBus.on(BlackjackEvents.DECREASE, this.decreaseStake, this);
+    EventBus.on(BlackjackEvents.INCREASE, this.increaseStake, this);
+    EventBus.on(BlackjackEvents.ALL_IN, this.allIn, this);
+    EventBus.on(BlackjackEvents.DOUBLE, this.double, this);
   }
 
   public deal(): void {
@@ -60,6 +61,7 @@ export class Blackjack {
   }
 
   public hit(): void {
+    console.log('HITTT');
     // todo: disable double button
     this.playerHand.addCard(this.deck.drawCard());
   }
@@ -67,26 +69,25 @@ export class Blackjack {
   public stand(): void {
     // todo: disable hit, double, stand buttons
 
-    EventBus.emit(
-      BlackjackMangerEvents.CHANGE_GAME_STATE,
-      GameStates.DEALER_TURN,
-    );
+    this.playDealerTurn();
   }
 
   public double(): void {
     const doubledStake = this.currentStake * 2;
 
-    if (this.playerBalance.value - doubledStake < 0) {
+    if (this.playerBalance.value - doubledStake < STAKE) {
       // todo: dealer says something
       return;
     }
 
-    if (this.dealerBalance.value - doubledStake < 0) {
+    if (this.dealerBalance.value - doubledStake < STAKE) {
       // todo: dealer says something
       return;
     }
 
     this.currentStake *= 2;
+
+    console.log('DOUBLE');
 
     this.hit();
     this.stand();
@@ -113,18 +114,19 @@ export class Blackjack {
   }
 
   public decreaseStake(): void {
-    if (this.currentStake - STAKE === 0) {
+    if (this.currentStake - STAKE === STAKE) {
       this.currentStake -= STAKE;
       // todo: disable decrease button
       return;
     }
 
-    if (this.currentStake - STAKE < 0) {
+    if (this.currentStake - STAKE < STAKE) {
       // todo: disable decrease button
       return;
     }
 
     this.currentStake -= STAKE;
+    console.log(this.currentStake + 'ADAD');
   }
 
   public allIn(): void {

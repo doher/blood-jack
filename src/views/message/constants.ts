@@ -10,6 +10,6 @@ export interface Message {
 }
 
 export const enum MessageEvents {
-  START_TALK = 'START_TALK',
-  COMPLETE_TALK = 'COMPLETE_TALK',
+  START_TALK = 'MessageEvents_START_TALK',
+  COMPLETE_TALK = 'MessageEvents_COMPLETE_TALK',
 }

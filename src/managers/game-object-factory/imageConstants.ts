@@ -1,3 +1,14 @@
+import { SpriteSheetLoadingLayout } from '../animation-manager/constants.ts';
+
+export const enum UiControlsFrame {
+  BLACK_BUTTON = 'blackBtn.png',
+  RED_BUTTON = 'redBtn.png',
+  GREEN_BUTTON = 'greenBtn.png',
+  GRAY_BUTTON = 'grayBtn.png',
+  YELLOW_BUTTON = 'yellowBtn.png',
+  GRAY_TEXT_BOX = 'textbox.png',
+}
+
 export const enum ImageLoadingKey {
   CARD_FRONT = 'CARD_FRONT',
   CARD_BACK = 'CARD_BACK',
@@ -13,12 +24,21 @@ export const enum ImageLoadingKey {
   EYE_BACK = 'EYE_BACK',
   EYE_TOP = 'EYE_TOP',
   MESSAGE = 'MESSAGE',
+  UI_CONTROLS = 'BLACK_BUTTON',
 }
 
 export type ImageAsset = {
   key: string;
   imagePath: string;
 };
+
+export const SPRITE_SHEET_LAYOUTS: SpriteSheetLoadingLayout[] = [
+  {
+    key: ImageLoadingKey.UI_CONTROLS,
+    imagePath: 'assets/images/ui-controls/',
+    atlasDataPath: 'images/ui-controls/ui-controls.json',
+  },
+];
 
 export const IMAGE_LAYOUTS: ImageAsset[] = [
   {

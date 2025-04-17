@@ -1,3 +1,5 @@
+import { ImageLoadingKey } from '../game-object-factory/imageConstants.ts';
+
 export const enum AnimationLoadingKey {
   DEALER_TALK = 'DEALER_TALK',
   DEALER_ANGRY_TALK = 'DEALER_ANGRY_TALK',
@@ -8,13 +10,13 @@ export const enum AnimationLoadingKey {
   BACKGROUND_JAIL = 'BACKGROUND_JAIL',
 }
 
-type AnimationLoadingLayout = {
-  key: AnimationLoadingKey;
+export type SpriteSheetLoadingLayout = {
+  key: AnimationLoadingKey | ImageLoadingKey;
   imagePath: string;
   atlasDataPath: string;
 };
 
-export const ANIMATION_LOADING_LAYOUTS: AnimationLoadingLayout[] = [
+export const ANIMATION_LOADING_LAYOUTS: SpriteSheetLoadingLayout[] = [
   {
     key: AnimationLoadingKey.DEALER_TALK,
     imagePath: 'assets/animations/dealer/talk/',

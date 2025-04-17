@@ -30,7 +30,13 @@ export const enum BlackjackResult {
 }
 
 export const enum BlackjackEvents {
-  DEAL = 'DEAL',
+  DEAL = 'BlackjackEvents_DEAL',
+  DECREASE = 'BlackjackEvents_DECREASE',
+  INCREASE = 'BlackjackEvents_INCREASE',
+  HIT = 'BlackjackEvents_HIT',
+  STAND = 'BlackjackEvents_STAND',
+  DOUBLE = 'BlackjackEvents_DOUBLE',
+  ALL_IN = 'BlackjackEvents_ALL_IN',
 }
 
 export const DEFAULT_BALANCE = 500;

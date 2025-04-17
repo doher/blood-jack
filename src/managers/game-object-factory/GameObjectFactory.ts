@@ -82,37 +82,45 @@ class GameObjectFactory {
     scene: Phaser.Scene,
     layout: TextDescription,
   ): Phaser.GameObjects.Text {
-    const text = scene.add.text(layout.position.x, layout.position.y, '');
+    const textField = scene.add.text(layout.position.x, layout.position.y, '');
 
     if (layout.origin) {
-      text.setOrigin(layout.origin.x, layout.origin.y);
+      textField.setOrigin(layout.origin.x, layout.origin.y);
     }
 
     if (layout.fontSize) {
-      text.setFontSize(layout.fontSize);
+      textField.setFontSize(layout.fontSize);
     }
 
     if (layout.color) {
-      text.setColor(layout.color);
+      textField.setColor(layout.color);
     }
 
     if (layout.fontFamily) {
-      text.setFontFamily(layout.fontFamily);
+      textField.setFontFamily(layout.fontFamily);
     }
 
     if (layout.stroke) {
-      text.setStroke(layout.stroke, 3);
+      textField.setStroke(layout.stroke, 3);
     }
 
     if (layout.maxLines) {
-      text.setMaxLines(layout.maxLines);
+      textField.setMaxLines(layout.maxLines);
     }
 
     if (layout.hide) {
-      text.setVisible(false);
+      textField.setVisible(false);
     }
 
-    return text;
+    if (layout.letterSpacing) {
+      textField.setLetterSpacing(layout.letterSpacing);
+    }
+
+    if (layout.text) {
+      textField.text = layout.text;
+    }
+
+    return textField;
   }
 }
 
