@@ -6,14 +6,24 @@ import { MonsterAnimation } from '../../views/monster/constants.ts';
 import { EventBus } from '../../EventBus.ts';
 import { DealerEvents } from './constants.ts';
 import { MessageView } from '../../views/message/MessageView.ts';
+import { SoundManager } from '../../managers/sound-manager/SoundManager.ts';
+import { VoiceSystem } from './VoiceSystem.ts';
+import { MessageEvents } from '../../views/message/constants.ts';
 
 export class Dealer implements MonsterAnimation {
   public view: Monster;
 
   public message: MessageView;
 
+  public voiceSystem: VoiceSystem;
+
+  private soundManager: SoundManager;
+
+  private onTalkingState = false;
+
   constructor(private scene: Scene) {
     this.createGameObjects();
+    this.initializeManagers();
     this.setupEventListeners();
   }
 
@@ -28,12 +38,35 @@ export class Dealer implements MonsterAnimation {
     this.scene.add.existing(this.message);
   }
 
+  private initializeManagers() {
+    this.soundManager = SoundManager.getInstance();
+    this.voiceSystem = VoiceSystem.getInstance();
+  }
+
   private setupEventListeners() {
     EventBus.on(DealerEvents.SMILE, this.smile, this);
     EventBus.on(DealerEvents.SAD, this.sad, this);
     EventBus.on(DealerEvents.EAR_DANCING, this.earDancing, this);
     EventBus.on(DealerEvents.TALK_JUST_ANIMATION, this.talk, this);
     EventBus.on(DealerEvents.TALK_WITH_TEXT, this.talkText, this);
+    EventBus.on(
+      MessageEvents.COMPLETE_TALK,
+      this.handleCompleteTalkingText,
+      this,
+    );
+    EventBus.on(DealerEvents.GO_TO_IDLE, this.tryToGoIdle, this);
+  }
+
+  private handleCompleteTalkingText() {
+    this.onTalkingState = false;
+    this.tryToGoIdle();
+  }
+
+  private tryToGoIdle() {
+    if (this.onTalkingState) {
+      return;
+    }
+    this.earDancing(-1);
   }
 
   public handlePlayerCursor() {
@@ -67,6 +100,7 @@ export class Dealer implements MonsterAnimation {
       | AnimationPlayingKey.DEALER_TALK_PLAY
       | AnimationPlayingKey.DEALER_ANGRY_TALK_PLAY,
   ) {
+    this.onTalkingState = true;
     this.message.startType(texts, animTypeToTalkKey);
   }
 }
