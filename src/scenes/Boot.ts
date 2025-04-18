@@ -112,6 +112,30 @@ export class Boot extends Scene {
           name: SoundLoadingKey.RAIN,
           url: '/assets/sounds/rain/rainSound.mp3',
         },
+        {
+          name: SoundLoadingKey.CARD_GIVEAWAY,
+          url: '/assets/sounds/ui-controls/card-giveaway.wav',
+        },
+        {
+          name: SoundLoadingKey.DECREASE,
+          url: '/assets/sounds/ui-controls/decrease.wav',
+        },
+        {
+          name: SoundLoadingKey.INCREASE,
+          url: '/assets/sounds/ui-controls/increase.wav',
+        },
+        {
+          name: SoundLoadingKey.ALL_IN,
+          url: '/assets/sounds/ui-controls/all-in.wav',
+        },
+        {
+          name: SoundLoadingKey.STAND,
+          url: '/assets/sounds/ui-controls/stand.wav',
+        },
+        {
+          name: SoundLoadingKey.SHOP,
+          url: '/assets/sounds/ui-controls/shop.wav',
+        },
       ],
       () => {
         this.afterLoadSounds();

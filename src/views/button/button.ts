@@ -12,6 +12,11 @@ import { ImageLoadingKey } from '../../managers/game-object-factory/imageConstan
 import Container = Phaser.GameObjects.Container;
 import Text = Phaser.GameObjects.Text;
 import Sprite = Phaser.GameObjects.Sprite;
+import { SoundLoadingKey } from '../../managers/sound-manager/constants.ts';
+import { SoundManager } from '../../managers/sound-manager/SoundManager.ts';
+
+export const LOW_CLICK_SPEED = 120;
+export const FAST_CLICK_SPEED = 35;
 
 export class Button extends Container {
   public background: Sprite;
@@ -31,6 +36,8 @@ export class Button extends Container {
     private buttonScale: Scale,
     private buttonName: string,
     textDescription?: TextDescription,
+    private clickSpeed = FAST_CLICK_SPEED,
+    private clickSound?: SoundLoadingKey,
     usePreFx?: boolean,
   ) {
     super(scene, buttonPosition.x, buttonPosition.y);
@@ -147,8 +154,11 @@ export class Button extends Container {
       },
       ease: Phaser.Math.Easing.Cubic.InOut,
       yoyo: true,
-      duration: 35,
+      duration: this.clickSpeed,
       onStart: () => {
+        if (this.clickSound) {
+          SoundManager.getInstance().play(this.clickSound, false, true);
+        }
         EventBus.emit(this.buttonName);
       },
       onComplete: () => {

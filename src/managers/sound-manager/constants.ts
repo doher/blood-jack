@@ -7,4 +7,10 @@ export const enum SoundLoadingKey {
   DEALER_PY = 'DEALER_PY',
   DEALER_CLICK = 'DEALER_CLICK',
   RAIN = 'RAIN',
+  CARD_GIVEAWAY = 'CARD_GIVEAWAY',
+  DECREASE = 'DECREASE',
+  INCREASE = 'INCREASE',
+  ALL_IN = 'ALL_IN',
+  STAND = 'STAND',
+  SHOP = 'SHOP',
 }

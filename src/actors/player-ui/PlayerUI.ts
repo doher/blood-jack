@@ -1,5 +1,9 @@
 import { UiControlsFrame } from '../../managers/game-object-factory/imageConstants.ts';
-import { Button } from '../../views/button/button.ts';
+import {
+  Button,
+  FAST_CLICK_SPEED,
+  LOW_CLICK_SPEED,
+} from '../../views/button/button.ts';
 import { SCREEN_HALF_H, SCREEN_HALF_W } from '../../views/constants.ts';
 import { Label } from '../../views/label/label.ts';
 import {
@@ -13,7 +17,7 @@ import {
   SHOP_BUTTON_POSITION,
   STAND_BUTTON_POSITION,
 } from './constants.ts';
-
+import { SoundLoadingKey } from '../../managers/sound-manager/constants.ts';
 import Container = Phaser.GameObjects.Container;
 
 export const enum UIEvent {
@@ -86,6 +90,8 @@ export class PlayerUI extends Container {
         },
         color: 'black',
       },
+      LOW_CLICK_SPEED,
+      SoundLoadingKey.CARD_GIVEAWAY,
     );
 
     this.decreaseStake = new Button(
@@ -110,6 +116,8 @@ export class PlayerUI extends Container {
         },
         color: 'black',
       },
+      FAST_CLICK_SPEED,
+      SoundLoadingKey.DECREASE,
     );
 
     this.allin = new Button(
@@ -134,6 +142,8 @@ export class PlayerUI extends Container {
         },
         color: 'black',
       },
+      LOW_CLICK_SPEED,
+      SoundLoadingKey.ALL_IN,
     );
 
     this.increaseStake = new Button(
@@ -158,6 +168,8 @@ export class PlayerUI extends Container {
         },
         color: 'black',
       },
+      FAST_CLICK_SPEED,
+      SoundLoadingKey.INCREASE,
     );
 
     this.stand = new Button(
@@ -182,6 +194,8 @@ export class PlayerUI extends Container {
         },
         color: 'black',
       },
+      LOW_CLICK_SPEED,
+      SoundLoadingKey.STAND,
     );
 
     this.double = new Button(
@@ -206,6 +220,8 @@ export class PlayerUI extends Container {
         },
         color: 'black',
       },
+      LOW_CLICK_SPEED,
+      SoundLoadingKey.CARD_GIVEAWAY,
     );
 
     this.hit = new Button(
@@ -230,6 +246,8 @@ export class PlayerUI extends Container {
         },
         color: 'black',
       },
+      LOW_CLICK_SPEED,
+      SoundLoadingKey.CARD_GIVEAWAY,
     );
 
     this.shop = new Button(
@@ -254,6 +272,8 @@ export class PlayerUI extends Container {
         },
         color: 'red',
       },
+      LOW_CLICK_SPEED,
+      SoundLoadingKey.SHOP,
       true,
     );
 
