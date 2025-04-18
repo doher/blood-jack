@@ -69,13 +69,13 @@ export class MainGame extends Scene {
 
     new PlayerUI(this);
 
-    SoundManager.getInstance().muteAll();
+    ///TODO DEV MUTE
+    // SoundManager.getInstance().muteAll();
 
     new Player(this, this.blackjackManager.blackjack);
   }
 
   public update() {
-    // this.blackjackManager.handleGameStates();
     this.dealer.handlePlayerCursor();
   }
 }
