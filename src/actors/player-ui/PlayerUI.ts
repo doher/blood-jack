@@ -19,6 +19,7 @@ import {
 } from './constants.ts';
 import { SoundLoadingKey } from '../../managers/sound-manager/constants.ts';
 import Container = Phaser.GameObjects.Container;
+import { Cursor } from '../../views/cursor/Cursor.ts';
 
 export const enum UIEvent {
   DISABLE_ALL_BUTTONS = 'UIEvent_DISABLE_ALL_BUTTONS',
@@ -61,10 +62,12 @@ export class PlayerUI extends Container {
 
   public dealerBalance: Label;
 
+  public cursor: Cursor;
+
   constructor(public scene: Phaser.Scene) {
     super(scene, SCREEN_HALF_W, SCREEN_HALF_H);
     this.create();
-    this.scene.add.existing(this);
+    this.createCursor();
   }
 
   private create() {
@@ -337,5 +340,11 @@ export class PlayerUI extends Container {
       this.playerBalance,
       this.dealerBalance,
     ]);
+
+    this.scene.add.existing(this);
+  }
+
+  private createCursor() {
+    this.cursor = new Cursor(this.scene);
   }
 }
