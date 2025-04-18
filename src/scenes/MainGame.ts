@@ -17,6 +17,8 @@ export class MainGame extends Scene {
 
   private blackjackManager: BlackjackManager;
 
+  private playerUI: PlayerUI;
+
   constructor() {
     super(SceneType.GAME);
 
@@ -67,15 +69,16 @@ export class MainGame extends Scene {
       AnimationPlayingKey.DEALER_ANGRY_TALK_PLAY,
     );
 
-    new PlayerUI(this);
-
     ///TODO DEV MUTE
     // SoundManager.getInstance().muteAll();
+
+    this.playerUI = new PlayerUI(this);
 
     new Player(this, this.blackjackManager.blackjack);
   }
 
   public update() {
     this.dealer.handlePlayerCursor();
+    this.playerUI.cursor.handlePlayerMouse();
   }
 }

@@ -25,6 +25,10 @@ export const enum ImageLoadingKey {
   EYE_TOP = 'EYE_TOP',
   MESSAGE = 'MESSAGE',
   UI_CONTROLS = 'BLACK_BUTTON',
+  CURSOR_IDLE = 'CURSOR_IDLE',
+  CURSOR_CLICK = 'CURSOR_CLICK',
+  CURSOR_POINT = 'CURSOR_POINT',
+  ARM = 'ARM',
 }
 
 export type ImageAsset = {
@@ -96,5 +100,25 @@ export const IMAGE_LAYOUTS: ImageAsset[] = [
   {
     key: ImageLoadingKey.MESSAGE,
     imagePath: 'images/message/message.png',
+  },
+  {
+    key: ImageLoadingKey.CURSOR_IDLE,
+    imagePath: 'images/cursor/cursor-idle.png',
+  },
+  {
+    key: ImageLoadingKey.CURSOR_CLICK,
+    imagePath: 'images/cursor/cursor-click.png',
+  },
+  {
+    key: ImageLoadingKey.CURSOR_CLICK,
+    imagePath: 'images/cursor/cursor-click.png',
+  },
+  {
+    key: ImageLoadingKey.CURSOR_POINT,
+    imagePath: 'images/cursor/cursor-point.png',
+  },
+  {
+    key: ImageLoadingKey.ARM,
+    imagePath: 'images/cursor/arm.png',
   },
 ];
