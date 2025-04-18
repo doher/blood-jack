@@ -110,10 +110,6 @@ export const IMAGE_LAYOUTS: ImageAsset[] = [
     imagePath: 'images/cursor/cursor-click.png',
   },
   {
-    key: ImageLoadingKey.CURSOR_CLICK,
-    imagePath: 'images/cursor/cursor-click.png',
-  },
-  {
     key: ImageLoadingKey.CURSOR_POINT,
     imagePath: 'images/cursor/cursor-point.png',
   },

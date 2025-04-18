@@ -25,7 +25,7 @@ export class Cursor extends Container {
 
   private create() {
     this.scene.input.setDefaultCursor('none');
-    //
+
     this.cursorHand = gameObjectFactory.createSprite(this.scene, {
       key: ImageLoadingKey.CURSOR_IDLE,
       scale: {
