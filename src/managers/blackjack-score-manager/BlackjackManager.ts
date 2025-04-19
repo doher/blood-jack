@@ -18,6 +18,7 @@ import {
 } from './constants.ts';
 
 import Text = Phaser.GameObjects.Text;
+import Container = Phaser.GameObjects.Container;
 
 export const textDescription: TextDescription = {
   text: '0',
@@ -127,38 +128,16 @@ export class BlackjackManager {
   private dealPlayerCards() {
     const playerHand = this.blackjack.getPlayerHand();
     const playerCards = playerHand.getCards();
+    const playerCardsContainer = this.blackjack.playerCardsContainer;
     const numbersOfCard = this.playerCards.length;
+    const yOffset = 950;
 
     if (numbersOfCard) {
-      const isFullViewCards = numbersOfCard >= MAX_FULL_VIEW_CARDS;
-      const { suit, rank } = playerCards[numbersOfCard];
-      const xOffset = isFullViewCards ? CARD_WIDTH / 4 : CARD_WIDTH / 2;
-
-      const lastCard = new CardView(this.scene, {
-        suit,
-        rank,
-      });
-      lastCard.setPosition(960 + CARD_WIDTH * numbersOfCard, 950);
-
-      this.blackjack.playerCardsContainer.add(lastCard);
-      this.playerCards.push(lastCard);
-
-      if (isFullViewCards) {
-        this.playerCards.forEach((card, index) =>
-          card.setPosition(960 + (CARD_WIDTH / 2) * index, card.y),
-        );
-      }
-
-      if (numbersOfCard === MAX_FULL_VIEW_CARDS) {
-        this.blackjack.playerCardsContainer.setPosition(
-          this.blackjack.playerCardsContainer.x + 150,
-          this.blackjack.playerCardsContainer.y,
-        );
-      }
-
-      this.blackjack.playerCardsContainer.setPosition(
-        this.blackjack.playerCardsContainer.x - xOffset,
-        this.blackjack.playerCardsContainer.y,
+      this.addNextCardToHandView(
+        playerHand,
+        this.playerCards,
+        playerCardsContainer,
+        yOffset,
       );
 
       return;
@@ -173,41 +152,58 @@ export class BlackjackManager {
     });
   }
 
-  private dealDealerCards() {
-    const dealerHand = this.blackjack.getDealerHand();
-    const dealerCards = dealerHand.getCards();
-    const numbersOfCard = this.dealerCards.length;
+  private addNextCardToHandView(
+    hand: Hand,
+    cardViews: CardView[],
+    cardsContainer: Container,
+    yOffest: number,
+  ): void {
+    const cards = hand.getCards();
+    const numbersOfCard = cardViews.length;
 
     if (numbersOfCard) {
       const isFullViewCards = numbersOfCard >= MAX_FULL_VIEW_CARDS;
-      const { suit, rank } = dealerCards[numbersOfCard];
+      const { suit, rank } = cards[numbersOfCard];
       const xOffset = isFullViewCards ? CARD_WIDTH / 4 : CARD_WIDTH / 2;
 
-      const lastCard = new CardView(this.scene, {
+      const lastOpenedCard = new CardView(this.scene, {
         suit,
         rank,
       });
-      lastCard.setPosition(960 + CARD_WIDTH * numbersOfCard, 650);
+      lastOpenedCard.setPosition(960 + CARD_WIDTH * numbersOfCard, yOffest);
 
-      this.blackjack.dealerCardsContainer.add(lastCard);
-      this.dealerCards.push(lastCard);
+      cardsContainer.add(lastOpenedCard);
+      cardViews.push(lastOpenedCard);
 
       if (isFullViewCards) {
-        this.dealerCards.forEach((card, index) =>
+        cardViews.forEach((card, index) =>
           card.setPosition(960 + (CARD_WIDTH / 2) * index, card.y),
         );
       }
 
       if (numbersOfCard === MAX_FULL_VIEW_CARDS) {
-        this.blackjack.dealerCardsContainer.setPosition(
-          this.blackjack.dealerCardsContainer.x + 150,
-          this.blackjack.dealerCardsContainer.y,
-        );
+        cardsContainer.setPosition(cardsContainer.x + 150, cardsContainer.y);
       }
 
-      this.blackjack.dealerCardsContainer.setPosition(
-        this.blackjack.dealerCardsContainer.x - xOffset,
-        this.blackjack.dealerCardsContainer.y,
+      cardsContainer.setPosition(cardsContainer.x - xOffset, cardsContainer.y);
+
+      return;
+    }
+  }
+
+  private dealDealerCards() {
+    const dealerHand = this.blackjack.getDealerHand();
+    const dealerCards = dealerHand.getCards();
+    const dealerCardsContainer = this.blackjack.dealerCardsContainer;
+    const numbersOfCard = this.dealerCards.length;
+    const yOffset = 650;
+
+    if (numbersOfCard) {
+      this.addNextCardToHandView(
+        dealerHand,
+        this.dealerCards,
+        dealerCardsContainer,
+        yOffset,
       );
 
       return;
