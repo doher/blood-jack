@@ -1,14 +1,9 @@
 import { EventBus } from '../EventBus.ts';
 import type { Blackjack } from './blackjack/Blackjack.ts';
-import {
-  BALANCES,
-  BlackjackEvents,
-  DEFAULT_BALANCE,
-  STAKE,
-} from './blackjack/constants.ts';
+import { BALANCES, BlackjackEvents, STAKE } from './blackjack/constants.ts';
 import { UIElementName, UI_Event } from '../views/ui/constants.ts';
 import { SCALES_COSTS } from '../scenes/gameConstants.ts';
-import { ShopEvent, ShopEvents } from '../views/shop-view/constants.ts';
+import { ShopEvent } from '../views/shop-view/constants.ts';
 
 const RUSSIAN_ROULETTE_ROUND = 2;
 

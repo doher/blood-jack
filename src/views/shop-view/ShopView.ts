@@ -1,5 +1,5 @@
 import Container = Phaser.GameObjects.Container;
-import { BulletsSideView, ShopBulletsType } from './BulletsSideView.ts';
+import { ShopBulletsType } from './BulletsSideView.ts';
 import { SCREEN_HALF_H, SCREEN_HALF_W } from '../constants.ts';
 import { ScaleBalance } from './ScaleBalance.ts';
 import { Shadow, SHADOW_TAG } from '../Shadow.ts';
@@ -21,6 +21,7 @@ import {
   SHOP_SUBMIT_BUTTON_POSITION,
 } from './constants.ts';
 import { gameObjectFactory } from '../../managers/game-object-factory/GameObjectFactory.ts';
+import { EventBus } from '../../EventBus.ts';
 
 export const SCALE_TYPES = [
   [ShopBulletsType.RED, ShopBulletsType.RED, ShopBulletsType.YELLOW],
@@ -85,9 +86,12 @@ export class ShopView extends Container {
 
   private cancel: Button;
 
+  private helpText: Phaser.GameObjects.Text;
+
   constructor(private scene: Phaser.Scene) {
     super(scene, SCREEN_HALF_W, SCREEN_HALF_H);
     this.create();
+    this.setupEventListeners();
   }
 
   private create() {
@@ -116,10 +120,40 @@ export class ShopView extends Container {
     this.createButtons();
     this.createInfoLabels();
 
+    this.helpText = gameObjectFactory.createText(this.scene, {
+      fontSize: 22,
+      position: {
+        x: 0,
+        y: 275,
+      },
+      origin: {
+        x: 0.5,
+        y: 0.5,
+      },
+      text:
+        'Keep a Balance... In chasing of the best bullet pack, you can end up with nothing. ;(\n' +
+        'But also keep in mind that the dealer will try to buy the remaining best bullet pack.\n' +
+        "Maybe it's worth leaving him without any money at all?\n",
+      letterSpacing: 0,
+      lineSpacing: 8,
+    });
+
+    this.add(this.helpText);
+
     this.scene.add.existing(this);
   }
 
-  resetShopView() {
+  private setupEventListeners() {
+    EventBus.on(UIElementName.SHOP_SUBMIT, this.hideHelpText, this);
+  }
+
+  private hideHelpText() {
+    this.helpText.setVisible(false);
+  }
+
+  public resetShopView() {
+    this.helpText.setVisible(true);
+
     this.scaleBalances.forEach((scaleBalance) => {
       scaleBalance.reset();
     });
@@ -154,7 +188,7 @@ export class ShopView extends Container {
       },
       UIElementName.SHOP_BACK,
       {
-        text: 'BACK.(ESC)',
+        text: 'BACK',
         position: {
           x: 0,
           y: 0,
@@ -219,7 +253,7 @@ export class ShopView extends Container {
         color: 'black',
       },
       LOW_CLICK_SPEED,
-      SoundLoadingKey.STAND,
+      SoundLoadingKey.SHOP_BUY,
     );
 
     this.buyBad = new Button(
@@ -245,7 +279,7 @@ export class ShopView extends Container {
         color: 'black',
       },
       LOW_CLICK_SPEED,
-      SoundLoadingKey.SHOP, /// TODO add bullets sounds
+      SoundLoadingKey.SHOP_BUY_BAD,
     );
 
     this.buySoSo = new Button(
@@ -271,7 +305,7 @@ export class ShopView extends Container {
         color: 'black',
       },
       LOW_CLICK_SPEED,
-      SoundLoadingKey.SHOP, /// TODO add bullets sounds
+      SoundLoadingKey.SHOP_BUY_SO_SO,
     );
 
     this.buyGood = new Button(
@@ -297,7 +331,7 @@ export class ShopView extends Container {
         color: 'black',
       },
       LOW_CLICK_SPEED,
-      SoundLoadingKey.SHOP, /// TODO add bullets sounds
+      SoundLoadingKey.SHOP_BUY_GOOD,
     );
 
     this.add([

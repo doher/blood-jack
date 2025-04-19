@@ -116,6 +116,10 @@ class GameObjectFactory {
       textField.setLetterSpacing(layout.letterSpacing);
     }
 
+    if (layout.lineSpacing) {
+      textField.setLineSpacing(layout.lineSpacing);
+    }
+
     if (layout.text) {
       textField.text = layout.text;
     }

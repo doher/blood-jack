@@ -14,10 +14,10 @@ import { UI_Event, UIElementName } from '../ui/constants.ts';
 import { EventBus } from '../../EventBus.ts';
 import { SCREEN_HALF_H, SCREEN_HALF_W } from '../constants.ts';
 import { Weights } from './Weights.ts';
-import Rectangle = Phaser.GameObjects.Rectangle;
-import Circle = Phaser.Geom.Circle;
 import Text = Phaser.GameObjects.Text;
 import { ShopEvent } from './constants.ts';
+import { SoundManager } from '../../managers/sound-manager/SoundManager.ts';
+import { SoundLoadingKey } from '../../managers/sound-manager/constants.ts';
 
 const UNBALANCED_BULLETS_POSITION: Position = {
   x: -190,
@@ -298,6 +298,7 @@ export class ScaleBalance extends Container {
       duration: 800,
       ease: 'Cubic.easeOut',
       onStart: () => {
+        SoundManager.getInstance().play(SoundLoadingKey.SHOP_TO_BALANCED);
         this.balanceBackground.setTexture(
           ImageLoadingKey.UI_SHOP,
           ShopFrame.BALANCED,
@@ -315,8 +316,13 @@ export class ScaleBalance extends Container {
           ease: Phaser.Math.Easing.Cubic.Out,
           duration: 2200,
           repeat: 0,
+          onStart: () => {
+            SoundManager.getInstance().play(SoundLoadingKey.SHOP_BALANCE_TEXT);
+          },
           onComplete: () => {
-            this.resetShop();
+            this.scene.time.delayedCall(500, () => {
+              this.resetShop();
+            });
           },
         });
       },

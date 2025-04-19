@@ -1,6 +1,5 @@
 import Container = Phaser.GameObjects.Container;
 import Sprite = Phaser.GameObjects.Sprite;
-import { ShopBulletsType } from './BulletsSideView.ts';
 import { gameObjectFactory } from '../../managers/game-object-factory/GameObjectFactory.ts';
 import {
   ImageLoadingKey,

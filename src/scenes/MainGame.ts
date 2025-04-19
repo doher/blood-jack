@@ -11,8 +11,6 @@ import { SoundManager } from '../managers/sound-manager/SoundManager.ts';
 import { SCREEN_HALF_H, SCREEN_HALF_W } from '../views/constants.ts';
 import { Rain } from '../views/Rain.ts';
 import { SceneType } from './constants.ts';
-import { ShopView } from '../views/shop-view/ShopView.ts';
-import { Shadow } from '../views/Shadow.ts';
 import { Cursor } from '../views/cursor/Cursor.ts';
 import { ShopUI } from '../actors/ShopUI.ts';
 

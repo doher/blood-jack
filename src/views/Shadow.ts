@@ -1,7 +1,5 @@
-import { gameObjectFactory } from '../managers/game-object-factory/GameObjectFactory.ts';
 import Container = Phaser.GameObjects.Container;
 import { SCREEN_HALF_H, SCREEN_HALF_W } from './constants.ts';
-import Rectangle = Phaser.GameObjects.Rectangle;
 
 export const SHADOW_TAG = 'SHADOW';
 

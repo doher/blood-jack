@@ -9,7 +9,6 @@ import { gameObjectFactory } from '../../../managers/game-object-factory/GameObj
 import type { UiControlsFrame } from '../../../managers/game-object-factory/imageConstants.ts';
 import { ImageLoadingKey } from '../../../managers/game-object-factory/imageConstants.ts';
 
-import Container = Phaser.GameObjects.Container;
 import Text = Phaser.GameObjects.Text;
 import Sprite = Phaser.GameObjects.Sprite;
 import { SoundLoadingKey } from '../../../managers/sound-manager/constants.ts';
@@ -185,10 +184,12 @@ export class Button extends UiElement {
         if (this.clickSound) {
           SoundManager.getInstance().play(this.clickSound, false, true);
         }
+        this.scene.time.delayedCall(this.clickSpeed / 2, () =>
+          EventBus.emit(this.buttonName),
+        );
       },
       onComplete: () => {
         this.isClicked = false;
-        EventBus.emit(this.buttonName);
       },
     });
   }
