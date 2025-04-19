@@ -13,6 +13,7 @@ import { Rain } from '../views/Rain.ts';
 import { SceneType } from './constants.ts';
 import { Cursor } from '../views/cursor/Cursor.ts';
 import { ShopUI } from '../actors/ShopUI.ts';
+import { RouletteUI } from '../actors/roulette/RouletteUI.ts';
 
 export class MainGame extends Scene {
   private dealer: Dealer;
@@ -20,6 +21,8 @@ export class MainGame extends Scene {
   private blackjackManager: BlackjackManager;
 
   private playerUI: PlayerUI;
+
+  private rouletteUI: RouletteUI;
 
   public cursor: Cursor;
 
@@ -82,6 +85,8 @@ export class MainGame extends Scene {
 
     new ShopUI(this);
 
+    this.rouletteUI = new RouletteUI(this);
+
     this.cursor = new Cursor(this); // create cursor after all ui elements!!!
 
     new Player(this, this.blackjackManager.blackjack); // create in last queue
@@ -90,5 +95,6 @@ export class MainGame extends Scene {
   public update() {
     this.dealer.handlePlayerCursor();
     this.cursor.handlePlayerMouse();
+    this.rouletteUI.rouletteView.drum.handleDrumRotateByPlayer();
   }
 }

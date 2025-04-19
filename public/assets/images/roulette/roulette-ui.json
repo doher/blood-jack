@@ -1,0 +1,104 @@
+{
+	"textures": [
+		{
+			"image": "roulette-ui.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 624,
+				"h": 2027
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "bullet_bottom_green.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 640,
+						"h": 640
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 9,
+						"w": 622,
+						"h": 622
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 622,
+						"h": 622
+					}
+				},
+				{
+					"filename": "bullet_bottom_red.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 640,
+						"h": 640
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 9,
+						"w": 622,
+						"h": 622
+					},
+					"frame": {
+						"x": 1,
+						"y": 625,
+						"w": 622,
+						"h": 622
+					}
+				},
+				{
+					"filename": "bullet_bottom_yellow.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 640,
+						"h": 640
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 9,
+						"w": 622,
+						"h": 622
+					},
+					"frame": {
+						"x": 1,
+						"y": 1249,
+						"w": 622,
+						"h": 622
+					}
+				},
+				{
+					"filename": "drum.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 201,
+						"h": 202
+					},
+					"spriteSourceSize": {
+						"x": 22,
+						"y": 27,
+						"w": 154,
+						"h": 153
+					},
+					"frame": {
+						"x": 1,
+						"y": 1873,
+						"w": 154,
+						"h": 153
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:f529aabc2f2819d999771b736ed2fee2:49d27ee6785be08c277fe795f49cba63:0e6f90259d2c4d1ea12e35431f6e01b8$"
+	}
+}

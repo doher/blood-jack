@@ -330,6 +330,6 @@ export class ScaleBalance extends Container {
   }
 
   private resetShop() {
-    EventBus.emit(ShopEvent.SET_NEXT_ROUND);
+    EventBus.emit(ShopEvent.SET_NEXT_ROUND, this.indexScaleBalance);
   }
 }
