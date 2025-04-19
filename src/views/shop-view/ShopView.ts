@@ -1,16 +1,17 @@
-import Container = Phaser.GameObjects.Container;
-import { ShopBulletsType } from './BulletsSideView.ts';
-import { SCREEN_HALF_H, SCREEN_HALF_W } from '../constants.ts';
-import { ScaleBalance } from './ScaleBalance.ts';
-import { Shadow, SHADOW_TAG } from '../Shadow.ts';
-import { Button, LOW_CLICK_SPEED } from '../ui/button/button.ts';
-import { Label } from '../ui/label/label.ts';
+import { EventBus } from '../../EventBus.ts';
+import { gameObjectFactory } from '../../managers/game-object-factory/GameObjectFactory.ts';
 import {
   ImageLoadingKey,
   UiControlsFrame,
 } from '../../managers/game-object-factory/imageConstants.ts';
-import { UIElementName } from '../ui/constants.ts';
 import { SoundLoadingKey } from '../../managers/sound-manager/constants.ts';
+import { SCREEN_HALF_H, SCREEN_HALF_W } from '../constants.ts';
+import type { Shadow } from '../Shadow.ts';
+import { SHADOW_TAG } from '../Shadow.ts';
+import { Button, LOW_CLICK_SPEED } from '../ui/button/button.ts';
+import { UIElementName } from '../ui/constants.ts';
+import { Label } from '../ui/label/label.ts';
+import { ShopBulletsType } from './BulletsSideView.ts';
 import {
   INFO_BULLET_START_POSITION,
   SHOP_BACK_BUTTON_POSITION,
@@ -20,8 +21,9 @@ import {
   SHOP_CANCEL_BUTTON_POSITION,
   SHOP_SUBMIT_BUTTON_POSITION,
 } from './constants.ts';
-import { gameObjectFactory } from '../../managers/game-object-factory/GameObjectFactory.ts';
-import { EventBus } from '../../EventBus.ts';
+import { ScaleBalance } from './ScaleBalance.ts';
+
+import Container = Phaser.GameObjects.Container;
 
 export const SCALE_TYPES = [
   [ShopBulletsType.RED, ShopBulletsType.RED, ShopBulletsType.YELLOW],
@@ -88,7 +90,7 @@ export class ShopView extends Container {
 
   private helpText: Phaser.GameObjects.Text;
 
-  constructor(private scene: Phaser.Scene) {
+  constructor(public scene: Phaser.Scene) {
     super(scene, SCREEN_HALF_W, SCREEN_HALF_H);
     this.create();
     this.setupEventListeners();

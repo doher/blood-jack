@@ -9,11 +9,20 @@ import {
 import { Deck } from './Deck.ts';
 import { Hand } from './Hand.ts';
 
-const START_CARD_AMOUNT = 2;
-const DEALER_HIT_THRESHOLD = 17;
+import Container = Phaser.GameObjects.Container;
 
-export class Blackjack {
+const START_CARD_AMOUNT = 2;
+
+export class Blackjack extends Container {
+  public playerCardsContainer: Container;
+
+  public dealerCardsContainer: Container;
+
   public currentStake: number = STAKE;
+
+  public readonly playerBalance: Balance;
+
+  public readonly dealerBalance: Balance;
 
   private deck: Deck;
 
@@ -21,11 +30,18 @@ export class Blackjack {
 
   private readonly dealerHand: Hand;
 
-  private readonly playerBalance: Balance;
+  constructor(
+    public scene: Phaser.Scene,
+    numberOfDecks: number = 1,
+  ) {
+    super(scene, 0, 0);
 
-  private readonly dealerBalance: Balance;
+    this.scene.add.existing(this);
 
-  constructor(numberOfDecks: number = 1) {
+    this.playerCardsContainer = this.scene.add.container(0, 0);
+    this.dealerCardsContainer = this.scene.add.container(0, 0);
+    this.add([this.playerCardsContainer, this.dealerCardsContainer]);
+
     this.deck = new Deck(numberOfDecks);
 
     this.playerHand = new Hand();
@@ -39,11 +55,9 @@ export class Blackjack {
 
   public setupEventListeners() {
     /// TODO bring to manager
-    EventBus.on(BlackjackEvents.DEAL, this.deal, this);
     EventBus.on(BlackjackEvents.DECREASE, this.decreaseStake, this);
     EventBus.on(BlackjackEvents.INCREASE, this.increaseStake, this);
     EventBus.on(BlackjackEvents.ALL_IN, this.allIn, this);
-    EventBus.on(BlackjackEvents.DOUBLE, this.double, this);
   }
 
   public deal(): void {
@@ -61,15 +75,11 @@ export class Blackjack {
   }
 
   public hit(): void {
-    console.log('HITTT');
-    // todo: disable double button
     this.playerHand.addCard(this.deck.drawCard());
   }
 
   public stand(): void {
-    // todo: disable hit, double, stand buttons
-
-    this.playDealerTurn();
+    this.dealerHit();
   }
 
   public double(): void {
@@ -85,12 +95,10 @@ export class Blackjack {
       return;
     }
 
-    this.currentStake *= 2;
+    this.playerBalance.bet(this.currentStake);
+    this.dealerBalance.bet(this.currentStake);
 
-    console.log('DOUBLE');
-
-    this.hit();
-    this.stand();
+    this.currentStake = doubledStake;
   }
 
   public increaseStake(): void {
@@ -126,11 +134,11 @@ export class Blackjack {
     }
 
     this.currentStake -= STAKE;
-    console.log(this.currentStake + 'ADAD');
   }
 
   public allIn(): void {
     if (this.playerBalance.value > this.dealerBalance.value) {
+      this.currentStake = this.dealerBalance.value;
       // todo: dealer says something
       return;
     }
@@ -139,11 +147,8 @@ export class Blackjack {
     this.currentStake = this.playerBalance.value;
   }
 
-  public playDealerTurn(): void {
-    // todo: use recursion
-    while (this.dealerHand.getValue() < DEALER_HIT_THRESHOLD) {
-      this.dealerHand.addCard(this.deck.drawCard());
-    }
+  private dealerHit(): void {
+    this.dealerHand.addCard(this.deck.drawCard());
   }
 
   public determineResult(): BlackjackResult {

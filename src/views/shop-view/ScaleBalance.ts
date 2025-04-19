@@ -1,23 +1,26 @@
-import Container = Phaser.GameObjects.Container;
-import {
+import { EventBus } from '../../EventBus.ts';
+import type {
   Position,
   Scale,
 } from '../../managers/game-object-factory/constants.ts';
-import Sprite = Phaser.GameObjects.Sprite;
-import { BulletsSideView, ShopBulletsType } from './BulletsSideView.ts';
+
 import { gameObjectFactory } from '../../managers/game-object-factory/GameObjectFactory.ts';
 import {
   ImageLoadingKey,
   ShopFrame,
 } from '../../managers/game-object-factory/imageConstants.ts';
-import { UI_Event, UIElementName } from '../ui/constants.ts';
-import { EventBus } from '../../EventBus.ts';
+import { SoundLoadingKey } from '../../managers/sound-manager/constants.ts';
+import { SoundManager } from '../../managers/sound-manager/SoundManager.ts';
 import { SCREEN_HALF_H, SCREEN_HALF_W } from '../constants.ts';
+import { UI_Event, UIElementName } from '../ui/constants.ts';
+import type { ShopBulletsType } from './BulletsSideView.ts';
+import { BulletsSideView } from './BulletsSideView.ts';
+import { ShopEvent } from './constants.ts';
 import { Weights } from './Weights.ts';
 import Text = Phaser.GameObjects.Text;
-import { ShopEvent } from './constants.ts';
-import { SoundManager } from '../../managers/sound-manager/SoundManager.ts';
-import { SoundLoadingKey } from '../../managers/sound-manager/constants.ts';
+
+import Sprite = Phaser.GameObjects.Sprite;
+import Container = Phaser.GameObjects.Container;
 
 const UNBALANCED_BULLETS_POSITION: Position = {
   x: -190,
@@ -54,10 +57,10 @@ export class ScaleBalance extends Container {
   private scaleBeforeEffect: Scale;
 
   constructor(
-    private scene: Phaser.Scene,
+    public scene: Phaser.Scene,
     position: Position,
     private bulletsType: ShopBulletsType[],
-    private indexScaleBalance,
+    private indexScaleBalance: number,
     private triggerEvent: UIElementName,
   ) {
     super(scene, position.x, position.y);

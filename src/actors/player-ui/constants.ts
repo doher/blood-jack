@@ -44,5 +44,5 @@ export const PLAYER_BALANCE_POSITION: Position = {
 
 export const DEALER_BALANCE_POSITION: Position = {
   x: 305,
-  y: 25,
+  y: -125,
 };

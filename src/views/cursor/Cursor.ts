@@ -1,8 +1,9 @@
-import Sprite = Phaser.GameObjects.Sprite;
-import { ImageLoadingKey } from '../../managers/game-object-factory/imageConstants.ts';
 import { gameObjectFactory } from '../../managers/game-object-factory/GameObjectFactory.ts';
-import Container = Phaser.GameObjects.Container;
+import { ImageLoadingKey } from '../../managers/game-object-factory/imageConstants.ts';
 import { SHADOW_TAG } from '../Shadow.ts';
+
+import Sprite = Phaser.GameObjects.Sprite;
+import Container = Phaser.GameObjects.Container;
 import GameObject = Phaser.GameObjects.GameObject;
 
 type AvailableCursorTexture =

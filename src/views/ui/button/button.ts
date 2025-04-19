@@ -1,4 +1,3 @@
-import { UI_Event } from '../constants.ts';
 import { EventBus } from '../../../EventBus.ts';
 import type {
   Position,
@@ -8,12 +7,13 @@ import type {
 import { gameObjectFactory } from '../../../managers/game-object-factory/GameObjectFactory.ts';
 import type { UiControlsFrame } from '../../../managers/game-object-factory/imageConstants.ts';
 import { ImageLoadingKey } from '../../../managers/game-object-factory/imageConstants.ts';
+import type { SoundLoadingKey } from '../../../managers/sound-manager/constants.ts';
+import { SoundManager } from '../../../managers/sound-manager/SoundManager.ts';
+import { UI_Event } from '../constants.ts';
+import { UiElement } from '../uiElement.ts';
 
 import Text = Phaser.GameObjects.Text;
 import Sprite = Phaser.GameObjects.Sprite;
-import { SoundLoadingKey } from '../../../managers/sound-manager/constants.ts';
-import { SoundManager } from '../../../managers/sound-manager/SoundManager.ts';
-import { UiElement } from '../uiElement.ts';
 
 export const LOW_CLICK_SPEED = 100;
 export const FAST_CLICK_SPEED = 35;
@@ -93,7 +93,6 @@ export class Button extends UiElement {
 
   private handleControls() {
     this.isControlsEnabled = !this.isControlsEnabled;
-    console.log('this.isControlsEnabled = ' + this.isControlsEnabled);
   }
 
   private handleButtonDisable(immediately?: boolean) {
@@ -104,7 +103,6 @@ export class Button extends UiElement {
       return;
     }
 
-    console.log('handleButtonDisable');
     this.scene.add.tween({
       targets: this,
       duration: 150,
@@ -115,7 +113,6 @@ export class Button extends UiElement {
       ease: Phaser.Math.Easing.Expo.In,
       onComplete: () => {
         this.setVisible(this.isActive);
-        console.log('handleButtonDisable = ' + this.isActive);
       },
     });
   }
@@ -130,7 +127,6 @@ export class Button extends UiElement {
       ease: Phaser.Math.Easing.Expo.In,
       onComplete: () => {
         this.isActive = true;
-        console.log('handleButtonEnable = ' + this.isActive);
       },
     });
   }
@@ -138,7 +134,6 @@ export class Button extends UiElement {
   private handleTextUpdate(newText: string) {
     this.textField.setText(newText);
     this.onChangeButtonText();
-    console.log('handleTextUpdate = ' + newText);
   }
 
   private onChangeButtonText() {
@@ -168,8 +163,6 @@ export class Button extends UiElement {
     if (!this.isActive) {
       return;
     }
-
-    console.log('Click = ' + this.buttonName);
 
     this.scene.tweens.add({
       targets: this,
