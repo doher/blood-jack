@@ -1,11 +1,10 @@
 import { AnimationPlayingKey } from '../managers/animation-manager/AnimationManager.ts';
 import { AnimationLoadingKey } from '../managers/animation-manager/constants.ts';
 import { gameObjectFactory } from '../managers/game-object-factory/GameObjectFactory.ts';
-import { SoundLoadingKey } from '../managers/sound-manager/constants.ts';
-import { SoundManager } from '../managers/sound-manager/SoundManager.ts';
 import { SCREEN_HALF_H, SCREEN_HALF_W } from './constants.ts';
 
 export class Rain {
+  ///TODO recreate to container
   constructor(private scene: Phaser.Scene) {
     this.create();
   }
@@ -25,6 +24,6 @@ export class Rain {
     rain.setTint(11);
     rain.play(AnimationPlayingKey.RAIN_PLAY);
     ///TODO change to sound with lower effects of rain and more cycle
-    SoundManager.getInstance().play(SoundLoadingKey.RAIN, true, false, 0.3);
+    // SoundManager.getInstance().play(SoundLoadingKey.RAIN, true, false, 0.3);
   }
 }

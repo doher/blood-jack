@@ -136,6 +136,30 @@ export class Boot extends Scene {
           name: SoundLoadingKey.SHOP,
           url: '/assets/sounds/ui-controls/shop.wav',
         },
+        {
+          name: SoundLoadingKey.SHOP_BUY,
+          url: '/assets/sounds/shop/buy.wav',
+        },
+        {
+          name: SoundLoadingKey.SHOP_BUY_BAD,
+          url: '/assets/sounds/shop/buyBad.wav',
+        },
+        {
+          name: SoundLoadingKey.SHOP_BUY_SO_SO,
+          url: '/assets/sounds/shop/buySoSo.wav',
+        },
+        {
+          name: SoundLoadingKey.SHOP_BUY_GOOD,
+          url: '/assets/sounds/shop/buyGood.wav',
+        },
+        {
+          name: SoundLoadingKey.SHOP_TO_BALANCED,
+          url: '/assets/sounds/shop/toBalanced.wav',
+        },
+        {
+          name: SoundLoadingKey.SHOP_BALANCE_TEXT,
+          url: '/assets/sounds/shop/tone.wav',
+        },
       ],
       () => {
         this.afterLoadSounds();

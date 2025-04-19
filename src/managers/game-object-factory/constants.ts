@@ -43,6 +43,7 @@ export type TextDescription = GameObjectDescription & {
   stroke?: string;
   maxLines?: number;
   letterSpacing?: number;
+  lineSpacing?: number;
   text?: string;
 };
 

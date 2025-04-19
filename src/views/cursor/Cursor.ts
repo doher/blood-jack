@@ -2,6 +2,8 @@ import Sprite = Phaser.GameObjects.Sprite;
 import { ImageLoadingKey } from '../../managers/game-object-factory/imageConstants.ts';
 import { gameObjectFactory } from '../../managers/game-object-factory/GameObjectFactory.ts';
 import Container = Phaser.GameObjects.Container;
+import { SHADOW_TAG } from '../Shadow.ts';
+import GameObject = Phaser.GameObjects.GameObject;
 
 type AvailableCursorTexture =
   | ImageLoadingKey.CURSOR_CLICK
@@ -65,22 +67,27 @@ export class Cursor extends Container {
   }
 
   private setupEventListeners() {
-    this.scene.input.on('pointerdown', () => {
-      this.cursorHand.setTexture(ImageLoadingKey.CURSOR_CLICK);
+    this.scene.input.on('pointerdown', (_pointer, target) => {
+      this.changeCursorTexture(ImageLoadingKey.CURSOR_CLICK, target);
     });
 
-    this.scene.input.on('pointerup', () => {
+    this.scene.input.on('pointerup', (_pointer, target) => {
       if (this.isPointer) {
-        this.changeCursorTexture(ImageLoadingKey.CURSOR_POINT);
+        this.changeCursorTexture(ImageLoadingKey.CURSOR_POINT, target);
         return;
       }
-      this.changeCursorTexture(ImageLoadingKey.CURSOR_IDLE);
+      this.changeCursorTexture(ImageLoadingKey.CURSOR_IDLE, target);
     });
 
-    this.scene.input.on(Phaser.Input.Events.GAMEOBJECT_OVER, () => {
-      this.isPointer = true;
-      this.changeCursorTexture(ImageLoadingKey.CURSOR_POINT);
-    });
+    this.scene.input.on(
+      Phaser.Input.Events.GAMEOBJECT_OVER,
+      (_pointer, target) => {
+        this.isPointer = this.changeCursorTexture(
+          ImageLoadingKey.CURSOR_POINT,
+          target,
+        );
+      },
+    );
 
     this.scene.input.on(Phaser.Input.Events.GAMEOBJECT_OUT, () => {
       this.isPointer = false;
@@ -88,11 +95,20 @@ export class Cursor extends Container {
     });
   }
 
-  private changeCursorTexture(textureKey: AvailableCursorTexture) {
-    if (this.cursorHand.texture.key === textureKey) {
-      return;
+  private changeCursorTexture(
+    textureKey: AvailableCursorTexture,
+    target?: GameObject,
+  ) {
+    if (target?.name === SHADOW_TAG) {
+      return false;
     }
+
+    if (this.cursorHand.texture.key === textureKey) {
+      return false;
+    }
+
     this.cursorHand.setTexture(textureKey);
+    return true;
   }
 
   public handlePlayerMouse() {

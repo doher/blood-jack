@@ -11,6 +11,8 @@ import { SoundManager } from '../managers/sound-manager/SoundManager.ts';
 import { SCREEN_HALF_H, SCREEN_HALF_W } from '../views/constants.ts';
 import { Rain } from '../views/Rain.ts';
 import { SceneType } from './constants.ts';
+import { Cursor } from '../views/cursor/Cursor.ts';
+import { ShopUI } from '../actors/ShopUI.ts';
 
 export class MainGame extends Scene {
   private dealer: Dealer;
@@ -18,6 +20,8 @@ export class MainGame extends Scene {
   private blackjackManager: BlackjackManager;
 
   private playerUI: PlayerUI;
+
+  public cursor: Cursor;
 
   constructor() {
     super(SceneType.GAME);
@@ -34,6 +38,7 @@ export class MainGame extends Scene {
 
     new Rain(this);
 
+    ///TODO bring to background
     gameObjectFactory.createSprite(this, {
       key: AnimationLoadingKey.BACKGROUND_JAIL,
       position: {
@@ -46,6 +51,7 @@ export class MainGame extends Scene {
       },
     });
 
+    ///TODO bring to background
     gameObjectFactory.createSprite(this, {
       key: ImageLoadingKey.TABLE,
       position: {
@@ -72,13 +78,17 @@ export class MainGame extends Scene {
     ///TODO DEV MUTE
     // SoundManager.getInstance().muteAll();
 
-    this.playerUI = new PlayerUI(this);
+    this.playerUI = new PlayerUI(this); // create ui before create player
 
-    new Player(this, this.blackjackManager.blackjack);
+    new ShopUI(this);
+
+    this.cursor = new Cursor(this); // create cursor after all ui elements!!!
+
+    new Player(this, this.blackjackManager.blackjack); // create in last queue
   }
 
   public update() {
     this.dealer.handlePlayerCursor();
-    this.playerUI.cursor.handlePlayerMouse();
+    this.cursor.handlePlayerMouse();
   }
 }

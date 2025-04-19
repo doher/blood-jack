@@ -1,29 +1,27 @@
-import { UIEvent } from '../../actors/player-ui/PlayerUI.ts';
-import { EventBus } from '../../EventBus.ts';
+import { UI_Event } from '../constants.ts';
+import { EventBus } from '../../../EventBus.ts';
 import type {
   Position,
   Scale,
   TextDescription,
-} from '../../managers/game-object-factory/constants.ts';
-import { gameObjectFactory } from '../../managers/game-object-factory/GameObjectFactory.ts';
-import type { UiControlsFrame } from '../../managers/game-object-factory/imageConstants.ts';
-import { ImageLoadingKey } from '../../managers/game-object-factory/imageConstants.ts';
+} from '../../../managers/game-object-factory/constants.ts';
+import { gameObjectFactory } from '../../../managers/game-object-factory/GameObjectFactory.ts';
+import type { UiControlsFrame } from '../../../managers/game-object-factory/imageConstants.ts';
+import { ImageLoadingKey } from '../../../managers/game-object-factory/imageConstants.ts';
 
-import Container = Phaser.GameObjects.Container;
 import Text = Phaser.GameObjects.Text;
 import Sprite = Phaser.GameObjects.Sprite;
-import { SoundLoadingKey } from '../../managers/sound-manager/constants.ts';
-import { SoundManager } from '../../managers/sound-manager/SoundManager.ts';
+import { SoundLoadingKey } from '../../../managers/sound-manager/constants.ts';
+import { SoundManager } from '../../../managers/sound-manager/SoundManager.ts';
+import { UiElement } from '../uiElement.ts';
 
-export const LOW_CLICK_SPEED = 120;
+export const LOW_CLICK_SPEED = 100;
 export const FAST_CLICK_SPEED = 35;
 
-export class Button extends Container {
+export class Button extends UiElement {
   public background: Sprite;
 
   public textField: Text;
-
-  public isActive = true;
 
   public isControlsEnabled = true;
 
@@ -40,7 +38,7 @@ export class Button extends Container {
     private clickSound?: SoundLoadingKey,
     usePreFx?: boolean,
   ) {
-    super(scene, buttonPosition.x, buttonPosition.y);
+    super(scene, buttonPosition);
     this.create(textDescription, usePreFx);
     this.setupEventListeners();
   }
@@ -78,18 +76,18 @@ export class Button extends Container {
       .setInteractive()
       .on('pointerdown', () => this.onClickEffect());
 
-    EventBus.on(UIEvent.DISABLE_ALL_BUTTONS, this.handleControls, this);
+    EventBus.on(UI_Event.DISABLE_ALL_BUTTONS, this.handleControls, this);
 
     EventBus.on(
-      UIEvent.UPDATE_TEXT_AT_ELEMENT_ + this.buttonName,
+      UI_Event.UPDATE_TEXT_AT_ELEMENT_ + this.buttonName,
       this.handleTextUpdate,
       this,
     );
 
-    const disableEvent = UIEvent.DISABLE_BUTTON_ + this.buttonName;
+    const disableEvent = UI_Event.DISABLE_UI_ELEMENT_ + this.buttonName;
     EventBus.on(disableEvent, this.handleButtonDisable, this);
 
-    const enableEvent = UIEvent.ENABLE_BUTTON_ + this.buttonName;
+    const enableEvent = UI_Event.ENABLE_UI_ELEMENT_ + this.buttonName;
     EventBus.on(enableEvent, this.handleButtonEnable, this);
   }
 
@@ -98,16 +96,43 @@ export class Button extends Container {
     console.log('this.isControlsEnabled = ' + this.isControlsEnabled);
   }
 
-  private handleButtonDisable() {
+  private handleButtonDisable(immediately?: boolean) {
     this.isActive = false;
-    this.setVisible(this.isActive);
-    console.log('handleButtonDisable = ' + this.isActive);
+
+    if (immediately) {
+      this.setVisible(this.isActive);
+      return;
+    }
+
+    console.log('handleButtonDisable');
+    this.scene.add.tween({
+      targets: this,
+      duration: 150,
+      alpha: {
+        from: 1,
+        to: 0,
+      },
+      ease: Phaser.Math.Easing.Expo.In,
+      onComplete: () => {
+        this.setVisible(this.isActive);
+        console.log('handleButtonDisable = ' + this.isActive);
+      },
+    });
   }
 
   private handleButtonEnable() {
-    this.isActive = true;
-    this.setVisible(this.isActive);
-    console.log('handleButtonEnable = ' + this.isActive);
+    this.setVisible(true);
+
+    this.scene.add.tween({
+      targets: this,
+      duration: 150,
+      alpha: 1,
+      ease: Phaser.Math.Easing.Expo.In,
+      onComplete: () => {
+        this.isActive = true;
+        console.log('handleButtonEnable = ' + this.isActive);
+      },
+    });
   }
 
   private handleTextUpdate(newText: string) {
@@ -159,7 +184,9 @@ export class Button extends Container {
         if (this.clickSound) {
           SoundManager.getInstance().play(this.clickSound, false, true);
         }
-        EventBus.emit(this.buttonName);
+        this.scene.time.delayedCall(this.clickSpeed / 2, () =>
+          EventBus.emit(this.buttonName),
+        );
       },
       onComplete: () => {
         this.isClicked = false;

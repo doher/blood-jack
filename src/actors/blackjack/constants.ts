@@ -40,4 +40,8 @@ export const enum BlackjackEvents {
 }
 
 export const DEFAULT_BALANCE = 500;
+export const LAST_ROUND_BALANCE = 1000;
+
+export const BALANCES = [DEFAULT_BALANCE, LAST_ROUND_BALANCE];
+
 export const STAKE = 5;
