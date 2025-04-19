@@ -9,6 +9,15 @@ export const enum UiControlsFrame {
   GRAY_TEXT_BOX = 'textbox.png',
 }
 
+export const enum ShopFrame {
+  WEIGHT = 'weight.png',
+  BULLET_GREEN = 'bullet_green.png',
+  BULLET_RED = 'bullet_red.png',
+  BULLET_YELLOW = 'bullet_yellow.png',
+  BALANCED = 'balanced.png',
+  UNBALANCED = 'unbalanced.png',
+}
+
 export const enum ImageLoadingKey {
   CARD_FRONT = 'CARD_FRONT',
   CARD_BACK = 'CARD_BACK',
@@ -29,6 +38,8 @@ export const enum ImageLoadingKey {
   CURSOR_CLICK = 'CURSOR_CLICK',
   CURSOR_POINT = 'CURSOR_POINT',
   ARM = 'ARM',
+  UI_SHOP = 'UI_SHOP',
+  SHOP_BACKGROUND = 'SHOP_BACKGROUND',
 }
 
 export type ImageAsset = {
@@ -41,6 +52,11 @@ export const SPRITE_SHEET_LAYOUTS: SpriteSheetLoadingLayout[] = [
     key: ImageLoadingKey.UI_CONTROLS,
     imagePath: 'assets/images/ui-controls/',
     atlasDataPath: 'images/ui-controls/ui-controls.json',
+  },
+  {
+    key: ImageLoadingKey.UI_SHOP,
+    imagePath: 'assets/images/shop/',
+    atlasDataPath: 'images/shop/shop.json',
   },
 ];
 
@@ -116,5 +132,9 @@ export const IMAGE_LAYOUTS: ImageAsset[] = [
   {
     key: ImageLoadingKey.ARM,
     imagePath: 'images/cursor/arm.png',
+  },
+  {
+    key: ImageLoadingKey.SHOP_BACKGROUND,
+    imagePath: 'images/shop/shop-background.png',
   },
 ];

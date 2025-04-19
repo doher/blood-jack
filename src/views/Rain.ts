@@ -6,6 +6,7 @@ import { SoundManager } from '../managers/sound-manager/SoundManager.ts';
 import { SCREEN_HALF_H, SCREEN_HALF_W } from './constants.ts';
 
 export class Rain {
+  ///TODO recreate to container
   constructor(private scene: Phaser.Scene) {
     this.create();
   }

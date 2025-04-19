@@ -1,13 +1,20 @@
 import { EventBus } from '../EventBus.ts';
 import type { Blackjack } from './blackjack/Blackjack.ts';
 import {
+  BALANCES,
   BlackjackEvents,
   DEFAULT_BALANCE,
   STAKE,
 } from './blackjack/constants.ts';
-import { UIElementName, UIEvent } from './player-ui/PlayerUI.ts';
+import { UIElementName, UI_Event } from '../views/ui/constants.ts';
+import { SCALES_COSTS } from '../scenes/gameConstants.ts';
+import { ShopEvent, ShopEvents } from '../views/shop-view/constants.ts';
+
+const RUSSIAN_ROULETTE_ROUND = 2;
 
 export class Player {
+  public currentRoundIndex = -1;
+
   constructor(
     private scene: Phaser.Scene,
     private blackjack: Blackjack,
@@ -17,9 +24,32 @@ export class Player {
   }
 
   private initRound() {
-    EventBus.emit(UIEvent.DISABLE_BUTTON_ + UIElementName.HIT);
-    EventBus.emit(UIEvent.DISABLE_BUTTON_ + UIElementName.DOUBLE);
-    EventBus.emit(UIEvent.DISABLE_BUTTON_ + UIElementName.STAND);
+    this.currentRoundIndex += 1;
+
+    if (this.currentRoundIndex === RUSSIAN_ROULETTE_ROUND) {
+      console.log('RUSSIAN_ROULETTE_ROUND START');
+      return;
+    }
+
+    const needToResetShop = this.currentRoundIndex === 1;
+    if (needToResetShop) {
+      EventBus.emit(ShopEvent.RESET_SHOP);
+    }
+
+    EventBus.emit(
+      UI_Event.ENABLE_UI_ELEMENT_ + UIElementName.INCREASE_STAKE,
+      this,
+    );
+    EventBus.emit(
+      UI_Event.ENABLE_UI_ELEMENT_ + UIElementName.DECREASE_STAKE,
+      this,
+    );
+    EventBus.emit(UI_Event.ENABLE_UI_ELEMENT_ + UIElementName.DEAL, this);
+    EventBus.emit(UI_Event.ENABLE_UI_ELEMENT_ + UIElementName.ALL_IN, this);
+
+    EventBus.emit(UI_Event.DISABLE_UI_ELEMENT_ + UIElementName.HIT, this);
+    EventBus.emit(UI_Event.DISABLE_UI_ELEMENT_ + UIElementName.DOUBLE, this);
+    EventBus.emit(UI_Event.DISABLE_UI_ELEMENT_ + UIElementName.STAND, this);
 
     this.scene.time.delayedCall(50, () => {
       this.updateLabels();
@@ -35,12 +65,21 @@ export class Player {
     EventBus.on(UIElementName.HIT, this.handleHitButton, this);
     EventBus.on(UIElementName.STAND, this.handleStandButton, this);
     EventBus.on(UIElementName.DOUBLE, this.handleDoubleButton, this);
+
+    EventBus.on(ShopEvent.SET_NEXT_ROUND, this.initRound, this);
   }
 
   private updateLabels() {
-    this.updateBalanceLabel(UIElementName.PLAYER_BALANCE, DEFAULT_BALANCE);
-    this.updateBalanceLabel(UIElementName.DEALER_BALANCE, DEFAULT_BALANCE);
+    this.updateBalanceLabel(
+      UIElementName.PLAYER_BALANCE,
+      BALANCES[this.currentRoundIndex],
+    );
+    this.updateBalanceLabel(
+      UIElementName.DEALER_BALANCE,
+      BALANCES[this.currentRoundIndex],
+    );
     this.updateDealText(STAKE);
+    this.updateShopPrices();
   }
 
   private updateBalanceLabel(
@@ -48,7 +87,7 @@ export class Player {
     newBalance: number,
   ) {
     EventBus.emit(
-      UIEvent.UPDATE_TEXT_AT_ELEMENT_ + balanceLabel,
+      UI_Event.UPDATE_TEXT_AT_ELEMENT_ + balanceLabel,
       `\$${newBalance}`,
     );
   }
@@ -57,9 +96,26 @@ export class Player {
     const newDealText = `DEAL \n${newDeal}$`;
 
     EventBus.emit(
-      UIEvent.UPDATE_TEXT_AT_ELEMENT_ + UIElementName.DEAL,
+      UI_Event.UPDATE_TEXT_AT_ELEMENT_ + UIElementName.DEAL,
       newDealText,
     );
+  }
+
+  private updateShopPrices() {
+    const getCurrentRoundScalesPrices = SCALES_COSTS[this.currentRoundIndex];
+
+    const scaleBalancedNames = [
+      UIElementName.SHOP_BUY_BAD,
+      UIElementName.SHOP_BUY_SO_SO,
+      UIElementName.SHOP_BUY_GOOD,
+    ];
+
+    getCurrentRoundScalesPrices.forEach((RoundScalePrice, index) => {
+      EventBus.emit(
+        UI_Event.UPDATE_TEXT_AT_ELEMENT_ + scaleBalancedNames[index],
+        `BALANCE\n${RoundScalePrice}$`,
+      );
+    });
   }
 
   private handleDecreaseButton() {
@@ -78,16 +134,16 @@ export class Player {
   }
 
   private handleDealButton() {
-    EventBus.emit(UIEvent.DISABLE_BUTTON_ + UIElementName.DEAL);
-    EventBus.emit(UIEvent.DISABLE_BUTTON_ + UIElementName.DECREASE_STAKE);
-    EventBus.emit(UIEvent.DISABLE_BUTTON_ + UIElementName.INCREASE_STAKE);
-    EventBus.emit(UIEvent.DISABLE_BUTTON_ + UIElementName.ALL_IN);
+    EventBus.emit(UI_Event.DISABLE_UI_ELEMENT_ + UIElementName.DEAL);
+    EventBus.emit(UI_Event.DISABLE_UI_ELEMENT_ + UIElementName.DECREASE_STAKE);
+    EventBus.emit(UI_Event.DISABLE_UI_ELEMENT_ + UIElementName.INCREASE_STAKE);
+    EventBus.emit(UI_Event.DISABLE_UI_ELEMENT_ + UIElementName.ALL_IN);
 
     EventBus.emit(BlackjackEvents.DEAL);
 
-    EventBus.emit(UIEvent.ENABLE_BUTTON_ + UIElementName.HIT);
-    EventBus.emit(UIEvent.ENABLE_BUTTON_ + UIElementName.DOUBLE);
-    EventBus.emit(UIEvent.ENABLE_BUTTON_ + UIElementName.STAND);
+    EventBus.emit(UI_Event.ENABLE_UI_ELEMENT_ + UIElementName.HIT);
+    EventBus.emit(UI_Event.ENABLE_UI_ELEMENT_ + UIElementName.DOUBLE);
+    EventBus.emit(UI_Event.ENABLE_UI_ELEMENT_ + UIElementName.STAND);
   }
 
   private handleHitButton() {

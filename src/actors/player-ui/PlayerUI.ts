@@ -3,9 +3,9 @@ import {
   Button,
   FAST_CLICK_SPEED,
   LOW_CLICK_SPEED,
-} from '../../views/button/button.ts';
+} from '../../views/ui/button/button.ts';
 import { SCREEN_HALF_H, SCREEN_HALF_W } from '../../views/constants.ts';
-import { Label } from '../../views/label/label.ts';
+import { Label } from '../../views/ui/label/label.ts';
 import {
   ALL_IN_BUTTON_POSITION,
   DEALER_BALANCE_POSITION,
@@ -19,27 +19,9 @@ import {
 } from './constants.ts';
 import { SoundLoadingKey } from '../../managers/sound-manager/constants.ts';
 import Container = Phaser.GameObjects.Container;
-import { Cursor } from '../../views/cursor/Cursor.ts';
-
-export const enum UIEvent {
-  DISABLE_ALL_BUTTONS = 'UIEvent_DISABLE_ALL_BUTTONS',
-  DISABLE_BUTTON_ = 'UIEvent_DISABLE_BUTTON_',
-  ENABLE_BUTTON_ = 'UIEvent_ENABLE_BUTTON_',
-  UPDATE_TEXT_AT_ELEMENT_ = 'UIEvent_UPDATE_TEXT_AT_ELEMENT_',
-}
-
-export const enum UIElementName {
-  DEAL = 'UIElementName_DEAL',
-  DECREASE_STAKE = 'UIElementName_DECREASE_STAKE',
-  INCREASE_STAKE = 'UIElementName_INCREASE_STAKE',
-  ALL_IN = 'UIElementName_ALL_IN',
-  STAND = 'UIElementName_STAND',
-  DOUBLE = 'UIElementName_DOUBLE',
-  HIT = 'UIElementName_HIT',
-  SHOP = 'UIElementName_SHOP',
-  PLAYER_BALANCE = 'UIElementName_PLAYER_BALANCE',
-  DEALER_BALANCE = 'UIElementName_DEALER_BALANCE',
-}
+import { UI_Event, UIElementName } from '../../views/ui/constants.ts';
+import { EventBus } from '../../EventBus.ts';
+import { UiElement } from '../../views/ui/uiElement.ts';
 
 export class PlayerUI extends Container {
   public deal: Button;
@@ -62,12 +44,12 @@ export class PlayerUI extends Container {
 
   public dealerBalance: Label;
 
-  public cursor: Cursor;
+  private baseUIElements: UiElement[] = [];
 
   constructor(public scene: Phaser.Scene) {
     super(scene, SCREEN_HALF_W, SCREEN_HALF_H);
     this.create();
-    this.createCursor();
+    this.setupEventListeners();
   }
 
   private create() {
@@ -328,7 +310,7 @@ export class PlayerUI extends Container {
       },
     );
 
-    this.add([
+    const elements: UiElement[] = [
       this.deal,
       this.decreaseStake,
       this.allin,
@@ -339,12 +321,32 @@ export class PlayerUI extends Container {
       this.shop,
       this.playerBalance,
       this.dealerBalance,
-    ]);
+    ];
+
+    this.add([...elements]);
+    this.baseUIElements.push(...elements);
 
     this.scene.add.existing(this);
   }
 
-  private createCursor() {
-    this.cursor = new Cursor(this.scene);
+  private setupEventListeners() {
+    EventBus.on(UI_Event.HIDE_BASE_UI, this.handleHideBaseUI, this);
+    EventBus.on(UI_Event.SHOW_BASE_UI, this.handleShowBaseUI, this);
+  }
+
+  private handleHideBaseUI() {
+    this.baseUIElements.forEach((baseUIElement) => {
+      if (baseUIElement.isActive) {
+        baseUIElement.setVisible(false);
+      }
+    });
+  }
+
+  private handleShowBaseUI() {
+    this.baseUIElements.forEach((baseUIElement) => {
+      if (baseUIElement.isActive) {
+        baseUIElement.setVisible(true);
+      }
+    });
   }
 }
