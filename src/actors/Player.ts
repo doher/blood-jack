@@ -1,7 +1,7 @@
 import { EventBus } from '../EventBus.ts';
 import { SCALES_COSTS } from '../scenes/gameConstants.ts';
 import { ShopEvent } from '../views/shop-view/constants.ts';
-import { RouletteEvent } from './roulette/constants.ts';
+import { RouletteUI } from './roulette/RouletteUI.ts';
 import { UIElementName, UI_Event } from '../views/ui/constants.ts';
 import type { Blackjack } from './blackjack/Blackjack.ts';
 import { BALANCES, BlackjackEvents, STAKE } from './blackjack/constants.ts';
@@ -13,9 +13,12 @@ export class Player {
 
   public playerBullets: number[] = [0, 1]; /// TODO ONLY DEV, need to be empty
 
+  public dealerBullets: number[] = [0, 1]; /// TODO ONLY DEV, need to be empty
+
   constructor(
     private scene: Phaser.Scene,
     private blackjack: Blackjack,
+    private rouletteUI: RouletteUI,
   ) {
     this.setupEventListeners();
     this.initRound();
@@ -34,6 +37,7 @@ export class Player {
     if (this.currentRoundIndex === RUSSIAN_ROULETTE_ROUND) {
       console.log('RUSSIAN_ROULETTE_ROUND START');
       this.initRouletteRound();
+
       return;
     }
 
@@ -65,7 +69,7 @@ export class Player {
   private initRouletteRound() {
     EventBus.emit(UI_Event.HIDE_BASE_UI, this);
     /// TODO dealer talk about REZNYA!!!!
-    EventBus.emit(RouletteEvent.SHOW_ROULETTE_SCREEN, this.playerBullets);
+    this.rouletteUI.show(this.playerBullets, this.dealerBullets);
   }
 
   private setupEventListeners() {

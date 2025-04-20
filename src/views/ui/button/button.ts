@@ -95,7 +95,7 @@ export class Button extends UiElement {
     this.isControlsEnabled = !this.isControlsEnabled;
   }
 
-  private handleButtonDisable(immediately?: boolean) {
+  public handleButtonDisable(immediately?: boolean) {
     this.isActive = false;
 
     if (immediately) {
@@ -117,7 +117,7 @@ export class Button extends UiElement {
     });
   }
 
-  private handleButtonEnable() {
+  public handleButtonEnable() {
     this.setVisible(true);
 
     this.scene.add.tween({

@@ -1,11 +1,6 @@
-import { RouletteEvent } from './constants.ts';
-import { EventBus } from '../../EventBus.ts';
 import { RouletteView } from '../../views/roullete-view/RouletteView.ts';
-import {
-  RouletteFrame,
-  ShopFrame,
-} from '../../managers/game-object-factory/imageConstants.ts';
-import { ShopBulletsType } from '../../views/shop-view/BulletsSideView.ts';
+import { RouletteFrame } from '../../managers/game-object-factory/imageConstants.ts';
+import type { Blackjack } from '../blackjack/Blackjack.ts';
 
 export const enum RouletteBulletsType {
   RED = RouletteFrame.ROULETTE_BULLET_RED,
@@ -34,28 +29,39 @@ export const SCALE_TYPES = [
 export class RouletteUI {
   public rouletteView: RouletteView;
 
-  constructor(private scene: Phaser.Scene) {
+  constructor(
+    private scene: Phaser.Scene,
+    private blackjack: Blackjack,
+  ) {
     this.create();
     this.setupEventListeners();
   }
 
   private create() {
-    this.rouletteView = new RouletteView(this.scene);
+    this.rouletteView = new RouletteView(this.scene, this.blackjack);
+    this.rouletteView.setVisible(false);
   }
 
-  private setupEventListeners() {
-    EventBus.on(RouletteEvent.SHOW_ROULETTE_SCREEN, this.show, this);
-  }
+  private setupEventListeners() {}
 
-  private show(playerBullets: number[]) {
+  public show(playerBullets: number[], dealerBullets: number[]) {
+    this.rouletteView.setVisible(true);
+
     const bulletsFromFirstRound = 0;
     const bulletsFromSecondRound = 1;
 
     const playerBulletsFrames: RouletteBulletsType[] = [
+      RouletteBulletsType.YELLOW,
       ...SCALE_TYPES[playerBullets[bulletsFromFirstRound]],
       ...SCALE_TYPES[playerBullets[bulletsFromSecondRound]],
     ];
 
-    this.rouletteView.show(playerBulletsFrames);
+    const dealerBulletsFrames: RouletteBulletsType[] = [
+      RouletteBulletsType.YELLOW,
+      ...SCALE_TYPES[playerBullets[bulletsFromFirstRound]],
+      ...SCALE_TYPES[playerBullets[bulletsFromSecondRound]],
+    ];
+
+    this.rouletteView.show(playerBulletsFrames, dealerBulletsFrames);
   }
 }

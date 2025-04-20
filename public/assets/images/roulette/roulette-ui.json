@@ -4,8 +4,8 @@
 			"image": "roulette-ui.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 624,
-				"h": 2027
+				"w": 2024,
+				"h": 624
 			},
 			"scale": 1,
 			"frames": [
@@ -45,8 +45,8 @@
 						"h": 622
 					},
 					"frame": {
-						"x": 1,
-						"y": 625,
+						"x": 625,
+						"y": 1,
 						"w": 622,
 						"h": 622
 					}
@@ -66,8 +66,8 @@
 						"h": 622
 					},
 					"frame": {
-						"x": 1,
-						"y": 1249,
+						"x": 1249,
+						"y": 1,
 						"w": 622,
 						"h": 622
 					}
@@ -75,22 +75,22 @@
 				{
 					"filename": "drum.png",
 					"rotated": false,
-					"trimmed": true,
+					"trimmed": false,
 					"sourceSize": {
-						"w": 201,
-						"h": 202
+						"w": 150,
+						"h": 151
 					},
 					"spriteSourceSize": {
-						"x": 22,
-						"y": 27,
-						"w": 154,
-						"h": 153
+						"x": 0,
+						"y": 0,
+						"w": 150,
+						"h": 151
 					},
 					"frame": {
-						"x": 1,
-						"y": 1873,
-						"w": 154,
-						"h": 153
+						"x": 1873,
+						"y": 1,
+						"w": 150,
+						"h": 151
 					}
 				}
 			]
@@ -99,6 +99,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:f529aabc2f2819d999771b736ed2fee2:49d27ee6785be08c277fe795f49cba63:0e6f90259d2c4d1ea12e35431f6e01b8$"
+		"smartupdate": "$TexturePacker:SmartUpdate:00527216189fa4a1f6a5eae75a763ceb:a7fda939d88d0b33fa0faed82310c44f:0e6f90259d2c4d1ea12e35431f6e01b8$"
 	}
 }

@@ -1,8 +1,5 @@
-import { DragElement } from '../DragElement.ts';
-import {
-  ImageLoadingKey,
-  RouletteFrame,
-} from '../../managers/game-object-factory/imageConstants.ts';
+import { DragElement } from '../drag-element/DragElement.ts';
+import { ImageLoadingKey } from '../../managers/game-object-factory/imageConstants.ts';
 import { RouletteBulletsType } from '../../actors/roulette/RouletteUI.ts';
 import { Position } from '../../managers/game-object-factory/constants.ts';
 import Container = Phaser.GameObjects.Container;
@@ -13,6 +10,7 @@ export class DragBullet extends DragElement {
     private slots: Phaser.GameObjects.Arc[],
     frame: RouletteBulletsType,
     position: Position,
+    private firstParentContainer: Container,
     newContainerIfDragComplete: Container,
   ) {
     super(
@@ -21,6 +19,7 @@ export class DragBullet extends DragElement {
       ImageLoadingKey.ROULETTE_UI,
       frame,
       position,
+      firstParentContainer,
       newContainerIfDragComplete,
     );
   }

@@ -5,7 +5,10 @@ import Container = Phaser.GameObjects.Container;
 export const SHADOW_TAG = 'SHADOW';
 
 export class Shadow extends Container {
-  constructor(private scene: Phaser.Scene) {
+  constructor(
+    private scene: Phaser.Scene,
+    private fillAlpha: number = 0.95,
+  ) {
     super(scene, -SCREEN_HALF_W, -SCREEN_HALF_H);
     this.create();
   }
@@ -18,7 +21,7 @@ export class Shadow extends Container {
         this.scene.cameras.main.width,
         this.scene.cameras.main.height,
         0x000000,
-        0.95,
+        this.fillAlpha,
       )
       .setOrigin(0)
       .setDepth(9999)

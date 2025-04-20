@@ -25,4 +25,5 @@ export const enum UIElementName {
   SHOP_BUY_BAD = 'UIElementName_SHOP_BUY_BAD',
   SHOP_BUY_SO_SO = 'UIElementName_SHOP_BUY_SHOP_SHOP_BUY_SO_SO',
   SHOP_BUY_GOOD = 'UIElementName_SHOP_BUY_GOOD',
+  ROULETTE_SHOOT = 'UIElementName_ROULETTE_SHOOT',
 }

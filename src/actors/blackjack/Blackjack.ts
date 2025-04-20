@@ -29,7 +29,6 @@ export class Blackjack extends Container {
   private readonly playerHand: Hand;
 
   private readonly dealerHand: Hand;
-
   constructor(
     public scene: Phaser.Scene,
     numberOfDecks: number = 1,

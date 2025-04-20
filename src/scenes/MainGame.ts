@@ -85,16 +85,16 @@ export class MainGame extends Scene {
 
     new ShopUI(this);
 
-    this.rouletteUI = new RouletteUI(this);
+    this.rouletteUI = new RouletteUI(this, this.blackjackManager.blackjack);
 
     this.cursor = new Cursor(this); // create cursor after all ui elements!!!
 
-    new Player(this, this.blackjackManager.blackjack); // create in last queue
+    new Player(this, this.blackjackManager.blackjack, this.rouletteUI); // create in last queue
   }
 
   public update() {
     this.dealer.handlePlayerCursor();
     this.cursor.handlePlayerMouse();
-    this.rouletteUI.rouletteView.drum.handleDrumRotateByPlayer();
+    this.rouletteUI.rouletteView.revolverCylinder.handleDrumRotateByPlayer();
   }
 }
