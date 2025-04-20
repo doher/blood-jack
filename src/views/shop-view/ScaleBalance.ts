@@ -1,9 +1,9 @@
+import type { Blackjack } from '../../actors/blackjack/Blackjack.ts';
 import { EventBus } from '../../EventBus.ts';
 import type {
   Position,
   Scale,
 } from '../../managers/game-object-factory/constants.ts';
-
 import { gameObjectFactory } from '../../managers/game-object-factory/GameObjectFactory.ts';
 import {
   ImageLoadingKey,
@@ -11,14 +11,16 @@ import {
 } from '../../managers/game-object-factory/imageConstants.ts';
 import { SoundLoadingKey } from '../../managers/sound-manager/constants.ts';
 import { SoundManager } from '../../managers/sound-manager/SoundManager.ts';
+import { SCALES_COSTS } from '../../scenes/gameConstants.ts';
+import { MainGame } from '../../scenes/MainGame.ts';
 import { SCREEN_HALF_H, SCREEN_HALF_W } from '../constants.ts';
 import { UI_Event, UIElementName } from '../ui/constants.ts';
 import type { ShopBulletsType } from './BulletsSideView.ts';
 import { BulletsSideView } from './BulletsSideView.ts';
 import { ShopEvent } from './constants.ts';
 import { Weights } from './Weights.ts';
-import Text = Phaser.GameObjects.Text;
 
+import Text = Phaser.GameObjects.Text;
 import Sprite = Phaser.GameObjects.Sprite;
 import Container = Phaser.GameObjects.Container;
 
@@ -62,6 +64,7 @@ export class ScaleBalance extends Container {
     private bulletsType: ShopBulletsType[],
     private indexScaleBalance: number,
     private triggerEvent: UIElementName,
+    private blackjack: Blackjack,
   ) {
     super(scene, position.x, position.y);
     this.create();
@@ -181,7 +184,13 @@ export class ScaleBalance extends Container {
     EventBus.emit(UI_Event.DISABLE_UI_ELEMENT_ + UIElementName.SHOP_BACK);
 
     EventBus.emit(UI_Event.ENABLE_UI_ELEMENT_ + UIElementName.SHOP_CANCEL);
-    EventBus.emit(UI_Event.ENABLE_UI_ELEMENT_ + UIElementName.SHOP_SUBMIT);
+
+    if (
+      this.blackjack.playerBalance.value >=
+      SCALES_COSTS[MainGame.currentRoundIndex][this.indexScaleBalance]
+    ) {
+      EventBus.emit(UI_Event.ENABLE_UI_ELEMENT_ + UIElementName.SHOP_SUBMIT);
+    }
 
     this.balanceBackground.setTint(0x66ff33);
 
@@ -205,10 +214,12 @@ export class ScaleBalance extends Container {
   private handleSubmit() {
     if (this.isSelected) {
       this.isSelected = false;
+
       EventBus.emit(
         UI_Event.DISABLE_UI_ELEMENT_ + UIElementName.SHOP_CANCEL,
         true,
       );
+
       EventBus.emit(
         UI_Event.DISABLE_UI_ELEMENT_ + UIElementName.SHOP_SUBMIT,
         true,
@@ -221,6 +232,7 @@ export class ScaleBalance extends Container {
       this.scene.time.delayedCall(300, () => {
         this.congratulationsEffect();
       });
+
       return;
     }
 

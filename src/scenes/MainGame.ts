@@ -15,13 +15,13 @@ import { Rain } from '../views/Rain.ts';
 import { SceneType } from './constants.ts';
 
 export class MainGame extends Scene {
+  public static currentRoundIndex = -1;
+
+  public cursor: Cursor;
+
   private dealer: Dealer;
 
   private blackjackManager: BlackjackManager;
-
-  private playerUI: PlayerUI;
-
-  public cursor: Cursor;
 
   constructor() {
     super(SceneType.GAME);
@@ -78,9 +78,9 @@ export class MainGame extends Scene {
     ///TODO DEV MUTE
     // SoundManager.getInstance().muteAll();
 
-    this.playerUI = new PlayerUI(this); // create ui before create player
+    new PlayerUI(this); // create ui before create player
 
-    new ShopUI(this);
+    new ShopUI(this, this.blackjackManager.blackjack);
 
     this.cursor = new Cursor(this); // create cursor after all ui elements!!!
 

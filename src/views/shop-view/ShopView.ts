@@ -1,3 +1,4 @@
+import type { Blackjack } from '../../actors/blackjack/Blackjack.ts';
 import { EventBus } from '../../EventBus.ts';
 import { gameObjectFactory } from '../../managers/game-object-factory/GameObjectFactory.ts';
 import {
@@ -6,11 +7,10 @@ import {
 } from '../../managers/game-object-factory/imageConstants.ts';
 import { SoundLoadingKey } from '../../managers/sound-manager/constants.ts';
 import { SCREEN_HALF_H, SCREEN_HALF_W } from '../constants.ts';
-import type { Shadow } from '../Shadow.ts';
 import { SHADOW_TAG } from '../Shadow.ts';
-import { Button, LOW_CLICK_SPEED } from '../ui/button/button.ts';
+import { Button, LOW_CLICK_SPEED } from '../ui/button/Button.ts';
 import { UIElementName } from '../ui/constants.ts';
-import { Label } from '../ui/label/label.ts';
+import { Label } from '../ui/label/Label.ts';
 import { ShopBulletsType } from './BulletsSideView.ts';
 import {
   INFO_BULLET_START_POSITION,
@@ -72,8 +72,6 @@ const INFO_LABELS_TYPES: InfoLabelType[] = [
 ];
 
 export class ShopView extends Container {
-  private shadow: Shadow;
-
   private scaleBalances: ScaleBalance[] = [];
 
   private backButton: Button;
@@ -90,16 +88,16 @@ export class ShopView extends Container {
 
   private helpText: Phaser.GameObjects.Text;
 
-  constructor(public scene: Phaser.Scene) {
+  constructor(
+    public scene: Phaser.Scene,
+    private blackjack: Blackjack,
+  ) {
     super(scene, SCREEN_HALF_W, SCREEN_HALF_H);
     this.create();
     this.setupEventListeners();
   }
 
   private create() {
-    // this.shadow = new Shadow(this.scene);
-    // this.add(this.shadow);
-
     this.createBackground();
 
     SCALE_TYPES.forEach((scaleType, index) => {
@@ -114,6 +112,7 @@ export class ShopView extends Container {
         scaleType,
         index,
         triggerEvent,
+        this.blackjack,
       );
       this.add(scaleBalance);
       this.scaleBalances.push(scaleBalance);

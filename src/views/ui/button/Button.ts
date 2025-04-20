@@ -10,9 +10,8 @@ import { ImageLoadingKey } from '../../../managers/game-object-factory/imageCons
 import type { SoundLoadingKey } from '../../../managers/sound-manager/constants.ts';
 import { SoundManager } from '../../../managers/sound-manager/SoundManager.ts';
 import { UI_Event } from '../constants.ts';
-import { UiElement } from '../uiElement.ts';
+import { UiElement } from '../UiElement.ts';
 
-import Text = Phaser.GameObjects.Text;
 import Sprite = Phaser.GameObjects.Sprite;
 
 export const LOW_CLICK_SPEED = 100;
@@ -20,8 +19,6 @@ export const FAST_CLICK_SPEED = 35;
 
 export class Button extends UiElement {
   public background: Sprite;
-
-  public textField: Text;
 
   public isControlsEnabled = true;
 
@@ -85,77 +82,17 @@ export class Button extends UiElement {
     );
 
     const disableEvent = UI_Event.DISABLE_UI_ELEMENT_ + this.buttonName;
-    EventBus.on(disableEvent, this.handleButtonDisable, this);
+    EventBus.on(disableEvent, this.handleDisable, this);
 
     const enableEvent = UI_Event.ENABLE_UI_ELEMENT_ + this.buttonName;
-    EventBus.on(enableEvent, this.handleButtonEnable, this);
+    EventBus.on(enableEvent, this.handleEnable, this);
   }
 
   private handleControls() {
     this.isControlsEnabled = !this.isControlsEnabled;
   }
 
-  private handleButtonDisable(immediately?: boolean) {
-    this.isActive = false;
-
-    if (immediately) {
-      this.setVisible(this.isActive);
-      return;
-    }
-
-    this.scene.add.tween({
-      targets: this,
-      duration: 150,
-      alpha: {
-        from: 1,
-        to: 0,
-      },
-      ease: Phaser.Math.Easing.Expo.In,
-      onComplete: () => {
-        this.setVisible(this.isActive);
-      },
-    });
-  }
-
-  private handleButtonEnable() {
-    this.setVisible(true);
-
-    this.scene.add.tween({
-      targets: this,
-      duration: 150,
-      alpha: 1,
-      ease: Phaser.Math.Easing.Expo.In,
-      onComplete: () => {
-        this.isActive = true;
-      },
-    });
-  }
-
-  private handleTextUpdate(newText: string) {
-    this.textField.setText(newText);
-    this.onChangeButtonText();
-  }
-
-  private onChangeButtonText() {
-    this.scene.tweens.add({
-      targets: this.textField,
-      scale: {
-        from: 1,
-        to: 1.1,
-      },
-      ease: Phaser.Math.Easing.Cubic.InOut,
-      yoyo: true,
-      duration: 100,
-    });
-  }
-
   private onClickEffect() {
-    if (this.isClicked) {
-      return;
-    }
-
-    this.isClicked = true;
-
     if (!this.isControlsEnabled) {
       return;
     }
@@ -163,6 +100,12 @@ export class Button extends UiElement {
     if (!this.isActive) {
       return;
     }
+
+    if (this.isClicked) {
+      return;
+    }
+
+    this.isClicked = true;
 
     this.scene.tweens.add({
       targets: this,
