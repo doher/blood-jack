@@ -1,5 +1,6 @@
-import Container = Phaser.GameObjects.Container;
 import type { Position } from '../../managers/game-object-factory/constants.ts';
+
+import Container = Phaser.GameObjects.Container;
 
 export class UiElement extends Container {
   public isActive = true;

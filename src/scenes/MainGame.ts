@@ -2,6 +2,7 @@ import { Scene } from 'phaser';
 import { Dealer } from '../actors/dealer/Dealer.ts';
 import { PlayerUI } from '../actors/player-ui/PlayerUI.ts';
 import { Player } from '../actors/Player.ts';
+import { ShopUI } from '../actors/ShopUI.ts';
 import { AnimationPlayingKey } from '../managers/animation-manager/AnimationManager.ts';
 import { AnimationLoadingKey } from '../managers/animation-manager/constants.ts';
 import { BlackjackManager } from '../managers/blackjack-score-manager/BlackjackManager.ts';
@@ -9,10 +10,9 @@ import { gameObjectFactory } from '../managers/game-object-factory/GameObjectFac
 import { ImageLoadingKey } from '../managers/game-object-factory/imageConstants.ts';
 import { SoundManager } from '../managers/sound-manager/SoundManager.ts';
 import { SCREEN_HALF_H, SCREEN_HALF_W } from '../views/constants.ts';
+import { Cursor } from '../views/cursor/Cursor.ts';
 import { Rain } from '../views/Rain.ts';
 import { SceneType } from './constants.ts';
-import { Cursor } from '../views/cursor/Cursor.ts';
-import { ShopUI } from '../actors/ShopUI.ts';
 import { RouletteUI } from '../actors/roulette/RouletteUI.ts';
 
 export class MainGame extends Scene {

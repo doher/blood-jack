@@ -1,10 +1,11 @@
-import Container = Phaser.GameObjects.Container;
-import Sprite = Phaser.GameObjects.Sprite;
 import { gameObjectFactory } from '../../managers/game-object-factory/GameObjectFactory.ts';
 import {
   ImageLoadingKey,
   ShopFrame,
 } from '../../managers/game-object-factory/imageConstants.ts';
+
+import Container = Phaser.GameObjects.Container;
+import Sprite = Phaser.GameObjects.Sprite;
 
 export const enum ShopBulletsType {
   RED = ShopFrame.BULLET_RED,
@@ -19,7 +20,7 @@ export class BulletsSideView extends Container {
   private bullets: Sprite[] = [];
 
   constructor(
-    private scene: Phaser.Scene,
+    public scene: Phaser.Scene,
     private bulletTypes: ShopBulletsType[],
   ) {
     super(scene, 0, 0);

@@ -1,11 +1,15 @@
+import { EventBus } from '../../EventBus.ts';
 import { UiControlsFrame } from '../../managers/game-object-factory/imageConstants.ts';
+import { SoundLoadingKey } from '../../managers/sound-manager/constants.ts';
+import { SCREEN_HALF_H, SCREEN_HALF_W } from '../../views/constants.ts';
 import {
   Button,
   FAST_CLICK_SPEED,
   LOW_CLICK_SPEED,
 } from '../../views/ui/button/button.ts';
-import { SCREEN_HALF_H, SCREEN_HALF_W } from '../../views/constants.ts';
+import { UI_Event, UIElementName } from '../../views/ui/constants.ts';
 import { Label } from '../../views/ui/label/label.ts';
+import type { UiElement } from '../../views/ui/uiElement.ts';
 import {
   ALL_IN_BUTTON_POSITION,
   DEALER_BALANCE_POSITION,
@@ -17,11 +21,8 @@ import {
   SHOP_BUTTON_POSITION,
   STAND_BUTTON_POSITION,
 } from './constants.ts';
-import { SoundLoadingKey } from '../../managers/sound-manager/constants.ts';
+
 import Container = Phaser.GameObjects.Container;
-import { UI_Event, UIElementName } from '../../views/ui/constants.ts';
-import { EventBus } from '../../EventBus.ts';
-import { UiElement } from '../../views/ui/uiElement.ts';
 
 export class PlayerUI extends Container {
   public deal: Button;

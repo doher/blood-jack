@@ -1,4 +1,3 @@
-import { UI_Event } from '../constants.ts';
 import { EventBus } from '../../../EventBus.ts';
 import type {
   Position,
@@ -8,10 +7,11 @@ import type {
 import { gameObjectFactory } from '../../../managers/game-object-factory/GameObjectFactory.ts';
 import type { UiControlsFrame } from '../../../managers/game-object-factory/imageConstants.ts';
 import { ImageLoadingKey } from '../../../managers/game-object-factory/imageConstants.ts';
+import { UI_Event } from '../constants.ts';
+import { UiElement } from '../uiElement.ts';
 
 import Sprite = Phaser.GameObjects.Sprite;
 import Text = Phaser.GameObjects.Text;
-import { UiElement } from '../uiElement.ts';
 
 export class Label extends UiElement {
   public background: Sprite;
@@ -95,7 +95,6 @@ export class Label extends UiElement {
       return;
     }
 
-    console.log('handleLabelDisable');
     this.scene.add.tween({
       targets: this,
       duration: 150,
@@ -106,7 +105,6 @@ export class Label extends UiElement {
       ease: Phaser.Math.Easing.Expo.In,
       onComplete: () => {
         this.setVisible(this.isActive);
-        console.log('handleLabelDisable = ' + this.isActive);
       },
     });
   }
@@ -121,7 +119,6 @@ export class Label extends UiElement {
       ease: Phaser.Math.Easing.Expo.In,
       onComplete: () => {
         this.isActive = true;
-        console.log('handleLabelEnable = ' + this.isActive);
       },
     });
   }
@@ -129,7 +126,6 @@ export class Label extends UiElement {
   private handleTextUpdate(newText: string) {
     this.textField.setText(newText);
     this.onChangeText();
-    console.log('handleTextUpdate = ' + newText);
   }
 
   private onChangeText() {

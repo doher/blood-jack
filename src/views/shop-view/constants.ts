@@ -1,4 +1,4 @@
-import { Position } from '../../managers/game-object-factory/constants.ts';
+import type { Position } from '../../managers/game-object-factory/constants.ts';
 
 export const SHOP_BACK_BUTTON_POSITION: Position = {
   x: 0,

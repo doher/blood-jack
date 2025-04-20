@@ -1,16 +1,18 @@
-import Container = Phaser.GameObjects.Container;
-import Sprite = Phaser.GameObjects.Sprite;
 import { gameObjectFactory } from '../../managers/game-object-factory/GameObjectFactory.ts';
 import {
   ImageLoadingKey,
   ShopFrame,
 } from '../../managers/game-object-factory/imageConstants.ts';
 
+import Container = Phaser.GameObjects.Container;
+import Sprite = Phaser.GameObjects.Sprite;
+
 const WEIGHT_X_OFFSET = 35;
 export class Weights extends Container {
   private weights: Sprite[] = [];
+
   constructor(
-    private scene: Phaser.Scene,
+    public scene: Phaser.Scene,
     private countWeights: number,
   ) {
     super(scene, 0, 0);

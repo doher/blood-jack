@@ -1,5 +1,6 @@
-import Container = Phaser.GameObjects.Container;
 import { SCREEN_HALF_H, SCREEN_HALF_W } from './constants.ts';
+
+import Container = Phaser.GameObjects.Container;
 
 export const SHADOW_TAG = 'SHADOW';
 

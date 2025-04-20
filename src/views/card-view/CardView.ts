@@ -15,7 +15,6 @@ export class CardView extends Phaser.GameObjects.Container {
     super(scene);
 
     this.scene.add.existing(this);
-    this.setScale(3, 3);
     this.create(config);
   }
 
@@ -70,7 +69,7 @@ export class CardView extends Phaser.GameObjects.Container {
       },
       text: ranksTexts[config.rank],
       font: BitmapFontLoadingKey.CARD_VALUES,
-      size: 16,
+      size: 48,
       origin: {
         x: 0,
         y: 0.5,
@@ -81,16 +80,16 @@ export class CardView extends Phaser.GameObjects.Container {
     const text = gameObjectFactory.createBitmapText(this.scene, {
       ...textLayout,
       position: {
-        x: -16,
-        y: -26,
+        x: -48,
+        y: -78,
       },
     });
 
     const revertedText = gameObjectFactory.createBitmapText(this.scene, {
       ...textLayout,
       position: {
-        x: 13,
-        y: 25,
+        x: 39,
+        y: 75,
       },
       rotation: Math.PI,
     });
@@ -106,16 +105,16 @@ export class CardView extends Phaser.GameObjects.Container {
     const smallSuit = gameObjectFactory.createSprite(this.scene, {
       ...smallSuitLayout,
       position: {
-        x: -13,
-        y: -12,
+        x: -39,
+        y: -36,
       },
     });
 
     const revertedSuit = gameObjectFactory.createSprite(this.scene, {
       ...smallSuitLayout,
       position: {
-        x: 10,
-        y: 11,
+        x: 30,
+        y: 33,
       },
       rotation: Math.PI,
     });
