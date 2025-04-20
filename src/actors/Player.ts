@@ -1,5 +1,6 @@
 import { EventBus } from '../EventBus.ts';
 import { SCALES_COSTS } from '../scenes/gameConstants.ts';
+import { MainGame } from '../scenes/MainGame.ts';
 import { ShopEvent } from '../views/shop-view/constants.ts';
 import { UIElementName, UI_Event } from '../views/ui/constants.ts';
 import type { Blackjack } from './blackjack/Blackjack.ts';
@@ -8,8 +9,6 @@ import { BALANCES, BlackjackEvents, STAKE } from './blackjack/constants.ts';
 const RUSSIAN_ROULETTE_ROUND = 2;
 
 export class Player {
-  public currentRoundIndex = -1;
-
   constructor(
     private scene: Phaser.Scene,
     private blackjack: Blackjack,
@@ -19,14 +18,14 @@ export class Player {
   }
 
   private initRound() {
-    this.currentRoundIndex += 1;
+    MainGame.currentRoundIndex += 1;
 
-    if (this.currentRoundIndex === RUSSIAN_ROULETTE_ROUND) {
+    if (MainGame.currentRoundIndex === RUSSIAN_ROULETTE_ROUND) {
       console.log('RUSSIAN_ROULETTE_ROUND START');
       return;
     }
 
-    const needToResetShop = this.currentRoundIndex === 1;
+    const needToResetShop = MainGame.currentRoundIndex === 1;
     if (needToResetShop) {
       EventBus.emit(ShopEvent.RESET_SHOP);
     }
@@ -65,14 +64,14 @@ export class Player {
   }
 
   private updateLabels() {
-    this.updateBalanceLabel(
-      UIElementName.PLAYER_BALANCE,
-      BALANCES[this.currentRoundIndex],
-    );
-    this.updateBalanceLabel(
-      UIElementName.DEALER_BALANCE,
-      BALANCES[this.currentRoundIndex],
-    );
+    const balance = BALANCES[MainGame.currentRoundIndex];
+
+    this.updateBalanceLabel(UIElementName.PLAYER_BALANCE, balance);
+    this.updateBalanceLabel(UIElementName.DEALER_BALANCE, balance);
+
+    this.blackjack.playerBalance.value = balance;
+    this.blackjack.dealerBalance.value = balance;
+
     this.updateDealText(STAKE);
     this.updateShopPrices();
   }
@@ -97,7 +96,8 @@ export class Player {
   }
 
   private updateShopPrices() {
-    const getCurrentRoundScalesPrices = SCALES_COSTS[this.currentRoundIndex];
+    const getCurrentRoundScalesPrices =
+      SCALES_COSTS[MainGame.currentRoundIndex];
 
     const scaleBalancedNames = [
       UIElementName.SHOP_BUY_BAD,
@@ -105,10 +105,10 @@ export class Player {
       UIElementName.SHOP_BUY_GOOD,
     ];
 
-    getCurrentRoundScalesPrices.forEach((RoundScalePrice, index) => {
+    getCurrentRoundScalesPrices.forEach((roundScalePrice, index) => {
       EventBus.emit(
         UI_Event.UPDATE_TEXT_AT_ELEMENT_ + scaleBalancedNames[index],
-        `BALANCE\n${RoundScalePrice}$`,
+        `BALANCE\n${roundScalePrice}$`,
       );
     });
   }

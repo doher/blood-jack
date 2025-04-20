@@ -6,10 +6,10 @@ import {
   Button,
   FAST_CLICK_SPEED,
   LOW_CLICK_SPEED,
-} from '../../views/ui/button/button.ts';
+} from '../../views/ui/button/Button.ts';
 import { UI_Event, UIElementName } from '../../views/ui/constants.ts';
-import { Label } from '../../views/ui/label/label.ts';
-import type { UiElement } from '../../views/ui/uiElement.ts';
+import { Label } from '../../views/ui/label/Label.ts';
+import type { UiElement } from '../../views/ui/UiElement.ts';
 import {
   ALL_IN_BUTTON_POSITION,
   DEALER_BALANCE_POSITION,
@@ -31,7 +31,7 @@ export class PlayerUI extends Container {
 
   public decreaseStake: Button;
 
-  public allin: Button;
+  public allIn: Button;
 
   public stand: Button;
 
@@ -106,7 +106,7 @@ export class PlayerUI extends Container {
       SoundLoadingKey.DECREASE,
     );
 
-    this.allin = new Button(
+    this.allIn = new Button(
       this.scene,
       ALL_IN_BUTTON_POSITION,
       UiControlsFrame.YELLOW_BUTTON,
@@ -314,7 +314,7 @@ export class PlayerUI extends Container {
     const elements: UiElement[] = [
       this.deal,
       this.decreaseStake,
-      this.allin,
+      this.allIn,
       this.increaseStake,
       this.stand,
       this.double,

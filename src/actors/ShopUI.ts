@@ -2,13 +2,17 @@ import { EventBus } from '../EventBus.ts';
 import { ShopEvent } from '../views/shop-view/constants.ts';
 import { ShopView } from '../views/shop-view/ShopView.ts';
 import { UI_Event, UIElementName } from '../views/ui/constants.ts';
+import type { Blackjack } from './blackjack/Blackjack.ts';
 
 export class ShopUI {
   private isActive = false;
 
   private shopView: ShopView;
 
-  constructor(private scene: Phaser.Scene) {
+  constructor(
+    private scene: Phaser.Scene,
+    private blackjack: Blackjack,
+  ) {
     this.create();
     this.setupEventListeners();
     this.initShopControls();
@@ -16,7 +20,7 @@ export class ShopUI {
   }
 
   private create() {
-    this.shopView = new ShopView(this.scene);
+    this.shopView = new ShopView(this.scene, this.blackjack);
 
     this.isActive = false;
     this.shopView.setVisible(this.isActive);
@@ -42,6 +46,7 @@ export class ShopUI {
 
   private show() {
     this.isActive = true;
+
     this.hideBaseButtons();
     this.shopView.setVisible(this.isActive);
     this.scene.tweens.add({
