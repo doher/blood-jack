@@ -1,7 +1,7 @@
-import { ShopView } from '../views/shop-view/ShopView.ts';
 import { EventBus } from '../EventBus.ts';
-import { UI_Event, UIElementName } from '../views/ui/constants.ts';
 import { ShopEvent } from '../views/shop-view/constants.ts';
+import { ShopView } from '../views/shop-view/ShopView.ts';
+import { UI_Event, UIElementName } from '../views/ui/constants.ts';
 
 export class ShopUI {
   private isActive = false;

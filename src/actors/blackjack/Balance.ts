@@ -1,19 +1,17 @@
 export class Balance {
-  constructor(private _balance: number = 0) {}
+  constructor(private _value: number = 0) {}
 
   public get value(): number {
-    return this._balance;
+    return this._value;
   }
 
-  public updateBalance(amount: number): number {
-    this._balance += amount;
-
-    return this._balance;
+  public set value(newBalance: number) {
+    this._value = newBalance;
   }
 
   public bet(stake: number): number {
-    this._balance -= stake;
+    this._value -= stake;
 
-    return this._balance;
+    return this._value;
   }
 }
