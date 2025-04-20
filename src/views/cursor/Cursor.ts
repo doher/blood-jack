@@ -11,8 +11,8 @@ type AvailableCursorTexture =
   | ImageLoadingKey.CURSOR_POINT
   | ImageLoadingKey.CURSOR_IDLE;
 
-const HAND_OFFSET_Y = 80;
-const ARM_OFFSET_Y = 1370;
+const HAND_OFFSET_Y = 40;
+const ARM_OFFSET_Y = 1620;
 
 export class Cursor extends Container {
   private cursorHand: Sprite;
@@ -32,8 +32,8 @@ export class Cursor extends Container {
     this.cursorHand = gameObjectFactory.createSprite(this.scene, {
       key: ImageLoadingKey.CURSOR_IDLE,
       scale: {
-        x: 10,
-        y: 10,
+        x: 1,
+        y: 1,
       },
       origin: {
         x: 0.5,
@@ -49,7 +49,7 @@ export class Cursor extends Container {
       key: ImageLoadingKey.ARM,
       scale: {
         x: 1,
-        y: 8,
+        y: 1,
       },
       origin: {
         x: 0.5,
@@ -68,21 +68,27 @@ export class Cursor extends Container {
   }
 
   private setupEventListeners() {
-    this.scene.input.on('pointerdown', (_pointer, target) => {
-      this.changeCursorTexture(ImageLoadingKey.CURSOR_CLICK, target);
-    });
+    this.scene.input.on(
+      'pointerdown',
+      (_pointer: unknown, target: GameObject) => {
+        this.changeCursorTexture(ImageLoadingKey.CURSOR_CLICK, target);
+      },
+    );
 
-    this.scene.input.on('pointerup', (_pointer, target) => {
-      if (this.isPointer) {
-        this.changeCursorTexture(ImageLoadingKey.CURSOR_POINT, target);
-        return;
-      }
-      this.changeCursorTexture(ImageLoadingKey.CURSOR_IDLE, target);
-    });
+    this.scene.input.on(
+      'pointerup',
+      (_pointer: unknown, target: GameObject) => {
+        if (this.isPointer) {
+          this.changeCursorTexture(ImageLoadingKey.CURSOR_POINT, target);
+          return;
+        }
+        this.changeCursorTexture(ImageLoadingKey.CURSOR_IDLE, target);
+      },
+    );
 
     this.scene.input.on(
       Phaser.Input.Events.GAMEOBJECT_OVER,
-      (_pointer, target) => {
+      (_pointer: unknown, target: GameObject) => {
         this.isPointer = this.changeCursorTexture(
           ImageLoadingKey.CURSOR_POINT,
           target,
