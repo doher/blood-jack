@@ -118,7 +118,7 @@ export class RouletteView extends Container {
       SoundLoadingKey.ALL_IN,
     );
 
-    this.shootButton.handleButtonDisable(true);
+    this.shootButton.handleDisable(true);
 
     this.add([
       this.shadow,

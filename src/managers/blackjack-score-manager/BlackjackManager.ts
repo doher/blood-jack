@@ -8,33 +8,19 @@ import {
 import type { Hand } from '../../actors/blackjack/Hand.ts';
 import { EventBus } from '../../EventBus.ts';
 import { CardView } from '../../views/card-view/CardView.ts';
+import { ShopEvent } from '../../views/shop-view/constants.ts';
 import { UI_Event, UIElementName } from '../../views/ui/constants.ts';
-import type { TextDescription } from '../game-object-factory/constants.ts';
 import { gameObjectFactory } from '../game-object-factory/GameObjectFactory.ts';
 import {
   CARD_WIDTH,
+  DEALER_HIT_THRESHOLD,
   MAX_FULL_VIEW_CARDS,
   NUMBER_OF_DECKS,
+  textDescription,
 } from './constants.ts';
 
 import Text = Phaser.GameObjects.Text;
 import Container = Phaser.GameObjects.Container;
-
-export const textDescription: TextDescription = {
-  text: '0',
-  position: {
-    x: 0,
-    y: 0,
-  },
-  fontSize: 80,
-  origin: {
-    x: 0.5,
-    y: 0.5,
-  },
-  color: 'white',
-};
-
-const DEALER_HIT_THRESHOLD = 17;
 
 export class BlackjackManager {
   public blackjack: Blackjack;
@@ -85,9 +71,12 @@ export class BlackjackManager {
     EventBus.on(BlackjackEvents.HIT, this.playerHit, this);
     EventBus.on(BlackjackEvents.STAND, this.playerStand, this);
     EventBus.on(BlackjackEvents.DOUBLE, this.double, this);
+    EventBus.on(ShopEvent.SET_NEXT_ROUND, this.clearGameRoundState, this);
   }
 
   private deal(): void {
+    EventBus.emit(UI_Event.DISABLE_ALL_BUTTONS);
+
     this.clearGameRoundState();
 
     this.blackjack.deal();
@@ -113,16 +102,20 @@ export class BlackjackManager {
     this.scene.time.delayedCall(500, () => {
       this.dealPlayerCards();
       this.dealDealerCards();
+
       this.playerScore.setVisible(true);
       this.dealerScore.setVisible(true);
-    });
 
-    if (+this.playerScore.text === BLACKJACK) {
-      this.scene.time.delayedCall(1_500, () => {
-        this.hideGameRoundControls();
-        this.endGameRound(BlackjackResult.PLAYER_WIN);
-      });
-    }
+      if (+this.playerScore.text === BLACKJACK) {
+        this.scene.time.delayedCall(1_000, () => {
+          EventBus.emit(UI_Event.DISABLE_ALL_BUTTONS);
+          this.hideGameRoundControls();
+          this.endGameRound(BlackjackResult.PLAYER_WIN);
+        });
+      } else {
+        EventBus.emit(UI_Event.DISABLE_ALL_BUTTONS);
+      }
+    });
   }
 
   private dealPlayerCards() {
@@ -191,7 +184,7 @@ export class BlackjackManager {
     }
   }
 
-  private dealDealerCards() {
+  private dealDealerCards(): void {
     const dealerHand = this.blackjack.getDealerHand();
     const dealerCards = dealerHand.getCards();
     const dealerCardsContainer = this.blackjack.dealerCardsContainer;
@@ -236,10 +229,17 @@ export class BlackjackManager {
     );
 
     this.playerHit();
-    this.playerStand();
+
+    const playerHand = this.blackjack.getPlayerHand();
+
+    if (!playerHand.isBust()) {
+      this.playerStand();
+    }
   }
 
-  public playerHit(): void {
+  private playerHit(): void {
+    EventBus.emit(UI_Event.DISABLE_UI_ELEMENT_ + UIElementName.DOUBLE);
+
     this.blackjack.hit();
     this.dealPlayerCards();
 
@@ -257,7 +257,7 @@ export class BlackjackManager {
     }
   }
 
-  public playerStand(): void {
+  private playerStand(): void {
     this.hideGameRoundControls();
 
     this.scene.time.delayedCall(1_000, () => {
@@ -304,7 +304,7 @@ export class BlackjackManager {
     });
   }
 
-  public dealerHit(): void {
+  private dealerHit(): void {
     this.scene.time.delayedCall(3_500, () => {
       this.blackjack.stand();
 

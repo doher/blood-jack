@@ -16,6 +16,10 @@ import { SceneType } from './constants.ts';
 import { RouletteUI } from '../actors/roulette/RouletteUI.ts';
 
 export class MainGame extends Scene {
+  public static currentRoundIndex = -1;
+
+  public cursor: Cursor;
+
   private dealer: Dealer;
 
   private blackjackManager: BlackjackManager;
@@ -81,9 +85,9 @@ export class MainGame extends Scene {
     ///TODO DEV MUTE
     // SoundManager.getInstance().muteAll();
 
-    this.playerUI = new PlayerUI(this); // create ui before create player
+    new PlayerUI(this); // create ui before create player
 
-    new ShopUI(this);
+    new ShopUI(this, this.blackjackManager.blackjack);
 
     this.rouletteUI = new RouletteUI(this, this.blackjackManager.blackjack);
 

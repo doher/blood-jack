@@ -8,15 +8,12 @@ import { gameObjectFactory } from '../../../managers/game-object-factory/GameObj
 import type { UiControlsFrame } from '../../../managers/game-object-factory/imageConstants.ts';
 import { ImageLoadingKey } from '../../../managers/game-object-factory/imageConstants.ts';
 import { UI_Event } from '../constants.ts';
-import { UiElement } from '../uiElement.ts';
+import { UiElement } from '../UiElement.ts';
 
 import Sprite = Phaser.GameObjects.Sprite;
-import Text = Phaser.GameObjects.Text;
 
 export class Label extends UiElement {
   public background: Sprite;
-
-  public textField: Text;
 
   constructor(
     public scene: Phaser.Scene,
@@ -85,59 +82,5 @@ export class Label extends UiElement {
 
     const enableEvent = UI_Event.ENABLE_UI_ELEMENT_ + this.labelName;
     EventBus.on(enableEvent, this.handleEnable, this);
-  }
-
-  private handleDisable(immediately?: boolean) {
-    this.isActive = false;
-
-    if (immediately) {
-      this.setVisible(this.isActive);
-      return;
-    }
-
-    this.scene.add.tween({
-      targets: this,
-      duration: 150,
-      alpha: {
-        from: 1,
-        to: 0,
-      },
-      ease: Phaser.Math.Easing.Expo.In,
-      onComplete: () => {
-        this.setVisible(this.isActive);
-      },
-    });
-  }
-
-  private handleEnable() {
-    this.setVisible(true);
-
-    this.scene.add.tween({
-      targets: this,
-      duration: 150,
-      alpha: 1,
-      ease: Phaser.Math.Easing.Expo.In,
-      onComplete: () => {
-        this.isActive = true;
-      },
-    });
-  }
-
-  private handleTextUpdate(newText: string) {
-    this.textField.setText(newText);
-    this.onChangeText();
-  }
-
-  private onChangeText() {
-    this.scene.tweens.add({
-      targets: this.textField,
-      scale: {
-        from: 1,
-        to: 1.1,
-      },
-      ease: Phaser.Math.Easing.Cubic.InOut,
-      yoyo: true,
-      duration: 100,
-    });
   }
 }
