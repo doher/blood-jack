@@ -62,8 +62,6 @@ export const enum DataKey {
 export class RevolverCylinder extends Container {
   public drumBackground: Sprite;
 
-  private isFullLoad = false;
-
   public dragBullets: DragBullet[] = [];
 
   private bulletsContainer: Container;
@@ -81,6 +79,8 @@ export class RevolverCylinder extends Container {
   private startRotation = 0;
 
   private rotationSpeedFactor = 10;
+
+  private skull: Sprite;
 
   private loadedSlot: Map<number, SlotElementName> = new Map<
     number,
@@ -140,10 +140,23 @@ export class RevolverCylinder extends Container {
       },
     });
 
+    this.skull = gameObjectFactory.createSprite(this.scene, {
+      key: ImageLoadingKey.ROULETTE_UI,
+      frame: RouletteFrame.SKULL_INDICATOR,
+      position: {
+        x: 0,
+        y: -350,
+      },
+      scale: {
+        x: 0.8,
+        y: 0.8,
+      },
+    });
+
     this.readyRevolverCylinderHolder = this.scene.add.container(0, 0);
     this.readyRevolverCylinderHolder.name = 'ReadyDrumHolder';
     this.readyRevolverCylinderHolder.add(this.drumBackground);
-    this.add(this.readyRevolverCylinderHolder);
+    this.add([this.readyRevolverCylinderHolder, this.skull]);
   }
 
   private setupEventListeners() {
@@ -201,7 +214,6 @@ export class RevolverCylinder extends Container {
     console.log(currentLoadedSlots);
     console.log(SLOTS_POSITION.length);
     if (currentLoadedSlots === SLOTS_POSITION.length) {
-      this.isFullLoad = true;
       this.dragBullets.forEach((dragBullet) => {
         dragBullet.sprite.disableInteractive();
       });
