@@ -1,4 +1,5 @@
 import Container = Phaser.GameObjects.Container;
+import Sprite = Phaser.GameObjects.Sprite;
 import { RouletteBulletsType } from '../../actors/roulette/RouletteUI.ts';
 import { DataKey, RevolverCylinder } from './RevolverCylinder.ts';
 import { Position } from '../../managers/game-object-factory/constants.ts';
@@ -17,6 +18,7 @@ import { SoundLoadingKey } from '../../managers/sound-manager/constants.ts';
 import type { Blackjack } from '../../actors/blackjack/Blackjack.ts';
 import { ShootChance } from './ShootChance.ts';
 import { DragBullet } from './DragBullet.ts';
+import { SwitchRoundTypeShadow } from './SwitchRoundTypeShadow.ts';
 
 const DRUM_POSITION: Position = {
   x: 0,
@@ -24,7 +26,7 @@ const DRUM_POSITION: Position = {
 };
 
 export const enum TurnType {
-  PLAYER = 'PLAYER',
+  PLAYER = 'YOU',
   DEALER = 'DEALER',
 }
 
@@ -55,6 +57,12 @@ export class RouletteView extends Container {
 
   private dealerBulletsFrames: RouletteBulletsType[];
 
+  private switchRoundTypeShadow: SwitchRoundTypeShadow;
+
+  private dealerLastAngleRotation = 0;
+
+  private playerLastAngleRotation = 0;
+
   constructor(
     private scene: Phaser.Scene,
     private blackjack: Blackjack,
@@ -62,7 +70,6 @@ export class RouletteView extends Container {
     super(scene, SCREEN_HALF_W, SCREEN_HALF_H);
     this.create();
     this.setupEventListeners();
-    // this.showFullLoadedDrumScreen();
   }
 
   private create() {
@@ -70,6 +77,8 @@ export class RouletteView extends Container {
 
     this.shadow = new Shadow(this.scene, 0.65);
     this.shadow.setAlpha(0);
+
+    this.switchRoundTypeShadow = new SwitchRoundTypeShadow(this.scene);
 
     this.revolverCylinder = new RevolverCylinder(this.scene, DRUM_POSITION);
 
@@ -126,6 +135,7 @@ export class RouletteView extends Container {
       this.shootChance,
       this.fullLoadedRumMessage,
       this.shootButton,
+      this.switchRoundTypeShadow,
     ]);
 
     this.scene.add.existing(this);
@@ -157,26 +167,40 @@ export class RouletteView extends Container {
 
   private startNextTurn() {
     if (this.currentTurnType === TurnType.DEALER) {
-      this.startPlayerTurn();
+      this.switchRoundTypeShadow.showTurn(
+        TurnType.PLAYER,
+        () => this.startPlayerTurn(),
+        () =>
+          this.revolverCylinder.showPlayerCylinder(
+            this.playerLastAngleRotation,
+          ),
+      );
       return;
     }
-    this.startDealerTurn();
+    this.switchRoundTypeShadow.showTurn(
+      TurnType.DEALER,
+      () => this.startDealerTurn(),
+      () =>
+        this.revolverCylinder.showDealerCylinder(this.dealerLastAngleRotation),
+    );
   }
 
   private startDealerTurn() {
-    this.changeMainRoundCounter();
+    this.revolverCylinder.drumBackground.disableInteractive();
+
     this.currentTurnType = TurnType.DEALER;
+    this.changeMainRoundCounter();
     this.currentDealerRound += 1;
+
     this.scene.time.delayedCall(1000, () => {
       this.handleSpinButton();
     });
   }
 
   private startPlayerTurn() {
-    this.changeMainRoundCounter();
     this.currentTurnType = TurnType.PLAYER;
-
-    this.showRevolverCylinder();
+    this.revolverCylinder.drumBackground.setInteractive();
+    this.changeMainRoundCounter();
     this.currentPlayerRound += 1;
   }
 
@@ -188,7 +212,7 @@ export class RouletteView extends Container {
     const dragBullets = this.revolverCylinder.dragBullets;
 
     dragBullets.forEach((dragBullet) => {
-      const bulletType = dragBullet.sprite.getData(DataKey.TYPE);
+      const bulletType = this.getBulletTypeFroMData(dragBullet.sprite);
       availableBulletsType.push(bulletType);
     });
 
@@ -210,30 +234,42 @@ export class RouletteView extends Container {
     dragBullets: DragBullet[],
     targetBulletType: RouletteBulletsType,
   ) {
-    let stopAngle = 0;
+    const targetBullets: DragBullet[] = [];
 
-    for (
-      let bulletIndex = 0;
-      bulletIndex < dragBullets.length;
-      bulletIndex += 1
-    ) {
-      const dragBullet = dragBullets[bulletIndex];
-      const bulletType = dragBullet.sprite.getData(DataKey.TYPE);
-
+    dragBullets.forEach((dragBullet) => {
+      const bulletType = this.getBulletTypeFroMData(dragBullet.sprite);
       if (bulletType === targetBulletType) {
-        const bulletIndex = dragBullet.sprite.getData(DataKey.LOADED_TO);
-        stopAngle = DEATH_STOPS[bulletIndex];
-        console.log(stopAngle);
-        return DEATH_STOPS[bulletIndex];
+        targetBullets.push(dragBullet);
       }
-    }
+    });
 
-    return stopAngle;
+    const randomDragBulletIndex = Phaser.Math.Between(
+      0,
+      targetBullets.length - 1,
+    );
+
+    const targetBullet = targetBullets[randomDragBulletIndex];
+    const bulletIndex = targetBullet.sprite.getData(DataKey.LOADED_TO);
+    return DEATH_STOPS[bulletIndex];
+  }
+
+  private getBulletTypeFroMData(targetSprite: Sprite) {
+    const dataKey =
+      this.currentTurnType === TurnType.PLAYER
+        ? DataKey.TYPE
+        : DataKey.DEALER_TYPE;
+    return targetSprite.getData(dataKey);
   }
 
   private changeMainRoundCounter() {
     this.currentMainRound += 1;
-    this.revolverCylinder.readyRevolverCylinderHolder.angle = -3;
+
+    if (this.currentTurnType === TurnType.DEALER) {
+      this.revolverCylinder.showDealerCylinder(this.dealerLastAngleRotation);
+    } else {
+      this.revolverCylinder.showPlayerCylinder(this.playerLastAngleRotation);
+    }
+
     if (this.shootChance.visible) {
       this.scene.tweens.add({
         targets: this.shootChance,
@@ -244,6 +280,7 @@ export class RouletteView extends Container {
         onComplete: () => {
           this.shootChance.setVisible(false);
           this.revolverCylinder.drumBackground.disableInteractive();
+          this.showRevolverCylinder();
         },
       });
     }
@@ -257,15 +294,23 @@ export class RouletteView extends Container {
       delay: 250,
       ease: Phaser.Math.Easing.Linear,
       onComplete: () => {
-        EventBus.emit(
-          UI_Event.ENABLE_UI_ELEMENT_ + UIElementName.ROULETTE_SHOOT,
-        );
+        if (this.currentTurnType === TurnType.PLAYER) {
+          EventBus.emit(
+            UI_Event.ENABLE_UI_ELEMENT_ + UIElementName.ROULETTE_SHOOT,
+          );
+        }
       },
     });
   }
 
   private handleShoot() {
-    console.log('handleShoot');
+    if (this.currentTurnType === TurnType.DEALER) {
+      this.dealerLastAngleRotation =
+        this.revolverCylinder.readyRevolverCylinderHolder.angle;
+    } else {
+      this.playerLastAngleRotation =
+        this.revolverCylinder.readyRevolverCylinderHolder.angle;
+    }
 
     if (this.currentStopBullet === RouletteBulletsType.RED) {
       this.shootLive();
@@ -288,7 +333,6 @@ export class RouletteView extends Container {
   }
 
   private shootLive() {
-    // complete game
     console.log(this.currentTurnType + 'DEAD');
   }
 
@@ -306,19 +350,29 @@ export class RouletteView extends Container {
         : this.currentDealerRound;
 
     const isFirstRound = currentRound === 0;
-    console.log('IS FIRST ROUND = ', isFirstRound);
 
-    let findBullet = isFirstRound
+    return isFirstRound
       ? this.getBulletsForFirstRound(availableBulletsType)
-      : RouletteBulletsType.RED; /// TODO not red but full random
-
-    return findBullet;
+      : this.getRandomBullet(availableBulletsType);
   }
 
-  /// TODO fore first round return GREEN OR YELLOW
+  private getRandomBullet(availableBulletsType: RouletteBulletsType[]) {
+    const types = [
+      RouletteBulletsType.RED,
+      RouletteBulletsType.GREEN,
+      RouletteBulletsType.YELLOW,
+    ];
+    const random = Phaser.Math.Between(0, 2);
+    const bulletType = types[random];
+    if (availableBulletsType.includes(bulletType)) {
+      return bulletType;
+    }
+    return this.getRandomBullet(availableBulletsType);
+  }
+
   private getBulletsForFirstRound(availableBulletsType: RouletteBulletsType[]) {
     const greenBullet = RouletteBulletsType.GREEN;
-    const yellowBullet = RouletteBulletsType.GREEN;
+    const yellowBullet = RouletteBulletsType.YELLOW;
 
     for (
       let bulletIndex = 0;
@@ -411,6 +465,10 @@ export class RouletteView extends Container {
   ) {
     this.playerBulletsFrames = playerBulletsFrames;
     this.dealerBulletsFrames = dealerBulletsFrames;
-    this.revolverCylinder.showPlayerBullets(playerBulletsFrames);
+
+    this.revolverCylinder.showPlayerBullets(
+      playerBulletsFrames,
+      dealerBulletsFrames,
+    );
   }
 }

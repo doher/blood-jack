@@ -41,7 +41,7 @@ export class ShootChance extends Container {
     this.resultText = gameObjectFactory.createText(this.scene, {
       position: {
         x: 0,
-        y: 50,
+        y: 0,
       },
       color: 'red',
       fontSize: 100,
@@ -77,7 +77,7 @@ export class ShootChance extends Container {
     const maxScore = playerScore.value + dealerScore.value;
 
     const playerChance = (1 - playerScore.value / maxScore) * 100;
-    const dealerChance = (1 - playerScore.value / maxScore) * 100;
+    const dealerChance = (1 - dealerScore.value / maxScore) * 100;
     this.showEffect(playerChance, dealerChance);
   }
 
@@ -138,10 +138,8 @@ export class ShootChance extends Container {
     const total = playerChance + dealerChance;
     const playerChanceToPlayFirst = playerChance / total;
 
-    return TurnType.PLAYER;
-
-    // return Math.random() < playerChanceToPlayFirst
-    //   ? TurnType.PLAYER
-    //   : TurnType.DEALER;
+    return Math.random() < playerChanceToPlayFirst
+      ? TurnType.PLAYER
+      : TurnType.DEALER;
   }
 }

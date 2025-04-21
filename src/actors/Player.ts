@@ -10,9 +10,9 @@ import { BALANCES, BlackjackEvents, STAKE } from './blackjack/constants.ts';
 const RUSSIAN_ROULETTE_ROUND = 2;
 
 export class Player {
-  public playerBullets: number[] = [0, 1]; /// TODO ONLY DEV, need to be empty
+  public playerBullets: number[] = [];
 
-  public dealerBullets: number[] = [0, 1]; /// TODO ONLY DEV, need to be empty
+  public dealerBullets: number[] = [];
 
   constructor(
     private scene: Phaser.Scene,
@@ -23,15 +23,22 @@ export class Player {
     this.initRound();
   }
 
-  private initRound(playerPurchasedBullets?: number) {
+  private initRound(
+    playerPurchasedBullets?: number,
+    dealerPurchasedBullets?: number,
+  ) {
     MainGame.currentRoundIndex += 1;
 
-    if (playerPurchasedBullets) {
+    if (playerPurchasedBullets !== undefined) {
       this.playerBullets.push(playerPurchasedBullets);
     }
 
+    if (dealerPurchasedBullets !== undefined) {
+      this.dealerBullets.push(dealerPurchasedBullets);
+    }
+
     /// TODO dev degud roullete
-    MainGame.currentRoundIndex = RUSSIAN_ROULETTE_ROUND;
+    // MainGame.currentRoundIndex = RUSSIAN_ROULETTE_ROUND;
 
     if (MainGame.currentRoundIndex === RUSSIAN_ROULETTE_ROUND) {
       console.log('RUSSIAN_ROULETTE_ROUND START');

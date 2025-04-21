@@ -56,6 +56,7 @@ export const enum DataKey {
   LOADED_TO = 'LOADED_TO',
   INDEX = 'INDEX',
   TYPE = 'TYPE',
+  DEALER_TYPE = 'DEALER_TYPE',
 }
 
 export class RevolverCylinder extends Container {
@@ -99,13 +100,29 @@ export class RevolverCylinder extends Container {
   public startShootRotation(targetAngel: number) {
     this.scene.tweens.add({
       targets: this.readyRevolverCylinderHolder,
-      angle: 360 * 10 + targetAngel, // Несколько полных оборотов
-      duration: 2000,
+      angle: 360 * 10 + targetAngel,
+      duration: 4000,
       ease: 'Cubic.easeOut',
       onComplete: () => {
         console.log('RouletteEvent.SHOOT');
         EventBus.emit(RouletteEvent.SHOOT);
       },
+    });
+  }
+
+  public showDealerCylinder(angle: number) {
+    this.readyRevolverCylinderHolder.angle = angle;
+    this.dragBullets.forEach((dragBullet) => {
+      const textureFrame = dragBullet.sprite.getData(DataKey.DEALER_TYPE);
+      dragBullet.sprite.setTexture(ImageLoadingKey.ROULETTE_UI, textureFrame);
+    });
+  }
+
+  public showPlayerCylinder(angle: number) {
+    this.readyRevolverCylinderHolder.angle = angle;
+    this.dragBullets.forEach((dragBullet) => {
+      const textureFrame = dragBullet.sprite.getData(DataKey.TYPE);
+      dragBullet.sprite.setTexture(ImageLoadingKey.ROULETTE_UI, textureFrame);
     });
   }
 
@@ -175,7 +192,7 @@ export class RevolverCylinder extends Container {
   private checkFullDrum() {
     let currentLoadedSlots = 0;
 
-    this.loadedSlot.forEach((slot, index) => {
+    this.loadedSlot.forEach((slot) => {
       if (slot === SlotElementName.FILL) {
         currentLoadedSlots += 1;
       }
@@ -247,7 +264,10 @@ export class RevolverCylinder extends Container {
     return slots;
   }
 
-  public showPlayerBullets(playerBulletsFrames: RouletteBulletsType[]) {
+  public showPlayerBullets(
+    playerBulletsFrames: RouletteBulletsType[],
+    dealerBulletsFrames: RouletteBulletsType[],
+  ) {
     this.bulletsContainer = this.scene.add.container(
       BULLETS_POSITION.x,
       BULLETS_POSITION.y,
@@ -258,6 +278,7 @@ export class RevolverCylinder extends Container {
     playerBulletsFrames.forEach((playerBulletsFrame, index) => {
       this.createDragBullet(
         playerBulletsFrame,
+        dealerBulletsFrames[index],
         index,
         this.readyRevolverCylinderHolder,
       );
@@ -268,6 +289,7 @@ export class RevolverCylinder extends Container {
 
   private createDragBullet(
     playerBulletsFrame: RouletteBulletsType,
+    dealerBulletsFrame: RouletteBulletsType,
     index,
     newContainerIfDragComplete: Container,
   ) {
@@ -287,6 +309,7 @@ export class RevolverCylinder extends Container {
       newContainerIfDragComplete,
     );
     dragBullet.sprite.setData(DataKey.TYPE, playerBulletsFrame);
+    dragBullet.sprite.setData(DataKey.DEALER_TYPE, dealerBulletsFrame);
     dragBullet.sprite.setScale(0.3, 0.3);
     this.dragBullets.push(dragBullet);
   }

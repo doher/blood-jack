@@ -18,13 +18,9 @@ import { RouletteUI } from '../actors/roulette/RouletteUI.ts';
 export class MainGame extends Scene {
   public static currentRoundIndex = -1;
 
-  public cursor: Cursor;
-
   private dealer: Dealer;
 
   private blackjackManager: BlackjackManager;
-
-  private playerUI: PlayerUI;
 
   private rouletteUI: RouletteUI;
 

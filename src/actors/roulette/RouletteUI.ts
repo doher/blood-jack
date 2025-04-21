@@ -58,8 +58,8 @@ export class RouletteUI {
 
     const dealerBulletsFrames: RouletteBulletsType[] = [
       RouletteBulletsType.YELLOW,
-      ...SCALE_TYPES[playerBullets[bulletsFromFirstRound]],
-      ...SCALE_TYPES[playerBullets[bulletsFromSecondRound]],
+      ...SCALE_TYPES[dealerBullets[bulletsFromFirstRound]],
+      ...SCALE_TYPES[dealerBullets[bulletsFromSecondRound]],
     ];
 
     this.rouletteView.show(playerBulletsFrames, dealerBulletsFrames);

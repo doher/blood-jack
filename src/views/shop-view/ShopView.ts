@@ -133,7 +133,7 @@ export class ShopView extends Container {
       },
       text:
         'Keep a Balance... In chasing of the best bullet pack, you can end up with nothing. ;(\n' +
-        'But also keep in mind that the dealer will try to buy the remaining best bullet pack.\n' +
+        'But also keep in mind that the dealer will try to buy the best bullet pack.\n' +
         "Maybe it's worth leaving him without any money at all?\n",
       letterSpacing: 0,
       lineSpacing: 8,
