@@ -18,6 +18,13 @@ export const enum ShopFrame {
   UNBALANCED = 'unbalanced.png',
 }
 
+export const enum RouletteFrame {
+  DRUM = 'drum.png',
+  ROULETTE_BULLET_GREEN = 'bullet_bottom_green.png',
+  ROULETTE_BULLET_RED = 'bullet_bottom_red.png',
+  ROULETTE_BULLET_YELLOW = 'bullet_bottom_yellow.png',
+}
+
 export const enum ImageLoadingKey {
   CARD_FRONT = 'CARD_FRONT',
   CARD_BACK = 'CARD_BACK',
@@ -40,6 +47,7 @@ export const enum ImageLoadingKey {
   ARM = 'ARM',
   UI_SHOP = 'UI_SHOP',
   SHOP_BACKGROUND = 'SHOP_BACKGROUND',
+  ROULETTE_UI = 'ROULETTE_UI',
 }
 
 export type ImageAsset = {
@@ -57,6 +65,16 @@ export const SPRITE_SHEET_LAYOUTS: SpriteSheetLoadingLayout[] = [
     key: ImageLoadingKey.UI_SHOP,
     imagePath: 'assets/images/shop/',
     atlasDataPath: 'images/shop/shop.json',
+  },
+  {
+    key: ImageLoadingKey.UI_SHOP,
+    imagePath: 'assets/images/shop/',
+    atlasDataPath: 'images/shop/shop.json',
+  },
+  {
+    key: ImageLoadingKey.ROULETTE_UI,
+    imagePath: 'assets/images/roulette/',
+    atlasDataPath: 'images/roulette/roulette-ui.json',
   },
 ];
 

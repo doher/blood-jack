@@ -13,15 +13,18 @@ import { SCREEN_HALF_H, SCREEN_HALF_W } from '../views/constants.ts';
 import { Cursor } from '../views/cursor/Cursor.ts';
 import { Rain } from '../views/Rain.ts';
 import { SceneType } from './constants.ts';
+import { RouletteUI } from '../actors/roulette/RouletteUI.ts';
 
 export class MainGame extends Scene {
   public static currentRoundIndex = -1;
 
-  public cursor: Cursor;
-
   private dealer: Dealer;
 
   private blackjackManager: BlackjackManager;
+
+  private rouletteUI: RouletteUI;
+
+  public cursor: Cursor;
 
   constructor() {
     super(SceneType.GAME);
@@ -82,13 +85,16 @@ export class MainGame extends Scene {
 
     new ShopUI(this, this.blackjackManager.blackjack);
 
+    this.rouletteUI = new RouletteUI(this, this.blackjackManager.blackjack);
+
     this.cursor = new Cursor(this); // create cursor after all ui elements!!!
 
-    new Player(this, this.blackjackManager.blackjack); // create in last queue
+    new Player(this, this.blackjackManager.blackjack, this.rouletteUI); // create in last queue
   }
 
   public update() {
     this.dealer.handlePlayerCursor();
     this.cursor.handlePlayerMouse();
+    this.rouletteUI.rouletteView.revolverCylinder.handleDrumRotateByPlayer();
   }
 }

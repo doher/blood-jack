@@ -2,6 +2,7 @@ import { EventBus } from '../EventBus.ts';
 import { SCALES_COSTS } from '../scenes/gameConstants.ts';
 import { MainGame } from '../scenes/MainGame.ts';
 import { ShopEvent } from '../views/shop-view/constants.ts';
+import { RouletteUI } from './roulette/RouletteUI.ts';
 import { UIElementName, UI_Event } from '../views/ui/constants.ts';
 import type { Blackjack } from './blackjack/Blackjack.ts';
 import { BALANCES, BlackjackEvents, STAKE } from './blackjack/constants.ts';
@@ -9,19 +10,39 @@ import { BALANCES, BlackjackEvents, STAKE } from './blackjack/constants.ts';
 const RUSSIAN_ROULETTE_ROUND = 2;
 
 export class Player {
+  public playerBullets: number[] = [];
+
+  public dealerBullets: number[] = [];
+
   constructor(
     private scene: Phaser.Scene,
     private blackjack: Blackjack,
+    private rouletteUI: RouletteUI,
   ) {
     this.setupEventListeners();
     this.initRound();
   }
 
-  private initRound() {
+  private initRound(
+    playerPurchasedBullets?: number,
+    dealerPurchasedBullets?: number,
+  ) {
     MainGame.currentRoundIndex += 1;
+
+    if (playerPurchasedBullets !== undefined) {
+      this.playerBullets.push(playerPurchasedBullets);
+    }
+
+    if (dealerPurchasedBullets !== undefined) {
+      this.dealerBullets.push(dealerPurchasedBullets);
+    }
+
+    /// TODO dev degud roullete
+    // MainGame.currentRoundIndex = RUSSIAN_ROULETTE_ROUND;
 
     if (MainGame.currentRoundIndex === RUSSIAN_ROULETTE_ROUND) {
       console.log('RUSSIAN_ROULETTE_ROUND START');
+      this.initRouletteRound();
       return;
     }
 
@@ -48,6 +69,12 @@ export class Player {
     this.scene.time.delayedCall(50, () => {
       this.updateLabels();
     });
+  }
+
+  private initRouletteRound() {
+    EventBus.emit(UI_Event.HIDE_BASE_UI, this);
+    /// TODO dealer talk about REZNYA!!!!
+    this.rouletteUI.show(this.playerBullets, this.dealerBullets);
   }
 
   private setupEventListeners() {

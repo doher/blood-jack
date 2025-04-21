@@ -2,11 +2,6 @@ import { EventBus } from '../../EventBus.ts';
 import { UiControlsFrame } from '../../managers/game-object-factory/imageConstants.ts';
 import { SoundLoadingKey } from '../../managers/sound-manager/constants.ts';
 import { SCREEN_HALF_H, SCREEN_HALF_W } from '../../views/constants.ts';
-import {
-  Button,
-  FAST_CLICK_SPEED,
-  LOW_CLICK_SPEED,
-} from '../../views/ui/button/Button.ts';
 import { UI_Event, UIElementName } from '../../views/ui/constants.ts';
 import { Label } from '../../views/ui/label/Label.ts';
 import type { UiElement } from '../../views/ui/UiElement.ts';
@@ -23,6 +18,11 @@ import {
 } from './constants.ts';
 
 import Container = Phaser.GameObjects.Container;
+import {
+  Button,
+  FAST_CLICK_SPEED,
+  LOW_CLICK_SPEED,
+} from '../../views/ui/button/Button.ts';
 
 export class PlayerUI extends Container {
   public deal: Button;

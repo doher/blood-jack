@@ -345,6 +345,26 @@ export class ScaleBalance extends Container {
   }
 
   private resetShop() {
-    EventBus.emit(ShopEvent.SET_NEXT_ROUND);
+    const dealerBalance = this.blackjack.dealerBalance;
+    const round = MainGame.currentRoundIndex;
+    const currentPrices = SCALES_COSTS[round];
+
+    let maxAffordableIndex = -1;
+    let maxAffordablePrice = -Infinity;
+
+    currentPrices.forEach((price, index) => {
+      if (price <= dealerBalance.value && price > maxAffordablePrice) {
+        maxAffordablePrice = price;
+        maxAffordableIndex = index;
+      }
+    });
+
+    console.log('maxAffordableIndex = ' + maxAffordableIndex); // Индекс самой большой доступной цены
+
+    EventBus.emit(
+      ShopEvent.SET_NEXT_ROUND,
+      this.indexScaleBalance,
+      maxAffordableIndex,
+    );
   }
 }
