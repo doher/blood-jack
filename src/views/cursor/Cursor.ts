@@ -5,6 +5,7 @@ import { SHADOW_TAG } from '../Shadow.ts';
 import Sprite = Phaser.GameObjects.Sprite;
 import Container = Phaser.GameObjects.Container;
 import GameObject = Phaser.GameObjects.GameObject;
+import { EventBus } from '../../EventBus.ts';
 
 type AvailableCursorTexture =
   | ImageLoadingKey.CURSOR_CLICK
@@ -14,6 +15,8 @@ type AvailableCursorTexture =
 const HAND_OFFSET_Y = 40;
 const ARM_OFFSET_Y = 1620;
 
+export const HIDE_CURSOR = 'HIDE_CURSOR';
+export const HIDE__DEFAULT_CURSOR = 'HIDE__DEFAULT_CURSOR';
 export class Cursor extends Container {
   private cursorHand: Sprite;
 
@@ -24,10 +27,17 @@ export class Cursor extends Container {
   constructor(public scene: Phaser.Scene) {
     super(scene, 0, 0);
     this.create();
+    EventBus.once(HIDE_CURSOR, () => {
+      this.setVisible(false);
+    });
+
+    EventBus.once(HIDE__DEFAULT_CURSOR, () => {
+      this.setVisible(true);
+    });
   }
 
   private create() {
-    // this.scene.input.setDefaultCursor('none');
+    this.scene.input.setDefaultCursor('none');
 
     this.cursorHand = gameObjectFactory.createSprite(this.scene, {
       key: ImageLoadingKey.CURSOR_IDLE,

@@ -19,10 +19,11 @@ import type { Blackjack } from '../../actors/blackjack/Blackjack.ts';
 import { ShootChance } from './ShootChance.ts';
 import { DragBullet } from './DragBullet.ts';
 import { SwitchRoundTypeShadow } from './SwitchRoundTypeShadow.ts';
+import { EndGame } from './EndGame.ts';
 
 const DRUM_POSITION: Position = {
   x: 0,
-  y: -150,
+  y: -100,
 };
 
 export const enum TurnType {
@@ -53,15 +54,13 @@ export class RouletteView extends Container {
 
   private currentTurnType: TurnType;
 
-  private playerBulletsFrames: RouletteBulletsType[];
-
-  private dealerBulletsFrames: RouletteBulletsType[];
-
   private switchRoundTypeShadow: SwitchRoundTypeShadow;
 
   private dealerLastAngleRotation = 0;
 
   private playerLastAngleRotation = 0;
+
+  private endGame: EndGame;
 
   constructor(
     private scene: Phaser.Scene,
@@ -103,7 +102,7 @@ export class RouletteView extends Container {
 
     this.shootButton = new Button(
       this.scene,
-      { x: 0, y: 375 },
+      { x: 0, y: 400 },
       UiControlsFrame.RED_BUTTON,
       {
         x: 1.7,
@@ -333,11 +332,16 @@ export class RouletteView extends Container {
   }
 
   private shootLive() {
-    console.log(this.currentTurnType + 'DEAD');
+    /// TODO Shoot sound
+
+    this.endGame = new EndGame(this.scene, this.currentTurnType);
+    this.add(this.endGame);
+    this.scene.time.delayedCall(1000, () => {
+      this.endGame.showEndGame();
+    });
   }
 
   private shootBlank() {
-    console.log('BLANK');
     this.startNextTurn();
   }
 
@@ -463,9 +467,6 @@ export class RouletteView extends Container {
     playerBulletsFrames: RouletteBulletsType[],
     dealerBulletsFrames: RouletteBulletsType[],
   ) {
-    this.playerBulletsFrames = playerBulletsFrames;
-    this.dealerBulletsFrames = dealerBulletsFrames;
-
     this.revolverCylinder.showPlayerBullets(
       playerBulletsFrames,
       dealerBulletsFrames,

@@ -11,6 +11,8 @@ import { MonsterEye } from './MonsterEye.ts';
 import ANIMATION_COMPLETE_KEY = Phaser.Animations.Events.ANIMATION_COMPLETE_KEY;
 import Container = Phaser.GameObjects.Container;
 import Sprite = Phaser.GameObjects.Sprite;
+import { SoundManager } from '../../managers/sound-manager/SoundManager.ts';
+import { SoundLoadingKey } from '../../managers/sound-manager/constants.ts';
 
 export class Monster extends Container implements MonsterAnimation {
   private gameObjectsMap = new Map<string, Phaser.GameObjects.GameObject>();
@@ -19,12 +21,15 @@ export class Monster extends Container implements MonsterAnimation {
 
   public monsterEye: MonsterEye;
 
+  private soundManager: SoundManager;
+
   constructor(
     public scene: Phaser.Scene,
     position: Position,
   ) {
     super(scene, position.x, position.y);
     this.createGameObjects();
+    this.soundManager = SoundManager.getInstance();
   }
 
   private createGameObjects() {
@@ -53,6 +58,7 @@ export class Monster extends Container implements MonsterAnimation {
     this.monsterBody.once(
       ANIMATION_COMPLETE_KEY + AnimationPlayingKey.DEALER_SMILE_PLAY,
       () => {
+        this.soundManager.play(SoundLoadingKey.SHOP_BUY_BAD);
         this.scene.tweens.add({
           targets: this.monsterBody,
           x: {
@@ -68,7 +74,7 @@ export class Monster extends Container implements MonsterAnimation {
           repeat: -1,
           ease: Phaser.Math.Easing.Linear,
         });
-        this.scene.time.delayedCall(1500, () => {
+        this.scene.time.delayedCall(1100, () => {
           this.scene.tweens.killTweensOf(this.monsterBody);
 
           this.monsterBody.once(

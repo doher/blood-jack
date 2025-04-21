@@ -59,7 +59,7 @@ export const ANIMATIONS_TO_CREATE: AnimationRegistrationLayout[] = [
     key: AnimationPlayingKey.BACKGROUND_JAIL_PLAY,
     frames: AnimationLoadingKey.BACKGROUND_JAIL,
     frameRate: 16,
-    repeat: -1,
+    repeat: 0,
   },
 ];
 

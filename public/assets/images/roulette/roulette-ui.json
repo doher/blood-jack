@@ -73,6 +73,27 @@
 					}
 				},
 				{
+					"filename": "skull.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 150,
+						"h": 250
+					},
+					"spriteSourceSize": {
+						"x": 9,
+						"y": 9,
+						"w": 132,
+						"h": 232
+					},
+					"frame": {
+						"x": 1873,
+						"y": 1,
+						"w": 132,
+						"h": 232
+					}
+				},
+				{
 					"filename": "drum.png",
 					"rotated": false,
 					"trimmed": false,
@@ -88,7 +109,7 @@
 					},
 					"frame": {
 						"x": 1873,
-						"y": 1,
+						"y": 235,
 						"w": 150,
 						"h": 151
 					}
@@ -99,6 +120,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:00527216189fa4a1f6a5eae75a763ceb:a7fda939d88d0b33fa0faed82310c44f:0e6f90259d2c4d1ea12e35431f6e01b8$"
+		"smartupdate": "$TexturePacker:SmartUpdate:51e73cacf0d8597432ff73f3a0007f8e:a29d6eb61644c4707c56dcdf1a1f8ae2:0e6f90259d2c4d1ea12e35431f6e01b8$"
 	}
 }

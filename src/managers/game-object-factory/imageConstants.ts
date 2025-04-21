@@ -23,6 +23,7 @@ export const enum RouletteFrame {
   ROULETTE_BULLET_GREEN = 'bullet_bottom_green.png',
   ROULETTE_BULLET_RED = 'bullet_bottom_red.png',
   ROULETTE_BULLET_YELLOW = 'bullet_bottom_yellow.png',
+  SKULL_INDICATOR = 'skull.png',
 }
 
 export const enum ImageLoadingKey {
