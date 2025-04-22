@@ -4,6 +4,8 @@ import { AnimationPlayingKey } from '../../managers/animation-manager/AnimationM
 import { AnimationLoadingKey } from '../../managers/animation-manager/constants.ts';
 import type { Position } from '../../managers/game-object-factory/constants.ts';
 import { gameObjectFactory } from '../../managers/game-object-factory/GameObjectFactory.ts';
+import { SoundLoadingKey } from '../../managers/sound-manager/constants.ts';
+import { SoundManager } from '../../managers/sound-manager/SoundManager.ts';
 import type { MonsterAnimation } from './constants.ts';
 import { MonsterObjectsId } from './constants.ts';
 import { MonsterEye } from './MonsterEye.ts';
@@ -11,8 +13,6 @@ import { MonsterEye } from './MonsterEye.ts';
 import ANIMATION_COMPLETE_KEY = Phaser.Animations.Events.ANIMATION_COMPLETE_KEY;
 import Container = Phaser.GameObjects.Container;
 import Sprite = Phaser.GameObjects.Sprite;
-import { SoundManager } from '../../managers/sound-manager/SoundManager.ts';
-import { SoundLoadingKey } from '../../managers/sound-manager/constants.ts';
 
 export class Monster extends Container implements MonsterAnimation {
   public onTalkingState = false;
@@ -197,6 +197,7 @@ export class Monster extends Container implements MonsterAnimation {
       },
       ease: Phaser.Math.Easing.Linear,
     });
+    SoundManager.getInstance().play(SoundLoadingKey.SHOP_BUY_GOOD);
     this.monsterBody.play(AnimationPlayingKey.DEALER_SAD_PLAY);
   }
 

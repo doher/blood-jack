@@ -6,10 +6,12 @@ import {
   STAKE,
 } from '../../actors/blackjack/constants.ts';
 import type { Hand } from '../../actors/blackjack/Hand.ts';
+import { DealerEvents } from '../../actors/dealer/constants.ts';
 import { EventBus } from '../../EventBus.ts';
 import { CardView } from '../../views/card-view/CardView.ts';
 import { ShopEvent } from '../../views/shop-view/constants.ts';
 import { UI_Event, UIElementName } from '../../views/ui/constants.ts';
+import { AnimationPlayingKey } from '../animation-manager/AnimationManager.ts';
 import { gameObjectFactory } from '../game-object-factory/GameObjectFactory.ts';
 import {
   CARD_WIDTH,
@@ -21,8 +23,21 @@ import {
 
 import Text = Phaser.GameObjects.Text;
 import Container = Phaser.GameObjects.Container;
-import { DealerEvents } from '../../actors/dealer/constants.ts';
-import { AnimationPlayingKey } from '../animation-manager/AnimationManager.ts';
+import { SoundManager } from '../sound-manager/SoundManager.ts';
+import { SoundLoadingKey } from '../sound-manager/constants.ts';
+
+const NO_DOUBLE_STAKE_DIALOG = [
+  ['No money to go for a double?', 'Oh, how terribly unfortunate.'],
+  [
+    'Oh my, you can’t even scrounge up enough for a double?',
+    'That’s just downright *!@% pitiful',
+  ],
+  [
+    'Maybe you should lower your stake before',
+    'You lose what little you have left...',
+    'Truly a sad sight to behold',
+  ],
+] as const;
 
 export class BlackjackManager {
   public blackjack: Blackjack;
@@ -219,6 +234,24 @@ export class BlackjackManager {
   }
 
   private double(): void {
+    const doubledStake = this.blackjack.currentStake * 2;
+
+    if (this.blackjack.playerBalance.value - doubledStake < STAKE) {
+      const randId = Phaser.Math.Between(0, NO_DOUBLE_STAKE_DIALOG.length - 1);
+
+      EventBus.emit(
+        DealerEvents.TALK_WITH_TEXT,
+        [...NO_DOUBLE_STAKE_DIALOG[randId]],
+        AnimationPlayingKey.DEALER_ANGRY_TALK_PLAY,
+      );
+      return;
+    }
+
+    if (this.blackjack.dealerBalance.value - doubledStake < STAKE) {
+      EventBus.emit(DealerEvents.SAD);
+      return;
+    }
+
     this.blackjack.double();
 
     EventBus.emit(
@@ -406,14 +439,17 @@ export class BlackjackManager {
     let currentDealerBalanceValue = this.blackjack.dealerBalance.value;
 
     if (message === BlackjackResult.PLAYER_WIN) {
+      EventBus.emit(DealerEvents.SAD);
       currentPlayerBalanceValue += 2 * this.blackjack.currentStake;
     }
 
     if (message === BlackjackResult.DEALER_WIN) {
+      EventBus.emit(DealerEvents.SMILE);
       currentDealerBalanceValue += 2 * this.blackjack.currentStake;
     }
 
     if (message === BlackjackResult.PUSH) {
+      SoundManager.getInstance().play(SoundLoadingKey.SHOP_BUY_SO_SO);
       currentPlayerBalanceValue += this.blackjack.currentStake;
       currentDealerBalanceValue += this.blackjack.currentStake;
     }
