@@ -101,7 +101,7 @@ export class RevolverCylinder extends Container {
     this.scene.tweens.add({
       targets: this.readyRevolverCylinderHolder,
       angle: 360 * 10 + targetAngel,
-      duration: 4000,
+      duration: 3800,
       ease: 'Cubic.easeOut',
       onComplete: () => {
         console.log('RouletteEvent.SHOOT');

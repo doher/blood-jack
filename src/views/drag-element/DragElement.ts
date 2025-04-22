@@ -9,6 +9,8 @@ import Container = Phaser.GameObjects.Container;
 import { EventBus } from '../../EventBus.ts';
 import { RouletteEvent } from '../roullete-view/constants.ts';
 import { DataKey, SlotElementName } from '../roullete-view/RevolverCylinder.ts';
+import { SoundManager } from '../../managers/sound-manager/SoundManager.ts';
+import { SoundLoadingKey } from '../../managers/sound-manager/constants.ts';
 
 const enum DragElementName {
   IDLE = 'IDLE',
@@ -223,7 +225,7 @@ export class DragElement {
       });
       return;
     }
-
+    SoundManager.getInstance().play(SoundLoadingKey.SHOP_BUY);
     this.firstParentContainer.add(this.sprite);
 
     this.sprite.x = this.spriteDefaultPosition.x;
@@ -231,6 +233,7 @@ export class DragElement {
   }
 
   private setUpToSlot() {
+    SoundManager.getInstance().play(SoundLoadingKey.ROULETTE_LOAD_SHELL);
     this.isDragCompleteToSlot = true;
     this.sprite.setName(DragElementName.IN_SLOT);
   }

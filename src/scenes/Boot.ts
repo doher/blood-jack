@@ -138,7 +138,7 @@ export class Boot extends Scene {
         },
         {
           name: SoundLoadingKey.RAIN,
-          url: 'assets/sounds/rain/rainSound.mp3',
+          url: 'assets/sounds/rain/rainSound.wav',
         },
         {
           name: SoundLoadingKey.CARD_GIVEAWAY,
@@ -198,11 +198,19 @@ export class Boot extends Scene {
         },
         {
           name: SoundLoadingKey.ROULETTE_SHOOT,
-          url: 'assets/sounds/roulette/shoot.wav',
+          url: 'assets/sounds/roulette/shoot.mp3',
         },
         {
           name: SoundLoadingKey.ROULETTE_EMPTY,
           url: 'assets/sounds/roulette/empty.wav',
+        },
+        {
+          name: SoundLoadingKey.ROULETTE_LOAD_SHELL,
+          url: 'assets/sounds/roulette/load-shell.wav',
+        },
+        {
+          name: SoundLoadingKey.ROULETTE_MAIN_THEME,
+          url: 'assets/sounds/roulette/background-theme.mp3',
         },
       ],
       () => {

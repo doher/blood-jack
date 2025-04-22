@@ -20,6 +20,7 @@ import { ShootChance } from './ShootChance.ts';
 import { DragBullet } from './DragBullet.ts';
 import { SwitchRoundTypeShadow } from './SwitchRoundTypeShadow.ts';
 import { EndGame } from './EndGame.ts';
+import { SoundManager } from '../../managers/sound-manager/SoundManager.ts';
 
 const DRUM_POSITION: Position = {
   x: 0,
@@ -204,6 +205,8 @@ export class RouletteView extends Container {
   }
 
   private handleSpinButton() {
+    SoundManager.getInstance().play(SoundLoadingKey.ROULETTE_SPIN);
+
     EventBus.emit(UI_Event.DISABLE_UI_ELEMENT_ + UIElementName.ROULETTE_SHOOT);
 
     const availableBulletsType: RouletteBulletsType[] = [];
@@ -218,13 +221,9 @@ export class RouletteView extends Container {
     const targetBulletType =
       this.getBulletTypeToRevolverCylinderStop(availableBulletsType);
 
-    console.log('targetBulletType = ' + targetBulletType);
-
     this.currentStopBullet = targetBulletType;
 
     const stopAngle = this.getBulletAngleStop(dragBullets, targetBulletType);
-
-    console.log('stopAngle = ' + stopAngle);
 
     this.revolverCylinder.startShootRotation(stopAngle);
   }
@@ -333,16 +332,29 @@ export class RouletteView extends Container {
 
   private shootLive() {
     /// TODO Shoot sound
-
-    this.endGame = new EndGame(this.scene, this.currentTurnType);
-    this.add(this.endGame);
-    this.scene.time.delayedCall(1000, () => {
-      this.endGame.showEndGame();
+    this.scene.time.delayedCall(500, () => {
+      this.scene.time.delayedCall(500, () => {
+        SoundManager.getInstance().play(SoundLoadingKey.ROULETTE_SHOOT);
+        this.scene.time.delayedCall(500, () => {
+          this.endGame = new EndGame(this.scene, this.currentTurnType);
+          this.add(this.endGame);
+          this.scene.time.delayedCall(1000, () => {
+            this.endGame.showEndGame();
+          });
+        });
+      });
     });
   }
 
   private shootBlank() {
-    this.startNextTurn();
+    this.scene.time.delayedCall(500, () => {
+      this.scene.time.delayedCall(500, () => {
+        SoundManager.getInstance().play(SoundLoadingKey.ROULETTE_EMPTY);
+        this.scene.time.delayedCall(500, () => {
+          this.startNextTurn();
+        });
+      });
+    });
   }
 
   private getBulletTypeToRevolverCylinderStop(
@@ -467,6 +479,13 @@ export class RouletteView extends Container {
     playerBulletsFrames: RouletteBulletsType[],
     dealerBulletsFrames: RouletteBulletsType[],
   ) {
+    SoundManager.getInstance().play(
+      SoundLoadingKey.ROULETTE_MAIN_THEME,
+      true,
+      false,
+      0.5,
+    );
+
     this.revolverCylinder.showPlayerBullets(
       playerBulletsFrames,
       dealerBulletsFrames,
