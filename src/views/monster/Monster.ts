@@ -230,10 +230,6 @@ export class Monster extends Container implements MonsterAnimation {
       | AnimationPlayingKey.DEALER_ANGRY_TALK_PLAY,
     countTimes = 1,
   ) {
-    if (this.isBusy) {
-      return;
-    }
-
     this.isBusy = true;
 
     let currentPlayingCount = 0;
