@@ -1,26 +1,27 @@
-import Container = Phaser.GameObjects.Container;
-import Sprite = Phaser.GameObjects.Sprite;
+import type { Blackjack } from '../../actors/blackjack/Blackjack.ts';
 import { RouletteBulletsType } from '../../actors/roulette/RouletteUI.ts';
-import { DataKey, RevolverCylinder } from './RevolverCylinder.ts';
-import { Position } from '../../managers/game-object-factory/constants.ts';
-import { SCREEN_HALF_H, SCREEN_HALF_W } from '../constants.ts';
+import { EventBus } from '../../EventBus.ts';
+import type { Position } from '../../managers/game-object-factory/constants.ts';
 import { gameObjectFactory } from '../../managers/game-object-factory/GameObjectFactory.ts';
 import {
   ImageLoadingKey,
   UiControlsFrame,
 } from '../../managers/game-object-factory/imageConstants.ts';
+import { SoundLoadingKey } from '../../managers/sound-manager/constants.ts';
+import { SCREEN_HALF_H, SCREEN_HALF_W } from '../constants.ts';
 import { Shadow, SHADOW_TAG } from '../Shadow.ts';
-import { EventBus } from '../../EventBus.ts';
-import { RouletteEvent } from './constants.ts';
 import { Button, LOW_CLICK_SPEED } from '../ui/button/Button.ts';
 import { UI_Event, UIElementName } from '../ui/constants.ts';
-import { SoundLoadingKey } from '../../managers/sound-manager/constants.ts';
-import type { Blackjack } from '../../actors/blackjack/Blackjack.ts';
-import { ShootChance } from './ShootChance.ts';
-import { DragBullet } from './DragBullet.ts';
-import { SwitchRoundTypeShadow } from './SwitchRoundTypeShadow.ts';
+import { RouletteEvent } from './constants.ts';
+import type { DragBullet } from './DragBullet.ts';
 import { EndGame } from './EndGame.ts';
-import { SoundManager } from '../../managers/sound-manager/SoundManager.ts';
+import { DataKey, RevolverCylinder } from './RevolverCylinder.ts';
+import { ShootChance } from './ShootChance.ts';
+import { SwitchRoundTypeShadow } from './SwitchRoundTypeShadow.ts';
+
+import Container = Phaser.GameObjects.Container;
+import Sprite = Phaser.GameObjects.Sprite;
+import { EndGame } from './EndGame.ts';
 
 const DRUM_POSITION: Position = {
   x: 0,
@@ -64,7 +65,7 @@ export class RouletteView extends Container {
   private endGame: EndGame;
 
   constructor(
-    private scene: Phaser.Scene,
+    public scene: Phaser.Scene,
     private blackjack: Blackjack,
   ) {
     super(scene, SCREEN_HALF_W, SCREEN_HALF_H);

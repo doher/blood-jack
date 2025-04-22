@@ -56,6 +56,7 @@ export class Dealer implements MonsterAnimation {
 
   private handleCompleteTalkingText() {
     this.view.onTalkingState = false;
+    this.view.isBusy = false;
     this.tryToGoIdle();
   }
 
