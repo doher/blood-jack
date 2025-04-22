@@ -15,6 +15,10 @@ import { SoundManager } from '../../managers/sound-manager/SoundManager.ts';
 import { SoundLoadingKey } from '../../managers/sound-manager/constants.ts';
 
 export class Monster extends Container implements MonsterAnimation {
+  public onTalkingState = false;
+
+  public isBusy = false;
+
   private gameObjectsMap = new Map<string, Phaser.GameObjects.GameObject>();
 
   private monsterBody: Sprite;
@@ -54,7 +58,21 @@ export class Monster extends Container implements MonsterAnimation {
     this.add([this.monsterBody, this.monsterEye]);
   }
 
+  private setDealerToReady() {
+    this.isBusy = false;
+  }
+
   public smile() {
+    if (this.onTalkingState) {
+      return;
+    }
+
+    if (this.isBusy) {
+      return;
+    }
+
+    this.isBusy = true;
+
     this.monsterBody.once(
       ANIMATION_COMPLETE_KEY + AnimationPlayingKey.DEALER_SMILE_PLAY,
       () => {
@@ -80,6 +98,7 @@ export class Monster extends Container implements MonsterAnimation {
           this.monsterBody.once(
             ANIMATION_COMPLETE_KEY + AnimationPlayingKey.DEALER_SMILE_PLAY,
             () => {
+              this.setDealerToReady();
               EventBus.emit(DealerEvents.GO_TO_IDLE);
             },
           );
@@ -93,6 +112,16 @@ export class Monster extends Container implements MonsterAnimation {
   }
 
   public sad() {
+    if (this.onTalkingState) {
+      return;
+    }
+
+    if (this.isBusy) {
+      return;
+    }
+
+    this.isBusy = true;
+
     this.monsterBody.once(
       ANIMATION_COMPLETE_KEY + AnimationPlayingKey.DEALER_SAD_PLAY,
       () => {
@@ -143,6 +172,7 @@ export class Monster extends Container implements MonsterAnimation {
             ANIMATION_COMPLETE_KEY + AnimationPlayingKey.DEALER_SAD_PLAY,
             () => {
               this.scene.tweens.killTweensOf(this.monsterEye);
+              this.setDealerToReady();
               EventBus.emit(DealerEvents.GO_TO_IDLE);
             },
           );
@@ -208,6 +238,16 @@ export class Monster extends Container implements MonsterAnimation {
       | AnimationPlayingKey.DEALER_ANGRY_TALK_PLAY,
     countTimes = 1,
   ) {
+    if (this.onTalkingState) {
+      return;
+    }
+
+    if (this.isBusy) {
+      return;
+    }
+
+    this.isBusy = true;
+
     let currentPlayingCount = 0;
     const finalY = this.monsterEye.y + 15;
     this.monsterBody.on(ANIMATION_COMPLETE_KEY + animKey, () => {

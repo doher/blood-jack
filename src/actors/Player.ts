@@ -6,6 +6,8 @@ import { RouletteUI } from './roulette/RouletteUI.ts';
 import { UIElementName, UI_Event } from '../views/ui/constants.ts';
 import type { Blackjack } from './blackjack/Blackjack.ts';
 import { BALANCES, BlackjackEvents, STAKE } from './blackjack/constants.ts';
+import { AnimationPlayingKey } from '../managers/animation-manager/AnimationManager.ts';
+import { DealerEvents } from './dealer/constants.ts';
 
 const RUSSIAN_ROULETTE_ROUND = 2;
 
@@ -41,8 +43,24 @@ export class Player {
     // MainGame.currentRoundIndex = RUSSIAN_ROULETTE_ROUND;
 
     if (MainGame.currentRoundIndex === RUSSIAN_ROULETTE_ROUND) {
-      console.log('RUSSIAN_ROULETTE_ROUND START');
-      this.initRouletteRound();
+      this.scene.time.delayedCall(1000, () => {
+        EventBus.emit(
+          DealerEvents.TALK_WITH_TEXT,
+          [
+            'The time for Russian roulette has come.',
+            'I hope you buy the best cartridges.',
+          ],
+          AnimationPlayingKey.DEALER_ANGRY_TALK_PLAY,
+        );
+
+        this.scene.time.delayedCall(14300, () => {
+          EventBus.emit(DealerEvents.SMILE);
+          this.scene.time.delayedCall(3700, () => {
+            this.initRouletteRound();
+          });
+        });
+      });
+
       return;
     }
 

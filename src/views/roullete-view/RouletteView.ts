@@ -12,7 +12,7 @@ import {
 import { Shadow, SHADOW_TAG } from '../Shadow.ts';
 import { EventBus } from '../../EventBus.ts';
 import { RouletteEvent } from './constants.ts';
-import { Button, LOW_CLICK_SPEED } from '../ui/button/button.ts';
+import { Button, LOW_CLICK_SPEED } from '../ui/button/Button.ts';
 import { UI_Event, UIElementName } from '../ui/constants.ts';
 import { SoundLoadingKey } from '../../managers/sound-manager/constants.ts';
 import type { Blackjack } from '../../actors/blackjack/Blackjack.ts';

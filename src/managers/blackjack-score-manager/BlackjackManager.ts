@@ -21,6 +21,8 @@ import {
 
 import Text = Phaser.GameObjects.Text;
 import Container = Phaser.GameObjects.Container;
+import { DealerEvents } from '../../actors/dealer/constants.ts';
+import { AnimationPlayingKey } from '../animation-manager/AnimationManager.ts';
 
 export class BlackjackManager {
   public blackjack: Blackjack;
@@ -432,7 +434,21 @@ export class BlackjackManager {
 
     this.resetGameAfterDelay();
 
-    if (currentPlayerBalanceValue === 0 || currentDealerBalanceValue === 0) {
+    if (currentPlayerBalanceValue === 0) {
+      EventBus.emit(
+        DealerEvents.TALK_WITH_TEXT,
+        ['Oh no, looks like someone is going to buy live cartridges.'],
+        AnimationPlayingKey.DEALER_ANGRY_TALK_PLAY,
+      );
+      return;
+    }
+
+    if (currentDealerBalanceValue === 0) {
+      EventBus.emit(
+        DealerEvents.TALK_WITH_TEXT,
+        ['#&#$&%#%#%#!@!!!!!'],
+        AnimationPlayingKey.DEALER_ANGRY_TALK_PLAY,
+      );
       return;
     }
 

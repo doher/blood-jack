@@ -13,6 +13,7 @@ import { Rain } from '../views/Rain.ts';
 import { SceneType } from './constants.ts';
 import { RouletteUI } from '../actors/roulette/RouletteUI.ts';
 import { Background } from '../views/Background.ts';
+import { AnimationPlayingKey } from '../managers/animation-manager/AnimationManager.ts';
 
 export class MainGame extends Scene {
   public static currentRoundIndex = -1;
@@ -60,16 +61,6 @@ export class MainGame extends Scene {
     this.blackjackManager = new BlackjackManager(this);
 
     this.dealer = new Dealer(this);
-    // this.dealer.talkText(
-    //   [
-    //     'Pypypy Pypypy Pypypy',
-    //     'Lets play Blackjack, 2 rounds, after last round is russian roulette',
-    //   ],
-    //   AnimationPlayingKey.DEALER_ANGRY_TALK_PLAY,
-    // );
-
-    ///TODO DEV MUTE
-    // SoundManager.getInstance().muteAll();
 
     new PlayerUI(this); // create ui before create player
 
@@ -80,6 +71,20 @@ export class MainGame extends Scene {
     this.cursor = new Cursor(this); // create cursor after all ui elements!!!
 
     new Player(this, this.blackjackManager.blackjack, this.rouletteUI); // create in last queue
+
+    this.time.delayedCall(1000, () => {
+      this.dealer.talkText(
+        [
+          'Hello prisoner #666',
+          'We will play Blackjack with You',
+          'I advise you to win all my money',
+          "If you're lucky, you can buy blank cartridges...",
+          'Because as soon as you buy cartridges 2 times...',
+          'We will play...RUSSIAN ROULETTE',
+        ],
+        AnimationPlayingKey.DEALER_ANGRY_TALK_PLAY,
+      );
+    });
   }
 
   public update() {

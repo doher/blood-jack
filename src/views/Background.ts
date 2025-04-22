@@ -55,14 +55,6 @@ export class Background extends Container {
         return;
       }
       EventBus.emit(DealerEvents.SMILE);
-      // this.scene.time.delayedCall(3000, () => {
-      //   EventBus.emit(
-      //     DealerEvents.TALK_WITH_TEXT,
-      //     ['Zero Chance To Leave'],
-      //     AnimationPlayingKey.DEALER_TALK_PLAY,
-      //   );
-      // });
-
       this.background.play(AnimationPlayingKey.BACKGROUND_JAIL_PLAY);
       this.isPlaying = true;
     });
