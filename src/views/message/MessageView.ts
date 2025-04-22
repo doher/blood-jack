@@ -23,7 +23,7 @@ const DEFAULT_TALK_DIVIDER = 14;
 const ANGRY_TALK_DIVIDER = 15;
 
 const DELAY_BEFORE_TALK_ANIMATION = 500;
-const DELAY_BEFORE_NEXT_TEXT = 1110;
+const DELAY_BEFORE_NEXT_TEXT = 3500;
 
 export class MessageView extends Container implements Message {
   public textField: Phaser.GameObjects.Text;

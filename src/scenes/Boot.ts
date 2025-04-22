@@ -11,6 +11,9 @@ import { SceneManager } from '../managers/SceneManager.ts';
 import { SoundLoadingKey } from '../managers/sound-manager/constants.ts';
 import { HowlerLoader } from '../managers/sound-manager/HowlerLoader.ts';
 import { SceneType } from './constants.ts';
+import { Shadow } from '../views/Shadow.ts';
+import { gameObjectFactory } from '../managers/game-object-factory/GameObjectFactory.ts';
+import { SCREEN_HALF_H, SCREEN_HALF_W } from '../views/constants.ts';
 
 export class Boot extends Scene {
   private assetLoaderManager: AssetLoaderManager;
@@ -25,11 +28,37 @@ export class Boot extends Scene {
 
   private isHowlerCompleteLoading = false;
 
+  private loadingShadow: Shadow;
+
+  private loadingText: Phaser.GameObjects.Text;
+
   constructor() {
     super(SceneType.BOOT);
   }
 
   public preload() {
+    this.loadingShadow = new Shadow(this, 1);
+    this.loadingShadow.setPosition(0, 0);
+
+    const con = this.add.container(0, 0);
+
+    this.loadingText = gameObjectFactory.createText(this, {
+      fontSize: 100,
+      color: 'white',
+      position: {
+        x: SCREEN_HALF_W,
+        y: SCREEN_HALF_H,
+      },
+      origin: {
+        x: 0.5,
+        y: 0.5,
+      },
+      text: 'LOADING...',
+    });
+
+    con.add([this.loadingShadow, this.loadingText]);
+    // this.add.existing(this.loadingShadow);
+
     this.initializeManagers();
     this.addAssetsToLoadQueue();
     this.startAssetLoader();
@@ -160,6 +189,22 @@ export class Boot extends Scene {
           name: SoundLoadingKey.SHOP_BALANCE_TEXT,
           url: 'assets/sounds/shop/tone.wav',
         },
+        {
+          name: SoundLoadingKey.SHOP_BALANCE_TEXT,
+          url: 'assets/sounds/shop/tone.wav',
+        },
+        {
+          name: SoundLoadingKey.ROULETTE_SPIN,
+          url: 'assets/sounds/roulette/spin.wav',
+        },
+        {
+          name: SoundLoadingKey.ROULETTE_SHOOT,
+          url: 'assets/sounds/roulette/shoot.wav',
+        },
+        {
+          name: SoundLoadingKey.ROULETTE_EMPTY,
+          url: 'assets/sounds/roulette/empty.wav',
+        },
       ],
       () => {
         this.afterLoadSounds();
@@ -181,6 +226,8 @@ export class Boot extends Scene {
     if (!this.isHowlerCompleteLoading || !this.isPhaserCompleteLoading) {
       return;
     }
+    this.loadingShadow.destroy(true);
+    this.loadingText.destroy(true);
     this.animationManager.registrationAnimation();
     this.sceneManager.start(SceneType.MENU);
   }

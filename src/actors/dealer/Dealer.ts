@@ -16,8 +16,6 @@ export class Dealer implements MonsterAnimation {
 
   public voiceSystem: VoiceSystem;
 
-  private onTalkingState = false;
-
   constructor(private scene: Scene) {
     this.createGameObjects();
     this.initializeManagers();
@@ -57,12 +55,12 @@ export class Dealer implements MonsterAnimation {
   }
 
   private handleCompleteTalkingText() {
-    this.onTalkingState = false;
+    this.view.onTalkingState = false;
     this.tryToGoIdle();
   }
 
   private tryToGoIdle() {
-    if (this.onTalkingState) {
+    if (this.view.onTalkingState) {
       return;
     }
     this.earDancing(-1);
@@ -99,7 +97,11 @@ export class Dealer implements MonsterAnimation {
       | AnimationPlayingKey.DEALER_TALK_PLAY
       | AnimationPlayingKey.DEALER_ANGRY_TALK_PLAY,
   ) {
-    this.onTalkingState = true;
+    if (this.view.onTalkingState) {
+      return;
+    }
+
+    this.view.onTalkingState = true;
     this.message.startType(texts, animTypeToTalkKey);
   }
 }
