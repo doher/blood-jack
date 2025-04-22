@@ -63,10 +63,6 @@ export class Monster extends Container implements MonsterAnimation {
   }
 
   public smile() {
-    if (this.onTalkingState) {
-      return;
-    }
-
     if (this.isBusy) {
       return;
     }
@@ -112,10 +108,6 @@ export class Monster extends Container implements MonsterAnimation {
   }
 
   public sad() {
-    if (this.onTalkingState) {
-      return;
-    }
-
     if (this.isBusy) {
       return;
     }
@@ -238,10 +230,6 @@ export class Monster extends Container implements MonsterAnimation {
       | AnimationPlayingKey.DEALER_ANGRY_TALK_PLAY,
     countTimes = 1,
   ) {
-    if (this.onTalkingState) {
-      return;
-    }
-
     if (this.isBusy) {
       return;
     }

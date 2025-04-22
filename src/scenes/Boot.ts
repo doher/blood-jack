@@ -57,7 +57,6 @@ export class Boot extends Scene {
     });
 
     con.add([this.loadingShadow, this.loadingText]);
-    // this.add.existing(this.loadingShadow);
 
     this.initializeManagers();
     this.addAssetsToLoadQueue();
