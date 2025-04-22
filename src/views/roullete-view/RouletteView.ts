@@ -21,7 +21,7 @@ import { SwitchRoundTypeShadow } from './SwitchRoundTypeShadow.ts';
 
 import Container = Phaser.GameObjects.Container;
 import Sprite = Phaser.GameObjects.Sprite;
-import { EndGame } from './EndGame.ts';
+import { SoundManager } from '../../managers/sound-manager/SoundManager.ts';
 
 const DRUM_POSITION: Position = {
   x: 0,
