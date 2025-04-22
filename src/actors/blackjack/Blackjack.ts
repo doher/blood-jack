@@ -1,4 +1,5 @@
 import { EventBus } from '../../EventBus.ts';
+import { DealerEvents } from '../dealer/constants.ts';
 import { Balance } from './Balance.ts';
 import {
   BlackjackEvents,
@@ -29,6 +30,7 @@ export class Blackjack extends Container {
   private readonly playerHand: Hand;
 
   private readonly dealerHand: Hand;
+
   constructor(
     public scene: Phaser.Scene,
     numberOfDecks: number = 1,
@@ -53,14 +55,12 @@ export class Blackjack extends Container {
   }
 
   public setupEventListeners() {
-    /// TODO bring to manager
     EventBus.on(BlackjackEvents.DECREASE, this.decreaseStake, this);
     EventBus.on(BlackjackEvents.INCREASE, this.increaseStake, this);
     EventBus.on(BlackjackEvents.ALL_IN, this.allIn, this);
   }
 
   public deal(): void {
-    // todo: disable deal button
     this.playerBalance.bet(this.currentStake);
     this.dealerBalance.bet(this.currentStake);
 
@@ -84,16 +84,6 @@ export class Blackjack extends Container {
   public double(): void {
     const doubledStake = this.currentStake * 2;
 
-    if (this.playerBalance.value - doubledStake < STAKE) {
-      // todo: dealer says something
-      return;
-    }
-
-    if (this.dealerBalance.value - doubledStake < STAKE) {
-      // todo: dealer says something
-      return;
-    }
-
     this.playerBalance.bet(this.currentStake);
     this.dealerBalance.bet(this.currentStake);
 
@@ -102,18 +92,15 @@ export class Blackjack extends Container {
 
   public increaseStake(): void {
     if (this.currentStake + STAKE > this.dealerBalance.value) {
-      // todo: dealer says something
       return;
     }
 
     if (this.currentStake + STAKE === this.playerBalance.value) {
       this.currentStake += STAKE;
-      // todo: disable increase and all in buttons
       return;
     }
 
     if (this.currentStake + STAKE > this.playerBalance.value) {
-      // todo: disable increase and all in buttons
       return;
     }
 
@@ -123,12 +110,10 @@ export class Blackjack extends Container {
   public decreaseStake(): void {
     if (this.currentStake - STAKE === STAKE) {
       this.currentStake -= STAKE;
-      // todo: disable decrease button
       return;
     }
 
     if (this.currentStake - STAKE < STAKE) {
-      // todo: disable decrease button
       return;
     }
 
@@ -136,13 +121,13 @@ export class Blackjack extends Container {
   }
 
   public allIn(): void {
+    EventBus.emit(DealerEvents.SMILE);
+
     if (this.playerBalance.value > this.dealerBalance.value) {
       this.currentStake = this.dealerBalance.value;
-      // todo: dealer says something
       return;
     }
 
-    // todo: dealer says something
     this.currentStake = this.playerBalance.value;
   }
 
