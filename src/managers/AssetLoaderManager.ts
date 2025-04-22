@@ -7,17 +7,6 @@ type SpriteSheetAsset = {
   atlasDataPath: string;
 };
 
-type AudioAsset = {
-  key: string;
-  paths: string[] | string;
-};
-
-type FontAsset = {
-  key: string;
-  url: string;
-  options?: FontFaceDescriptors;
-};
-
 export class AssetLoaderManager {
   private loader: Phaser.Loader.LoaderPlugin;
 
@@ -56,6 +45,10 @@ export class AssetLoaderManager {
     onComplete?: () => void,
     onError?: (error: Error) => void,
   ): void {
+    this.loader.on(Phaser.Loader.Events.PROGRESS, (progress: number) => {
+      console.log(`Loading: ${Math.round(progress * 100)}%`);
+    });
+
     this.loader.once(Phaser.Loader.Events.COMPLETE, () => {
       onComplete?.();
     });

@@ -82,83 +82,83 @@ export class Boot extends Scene {
       [
         {
           name: SoundLoadingKey.DEALER_BBB,
-          url: '/assets/sounds/dealer/talk/BBB.wav',
+          url: 'assets/sounds/dealer/talk/BBB.wav',
         },
         {
           name: SoundLoadingKey.DEALER_BB,
-          url: '/assets/sounds/dealer/talk/BB.wav',
+          url: 'assets/sounds/dealer/talk/BB.wav',
         },
         {
           name: SoundLoadingKey.DEALER_B,
-          url: '/assets/sounds/dealer/talk/B.wav',
+          url: 'assets/sounds/dealer/talk/B.wav',
         },
         {
           name: SoundLoadingKey.DEALER_PYPYPY,
-          url: '/assets/sounds/dealer/talk/PYPYPY.wav',
+          url: 'assets/sounds/dealer/talk/PYPYPY.wav',
         },
         {
           name: SoundLoadingKey.DEALER_PYPY,
-          url: '/assets/sounds/dealer/talk/PYPY.wav',
+          url: 'assets/sounds/dealer/talk/PYPY.wav',
         },
         {
           name: SoundLoadingKey.DEALER_PY,
-          url: '/assets/sounds/dealer/talk/PY.wav',
+          url: 'assets/sounds/dealer/talk/PY.wav',
         },
         {
           name: SoundLoadingKey.DEALER_CLICK,
-          url: '/assets/sounds/dealer/clickEffect/clickEffect.mp3',
+          url: 'assets/sounds/dealer/clickEffect/clickEffect.mp3',
         },
         {
           name: SoundLoadingKey.RAIN,
-          url: '/assets/sounds/rain/rainSound.mp3',
+          url: 'assets/sounds/rain/rainSound.mp3',
         },
         {
           name: SoundLoadingKey.CARD_GIVEAWAY,
-          url: '/assets/sounds/ui-controls/card-giveaway.wav',
+          url: 'assets/sounds/ui-controls/card-giveaway.wav',
         },
         {
           name: SoundLoadingKey.DECREASE,
-          url: '/assets/sounds/ui-controls/decrease.wav',
+          url: 'assets/sounds/ui-controls/decrease.wav',
         },
         {
           name: SoundLoadingKey.INCREASE,
-          url: '/assets/sounds/ui-controls/increase.wav',
+          url: 'assets/sounds/ui-controls/increase.wav',
         },
         {
           name: SoundLoadingKey.ALL_IN,
-          url: '/assets/sounds/ui-controls/all-in.wav',
+          url: 'assets/sounds/ui-controls/all-in.wav',
         },
         {
           name: SoundLoadingKey.STAND,
-          url: '/assets/sounds/ui-controls/stand.wav',
+          url: 'assets/sounds/ui-controls/stand.wav',
         },
         {
           name: SoundLoadingKey.SHOP,
-          url: '/assets/sounds/ui-controls/shop.wav',
+          url: 'assets/sounds/ui-controls/shop.wav',
         },
         {
           name: SoundLoadingKey.SHOP_BUY,
-          url: '/assets/sounds/shop/buy.wav',
+          url: 'assets/sounds/shop/buy.wav',
         },
         {
           name: SoundLoadingKey.SHOP_BUY_BAD,
-          url: '/assets/sounds/shop/buyBad.wav',
+          url: 'assets/sounds/shop/buyBad.wav',
         },
         {
           name: SoundLoadingKey.SHOP_BUY_SO_SO,
-          url: '/assets/sounds/shop/buySoSo.wav',
+          url: 'assets/sounds/shop/buySoSo.wav',
         },
         {
           name: SoundLoadingKey.SHOP_BUY_GOOD,
-          url: '/assets/sounds/shop/buyGood.wav',
+          url: 'assets/sounds/shop/buyGood.wav',
         },
         {
           name: SoundLoadingKey.SHOP_TO_BALANCED,
-          url: '/assets/sounds/shop/toBalanced.wav',
+          url: 'assets/sounds/shop/toBalanced.wav',
         },
         {
           name: SoundLoadingKey.SHOP_BALANCE_TEXT,
-          url: '/assets/sounds/shop/tone.wav',
+          url: 'assets/sounds/shop/tone.wav',
         },
       ],
       () => {
