@@ -4,10 +4,11 @@ import type { BitmapTextDescription } from '../../managers/game-object-factory/c
 import { gameObjectFactory } from '../../managers/game-object-factory/GameObjectFactory.ts';
 import { ImageLoadingKey } from '../../managers/game-object-factory/imageConstants.ts';
 import type { Config } from './constants.ts';
-import { ranksTexts } from './constants.ts';
-import { suitsImages } from './constants.ts';
+import { ranksTexts, suitsImages } from './constants.ts';
 
 export class CardView extends Phaser.GameObjects.Container {
+  public cardBack: Phaser.GameObjects.Sprite;
+
   constructor(
     public scene: Phaser.Scene,
     config: Config,
@@ -20,7 +21,7 @@ export class CardView extends Phaser.GameObjects.Container {
 
   private create(config: Config) {
     if (config.isClosed) {
-      const cardBack = gameObjectFactory.createSprite(this.scene, {
+      this.cardBack = gameObjectFactory.createSprite(this.scene, {
         key: ImageLoadingKey.CARD_BACK,
         position: {
           x: 0,
@@ -32,7 +33,7 @@ export class CardView extends Phaser.GameObjects.Container {
         },
       });
 
-      this.add(cardBack);
+      this.add(this.cardBack);
       return;
     }
 
@@ -68,20 +69,21 @@ export class CardView extends Phaser.GameObjects.Container {
         y: 0,
       },
       text: ranksTexts[config.rank],
-      font: BitmapFontLoadingKey.CARD_VALUES,
-      size: 48,
+      font: isBlackSuit
+        ? BitmapFontLoadingKey.BLACK_CARD_FONT
+        : BitmapFontLoadingKey.RED_CARD_FONT,
+      size: 154,
       origin: {
         x: 0,
         y: 0.5,
       },
-      ...(isBlackSuit ? { tint: { topLeft: 0x000000 } } : {}),
     };
 
     const text = gameObjectFactory.createBitmapText(this.scene, {
       ...textLayout,
       position: {
         x: -48,
-        y: -78,
+        y: -128,
       },
     });
 
@@ -89,7 +91,7 @@ export class CardView extends Phaser.GameObjects.Container {
       ...textLayout,
       position: {
         x: 39,
-        y: 75,
+        y: 124,
       },
       rotation: Math.PI,
     });
