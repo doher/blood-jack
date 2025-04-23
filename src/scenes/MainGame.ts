@@ -62,15 +62,15 @@ export class MainGame extends Scene {
 
     this.dealer = new Dealer(this);
 
-    new PlayerUI(this); // create ui before create player
+    new PlayerUI(this);
 
     new ShopUI(this, this.blackjackManager.blackjack);
 
     this.rouletteUI = new RouletteUI(this, this.blackjackManager.blackjack);
 
-    this.cursor = new Cursor(this); // create cursor after all ui elements!!!
+    this.cursor = new Cursor(this);
 
-    new Player(this, this.blackjackManager.blackjack, this.rouletteUI); // create in last queue
+    new Player(this, this.blackjackManager.blackjack, this.rouletteUI);
 
     this.time.delayedCall(1000, () => {
       this.dealer.talkText(

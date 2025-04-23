@@ -13,6 +13,8 @@ import { ShopEvent } from '../../views/shop-view/constants.ts';
 import { UI_Event, UIElementName } from '../../views/ui/constants.ts';
 import { AnimationPlayingKey } from '../animation-manager/AnimationManager.ts';
 import { gameObjectFactory } from '../game-object-factory/GameObjectFactory.ts';
+import { SoundLoadingKey } from '../sound-manager/constants.ts';
+import { SoundManager } from '../sound-manager/SoundManager.ts';
 import {
   CARD_WIDTH,
   DEALER_HIT_THRESHOLD,
@@ -23,8 +25,6 @@ import {
 
 import Text = Phaser.GameObjects.Text;
 import Container = Phaser.GameObjects.Container;
-import { SoundManager } from '../sound-manager/SoundManager.ts';
-import { SoundLoadingKey } from '../sound-manager/constants.ts';
 
 const NO_DOUBLE_STAKE_DIALOG = [
   ['No money to go for a double?', 'Oh, how terribly unfortunate.'],
@@ -51,6 +51,10 @@ export class BlackjackManager {
   private dealerScore: Text;
 
   private endGameRoundMessage: Text;
+
+  private isPlayerAlreadyCheated: boolean = false;
+
+  private isDealerCardOpened: boolean = false;
 
   constructor(private scene: Phaser.Scene) {
     this.blackjack = new Blackjack(scene, NUMBER_OF_DECKS);
@@ -228,8 +232,21 @@ export class BlackjackManager {
       card.setPosition(960 + CARD_WIDTH * index, 650);
 
       this.blackjack.dealerCardsContainer.add(card);
-
       this.dealerCards.push(card);
+
+      if (index === 1 && !this.isPlayerAlreadyCheated) {
+        const customHitArea = new Phaser.Geom.Rectangle(55, 15, 100, 180);
+
+        card.cardBack
+          .setInteractive(customHitArea, Phaser.Geom.Rectangle.Contains)
+          .once('pointerdown', () => {
+            SoundManager.getInstance().play(SoundLoadingKey.DEALER_CONFUSED);
+
+            this.isPlayerAlreadyCheated = true;
+            this.isDealerCardOpened = true;
+            this.openHiddenDealerCard();
+          });
+      }
     });
   }
 
@@ -292,55 +309,67 @@ export class BlackjackManager {
     }
   }
 
+  private openHiddenDealerCard(isDealerTurn = false): void {
+    const hiddenCard = this.dealerCards.pop();
+    const dealerHand = this.blackjack.getDealerHand();
+    const dealerCards = dealerHand.getCards();
+
+    this.scene.tweens.add({
+      targets: hiddenCard,
+      scaleX: 0,
+      duration: 300,
+      ease: 'Linear',
+      onComplete: () => {
+        hiddenCard?.destroy();
+
+        const suit = dealerCards[1].suit;
+        const rank = dealerCards[1].rank;
+
+        const faceUpCard = new CardView(this.scene, {
+          suit,
+          rank,
+        });
+        faceUpCard.setPosition(960 + CARD_WIDTH, 650);
+        faceUpCard.setScale(0, 1);
+
+        this.dealerCards.push(faceUpCard);
+        this.blackjack.dealerCardsContainer.add(faceUpCard);
+
+        this.scene.tweens.add({
+          targets: faceUpCard,
+          scaleX: 1,
+          duration: 300,
+          ease: 'Linear',
+          onComplete: () => {
+            const dealerScore = dealerHand.getValue();
+
+            this.dealerScore.text = `${dealerScore}`;
+
+            if (isDealerTurn) {
+              this.checkDealerOutcome(dealerHand);
+            }
+          },
+        });
+      },
+    });
+  }
+
   private playerStand(): void {
     this.hideGameRoundControls();
 
     this.scene.time.delayedCall(1_000, () => {
       const dealerHand = this.blackjack.getDealerHand();
-      const dealerCards = dealerHand.getCards();
-      const hiddenCard = this.dealerCards.pop();
 
-      this.scene.tweens.add({
-        targets: hiddenCard,
-        scaleX: 0,
-        duration: 300,
-        ease: 'Linear',
-        onComplete: () => {
-          hiddenCard?.destroy();
-
-          const suit = dealerCards[1].suit;
-          const rank = dealerCards[1].rank;
-
-          const faceUpCard = new CardView(this.scene, {
-            suit,
-            rank,
-          });
-          faceUpCard.setPosition(960 + CARD_WIDTH, 650);
-          faceUpCard.setScale(0, 1);
-
-          this.dealerCards.push(faceUpCard);
-          this.blackjack.dealerCardsContainer.add(faceUpCard);
-
-          this.scene.tweens.add({
-            targets: faceUpCard,
-            scaleX: 1,
-            duration: 300,
-            ease: 'Linear',
-            onComplete: () => {
-              const dealerScore = dealerHand.getValue();
-
-              this.dealerScore.text = `${dealerScore}`;
-
-              this.checkDealerOutcome(dealerHand);
-            },
-          });
-        },
-      });
+      if (!this.isDealerCardOpened) {
+        this.openHiddenDealerCard(true);
+      } else {
+        this.checkDealerOutcome(dealerHand);
+      }
     });
   }
 
   private dealerHit(): void {
-    this.scene.time.delayedCall(3_500, () => {
+    this.scene.time.delayedCall(2_000, () => {
       this.blackjack.stand();
 
       const dealerHand = this.blackjack.getDealerHand();
@@ -354,6 +383,7 @@ export class BlackjackManager {
   }
 
   private checkDealerOutcome(dealerHand: Hand): void {
+    this.isDealerCardOpened = false;
     const dealerScore = dealerHand.getValue();
 
     if (dealerHand.isBust()) {

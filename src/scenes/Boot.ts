@@ -3,6 +3,7 @@ import { AnimationManager } from '../managers/animation-manager/AnimationManager
 import { ANIMATION_LOADING_LAYOUTS } from '../managers/animation-manager/constants.ts';
 import { AssetLoaderManager } from '../managers/AssetLoaderManager.ts';
 import { BITMAP_FONT_LAYOUTS } from '../managers/game-object-factory/bitmapConstants.ts';
+import { gameObjectFactory } from '../managers/game-object-factory/GameObjectFactory.ts';
 import {
   IMAGE_LAYOUTS,
   SPRITE_SHEET_LAYOUTS,
@@ -10,10 +11,9 @@ import {
 import { SceneManager } from '../managers/SceneManager.ts';
 import { SoundLoadingKey } from '../managers/sound-manager/constants.ts';
 import { HowlerLoader } from '../managers/sound-manager/HowlerLoader.ts';
-import { SceneType } from './constants.ts';
-import { Shadow } from '../views/Shadow.ts';
-import { gameObjectFactory } from '../managers/game-object-factory/GameObjectFactory.ts';
 import { SCREEN_HALF_H, SCREEN_HALF_W } from '../views/constants.ts';
+import { Shadow } from '../views/Shadow.ts';
+import { SceneType } from './constants.ts';
 
 export class Boot extends Scene {
   private assetLoaderManager: AssetLoaderManager;
@@ -160,6 +160,10 @@ export class Boot extends Scene {
         {
           name: SoundLoadingKey.DEALER_CLICK,
           url: 'assets/sounds/dealer/clickEffect/clickEffect.mp3',
+        },
+        {
+          name: SoundLoadingKey.DEALER_CONFUSED,
+          url: 'assets/sounds/dealer/ClickDillerCardAndOpen.wav',
         },
         {
           name: SoundLoadingKey.RAIN,

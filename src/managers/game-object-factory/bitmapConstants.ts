@@ -1,5 +1,6 @@
 export const enum BitmapFontLoadingKey {
-  CARD_VALUES = 'CARD_VALUES',
+  RED_CARD_FONT = 'RED_CARD_FONT',
+  BLACK_CARD_FONT = 'BLACK_CARD_FONT',
 }
 
 export type BitmapFontAsset = {
@@ -10,8 +11,13 @@ export type BitmapFontAsset = {
 
 export const BITMAP_FONT_LAYOUTS: BitmapFontAsset[] = [
   {
-    key: BitmapFontLoadingKey.CARD_VALUES,
-    imagePath: 'bitmap-fonts/card/card-values.png',
-    fontDataPath: 'bitmap-fonts/card/card-values.xml',
+    key: BitmapFontLoadingKey.RED_CARD_FONT,
+    imagePath: 'bitmap-fonts/card/red-card-font-export.png',
+    fontDataPath: 'bitmap-fonts/card/red-card-font-export.xml',
+  },
+  {
+    key: BitmapFontLoadingKey.BLACK_CARD_FONT,
+    imagePath: 'bitmap-fonts/card/black-card-font-export.png',
+    fontDataPath: 'bitmap-fonts/card/black-card-font-export.xml',
   },
 ];

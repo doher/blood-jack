@@ -8,6 +8,7 @@ import {
   UiControlsFrame,
 } from '../../managers/game-object-factory/imageConstants.ts';
 import { SoundLoadingKey } from '../../managers/sound-manager/constants.ts';
+import { SoundManager } from '../../managers/sound-manager/SoundManager.ts';
 import { SCREEN_HALF_H, SCREEN_HALF_W } from '../constants.ts';
 import { Shadow, SHADOW_TAG } from '../Shadow.ts';
 import { Button, LOW_CLICK_SPEED } from '../ui/button/Button.ts';
@@ -21,7 +22,6 @@ import { SwitchRoundTypeShadow } from './SwitchRoundTypeShadow.ts';
 
 import Container = Phaser.GameObjects.Container;
 import Sprite = Phaser.GameObjects.Sprite;
-import { SoundManager } from '../../managers/sound-manager/SoundManager.ts';
 
 const DRUM_POSITION: Position = {
   x: 0,
