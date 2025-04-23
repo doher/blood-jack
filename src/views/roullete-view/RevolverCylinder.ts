@@ -82,6 +82,10 @@ export class RevolverCylinder extends Container {
 
   private skull: Sprite;
 
+  public playerTurnText: Phaser.GameObjects.Text;
+
+  public dealerTurnText: Phaser.GameObjects.Text;
+
   private loadedSlot: Map<number, SlotElementName> = new Map<
     number,
     SlotElementName
@@ -116,6 +120,8 @@ export class RevolverCylinder extends Container {
       const textureFrame = dragBullet.sprite.getData(DataKey.DEALER_TYPE);
       dragBullet.sprite.setTexture(ImageLoadingKey.ROULETTE_UI, textureFrame);
     });
+    this.playerTurnText.setVisible(false);
+    this.dealerTurnText.setVisible(true);
   }
 
   public showPlayerCylinder(angle: number) {
@@ -124,6 +130,8 @@ export class RevolverCylinder extends Container {
       const textureFrame = dragBullet.sprite.getData(DataKey.TYPE);
       dragBullet.sprite.setTexture(ImageLoadingKey.ROULETTE_UI, textureFrame);
     });
+    this.playerTurnText.setVisible(true);
+    this.dealerTurnText.setVisible(false);
   }
 
   private create() {
@@ -153,10 +161,45 @@ export class RevolverCylinder extends Container {
       },
     });
 
+    this.playerTurnText = gameObjectFactory.createText(this.scene, {
+      position: {
+        x: -600,
+        y: -350,
+      },
+      color: 'green',
+      fontSize: 120,
+      origin: {
+        x: 0.5,
+        y: 0.5,
+      },
+      text: 'YOUR TURN',
+    });
+    this.playerTurnText.setVisible(false);
+
+    this.dealerTurnText = gameObjectFactory.createText(this.scene, {
+      position: {
+        x: -590,
+        y: -350,
+      },
+      color: 'red',
+      fontSize: 110,
+      origin: {
+        x: 0.5,
+        y: 0.5,
+      },
+      text: 'DEALER TURN',
+    });
+    this.dealerTurnText.setVisible(false);
+
     this.readyRevolverCylinderHolder = this.scene.add.container(0, 0);
     this.readyRevolverCylinderHolder.name = 'ReadyDrumHolder';
     this.readyRevolverCylinderHolder.add(this.drumBackground);
-    this.add([this.readyRevolverCylinderHolder, this.skull]);
+    this.add([
+      this.readyRevolverCylinderHolder,
+      this.skull,
+      this.dealerTurnText,
+      this.playerTurnText,
+    ]);
   }
 
   private setupEventListeners() {

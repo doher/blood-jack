@@ -192,7 +192,12 @@ export class ScaleBalance extends Container {
       EventBus.emit(UI_Event.ENABLE_UI_ELEMENT_ + UIElementName.SHOP_SUBMIT);
     }
 
-    this.balanceBackground.setTint(0x66ff33);
+    this.scene.tweens.add({
+      targets: this,
+      scale: 1.1,
+      ease: Phaser.Math.Easing.Expo.Out,
+      duration: 1000,
+    });
 
     this.isSelected = true;
   }
@@ -207,6 +212,13 @@ export class ScaleBalance extends Container {
     EventBus.emit(UI_Event.ENABLE_UI_ELEMENT_ + UIElementName.SHOP_BUY_GOOD);
 
     this.balanceBackground.setTint(this.baseTint);
+
+    this.scene.tweens.add({
+      targets: this,
+      scale: this.scaleBeforeEffect.x,
+      ease: Phaser.Math.Easing.Expo.Out,
+      duration: 1000,
+    });
 
     this.isSelected = false;
   }

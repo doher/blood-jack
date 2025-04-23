@@ -1,7 +1,7 @@
 {
 	"textures": [
 		{
-			"image": "talkAnimation-0.png",
+			"image": "talkAnimation-0.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 1689,
@@ -453,7 +453,7 @@
 			]
 		},
 		{
-			"image": "talkAnimation-1.png",
+			"image": "talkAnimation-1.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 1689,
@@ -698,6 +698,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:5ddcde92fffe2233c97fe77ea037dc84:ba6a5a1f9a85c54f22bc9aecaa284e06:2b1f1a6d1a85b71df153ddaf2f0e432d$"
+		"smartupdate": "$TexturePacker:SmartUpdate:86faa1af75a772b905b22e634093add2:ba6a5a1f9a85c54f22bc9aecaa284e06:dcff7c89a7878e8fe8121aa85ec07ee9$"
 	}
 }

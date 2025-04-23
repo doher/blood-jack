@@ -1,7 +1,7 @@
 {
 	"textures": [
 		{
-			"image": "smileAnimation-0.png",
+			"image": "smileAnimation-0.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 1689,
@@ -348,7 +348,7 @@
 			]
 		},
 		{
-			"image": "smileAnimation-1.png",
+			"image": "smileAnimation-1.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 1689,
@@ -698,6 +698,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:9f1a72a375c07d5cfd14af9774531131:b3a437d90fffa97ec00a43fa53f0083a:378292b03373565b209c6ffc7e28a52f$"
+		"smartupdate": "$TexturePacker:SmartUpdate:482d66853c90c0f294d3432ebe58365a:b3a437d90fffa97ec00a43fa53f0083a:9387c570ee0ecd5450cd3975c1773e6a$"
 	}
 }

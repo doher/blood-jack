@@ -26,5 +26,6 @@ export class Rain {
     rain.setTint(11);
     rain.play(AnimationPlayingKey.RAIN_PLAY);
     SoundManager.getInstance().play(SoundLoadingKey.RAIN, true, false, 0.3);
+    rain.setBlendMode(Phaser.BlendModes.LIGHTER);
   }
 }
