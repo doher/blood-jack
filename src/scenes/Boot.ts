@@ -32,6 +32,10 @@ export class Boot extends Scene {
 
   private loadingText: Phaser.GameObjects.Text;
 
+  private progressBarText: Phaser.GameObjects.Text;
+
+  private loadingContainer: Phaser.GameObjects.Container;
+
   constructor() {
     super(SceneType.BOOT);
   }
@@ -40,7 +44,7 @@ export class Boot extends Scene {
     this.loadingShadow = new Shadow(this, 1);
     this.loadingShadow.setPosition(0, 0);
 
-    const con = this.add.container(0, 0);
+    this.loadingContainer = this.add.container(0, 0);
 
     this.loadingText = gameObjectFactory.createText(this, {
       fontSize: 100,
@@ -53,10 +57,28 @@ export class Boot extends Scene {
         x: 0.5,
         y: 0.5,
       },
-      text: 'LOADING...',
+      text: 'LOADING :)',
     });
 
-    con.add([this.loadingShadow, this.loadingText]);
+    this.progressBarText = gameObjectFactory.createText(this, {
+      fontSize: 100,
+      color: 'white',
+      position: {
+        x: SCREEN_HALF_W,
+        y: SCREEN_HALF_H + 100,
+      },
+      origin: {
+        x: 0.5,
+        y: 0.5,
+      },
+      text: '%',
+    });
+
+    this.loadingContainer.add([
+      this.loadingShadow,
+      this.loadingText,
+      this.progressBarText,
+    ]);
 
     this.initializeManagers();
     this.addAssetsToLoadQueue();
@@ -100,6 +122,9 @@ export class Boot extends Scene {
 
   private startAssetLoader() {
     this.assetLoaderManager.start(
+      (progress: string) => {
+        this.progressBarText.setText(progress);
+      },
       () => this.afterLoadAssets(),
       () => this.errorLoadingAssets(),
     );
@@ -233,14 +258,25 @@ export class Boot extends Scene {
     if (!this.isHowlerCompleteLoading || !this.isPhaserCompleteLoading) {
       return;
     }
-    this.loadingShadow.destroy(true);
-    this.loadingText.destroy(true);
+
+    this.destroyOnLoad();
     this.animationManager.registrationAnimation();
     this.sceneManager.start(SceneType.MENU);
   }
 
+  private destroyOnLoad() {
+    [
+      this.loadingShadow,
+      this.loadingText,
+      this.progressBarText,
+      this.loadingContainer,
+    ].forEach((value) => {
+      value.destroy(true);
+    });
+  }
+
   private errorLoadingAssets() {
-    console.log('Error while loading assets');
+    console.log('Error while loading assets ;(');
   }
 
   public create() {}

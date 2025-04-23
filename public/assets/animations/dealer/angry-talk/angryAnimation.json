@@ -1,7 +1,7 @@
 {
 	"textures": [
 		{
-			"image": "angryAnimation-0.png",
+			"image": "angryAnimation-0.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 1689,
@@ -621,7 +621,7 @@
 			]
 		},
 		{
-			"image": "angryAnimation-1.png",
+			"image": "angryAnimation-1.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 423,
@@ -698,6 +698,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:38b809e71779b16bb29a1d956949678a:dcd053cfac820066a041027869cced00:6f3a2fd90bf183f0868b252a8591295f$"
+		"smartupdate": "$TexturePacker:SmartUpdate:50456c97b091a37998ec61f5b9f8eb0c:dcd053cfac820066a041027869cced00:1fb6b213c96cce5e1e6772f63d0acae6$"
 	}
 }

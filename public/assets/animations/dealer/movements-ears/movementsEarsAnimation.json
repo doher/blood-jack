@@ -1,7 +1,7 @@
 {
 	"textures": [
 		{
-			"image": "movementsEarsAnimation-0.png",
+			"image": "movementsEarsAnimation-0.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 1704,
@@ -453,7 +453,7 @@
 			]
 		},
 		{
-			"image": "movementsEarsAnimation-1.png",
+			"image": "movementsEarsAnimation-1.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 1671,
@@ -698,6 +698,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:0d27cefdd6f3c5d3b7897d0220c85411:44781953cb4c8438ff64ab27a100b7a1:f1d7a41762e2dabfb4f4496c002c30d5$"
+		"smartupdate": "$TexturePacker:SmartUpdate:d129723951c80cefe321aab38c9274f6:44781953cb4c8438ff64ab27a100b7a1:ae2ee74a6898bb80cd485fd522e47615$"
 	}
 }

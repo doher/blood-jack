@@ -1,7 +1,7 @@
 {
 	"textures": [
 		{
-			"image": "backgroundAnimation-0.png",
+			"image": "backgroundAnimation-0.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 1922,
@@ -54,7 +54,7 @@
 			]
 		},
 		{
-			"image": "backgroundAnimation-1.png",
+			"image": "backgroundAnimation-1.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 1922,
@@ -86,7 +86,7 @@
 			]
 		},
 		{
-			"image": "backgroundAnimation-2.png",
+			"image": "backgroundAnimation-2.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 1922,
@@ -118,7 +118,7 @@
 			]
 		},
 		{
-			"image": "backgroundAnimation-3.png",
+			"image": "backgroundAnimation-3.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 1922,
@@ -150,7 +150,7 @@
 			]
 		},
 		{
-			"image": "backgroundAnimation-4.png",
+			"image": "backgroundAnimation-4.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 1922,
@@ -182,7 +182,7 @@
 			]
 		},
 		{
-			"image": "backgroundAnimation-5.png",
+			"image": "backgroundAnimation-5.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 1922,
@@ -214,7 +214,7 @@
 			]
 		},
 		{
-			"image": "backgroundAnimation-6.png",
+			"image": "backgroundAnimation-6.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 1922,
@@ -246,7 +246,7 @@
 			]
 		},
 		{
-			"image": "backgroundAnimation-7.png",
+			"image": "backgroundAnimation-7.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 1922,
@@ -278,7 +278,7 @@
 			]
 		},
 		{
-			"image": "backgroundAnimation-8.png",
+			"image": "backgroundAnimation-8.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 1922,
@@ -310,7 +310,7 @@
 			]
 		},
 		{
-			"image": "backgroundAnimation-9.png",
+			"image": "backgroundAnimation-9.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 1922,
@@ -342,7 +342,7 @@
 			]
 		},
 		{
-			"image": "backgroundAnimation-10.png",
+			"image": "backgroundAnimation-10.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 1922,
@@ -374,7 +374,7 @@
 			]
 		},
 		{
-			"image": "backgroundAnimation-11.png",
+			"image": "backgroundAnimation-11.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 1922,
@@ -406,7 +406,7 @@
 			]
 		},
 		{
-			"image": "backgroundAnimation-12.png",
+			"image": "backgroundAnimation-12.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 1922,
@@ -438,7 +438,7 @@
 			]
 		},
 		{
-			"image": "backgroundAnimation-13.png",
+			"image": "backgroundAnimation-13.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 1922,
@@ -470,7 +470,7 @@
 			]
 		},
 		{
-			"image": "backgroundAnimation-14.png",
+			"image": "backgroundAnimation-14.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 1922,
@@ -502,7 +502,7 @@
 			]
 		},
 		{
-			"image": "backgroundAnimation-15.png",
+			"image": "backgroundAnimation-15.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 1922,
@@ -537,6 +537,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:8914d1e07e1edf371d2807bfc3fa8850:3e024e6e120601a5ce3a78c3d0aacbc3:9e76e48a7990bc18c485a94328eeb911$"
+		"smartupdate": "$TexturePacker:SmartUpdate:840805460c8dec5b8d73bbe87884b013:3e024e6e120601a5ce3a78c3d0aacbc3:b906c6baf3730c3d293edead9defa33b$"
 	}
 }

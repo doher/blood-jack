@@ -1,7 +1,7 @@
 {
 	"textures": [
 		{
-			"image": "sadAnimation-0.png",
+			"image": "sadAnimation-0.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 1689,
@@ -348,7 +348,7 @@
 			]
 		},
 		{
-			"image": "sadAnimation-1.png",
+			"image": "sadAnimation-1.webp",
 			"format": "RGBA8888",
 			"size": {
 				"w": 1689,
@@ -698,6 +698,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:4d29300c26ceace773fb165a5d91cfdc:eb62710ad878d808f4a26c93c4a806cc:0f3dbd0af430ab0b0e5a3fdd81eaaa35$"
+		"smartupdate": "$TexturePacker:SmartUpdate:8b0c285d62e8e5d373e2298ca7caa3d8:eb62710ad878d808f4a26c93c4a806cc:9a16f87633722576a9892dea1df0bba9$"
 	}
 }

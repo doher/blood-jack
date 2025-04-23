@@ -42,11 +42,12 @@ export class AssetLoaderManager {
   }
 
   public start(
+    onLoading?: (progress: string) => void,
     onComplete?: () => void,
     onError?: (error: Error) => void,
   ): void {
     this.loader.on(Phaser.Loader.Events.PROGRESS, (progress: number) => {
-      console.log(`Loading: ${Math.round(progress * 100)}%`);
+      onLoading?.(`${Math.round(progress * 100)}%`);
     });
 
     this.loader.once(Phaser.Loader.Events.COMPLETE, () => {
