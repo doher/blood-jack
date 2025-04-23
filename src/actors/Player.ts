@@ -153,7 +153,7 @@ export class Player {
     getCurrentRoundScalesPrices.forEach((roundScalePrice, index) => {
       EventBus.emit(
         UI_Event.UPDATE_TEXT_AT_ELEMENT_ + scaleBalancedNames[index],
-        `BALANCE\n${roundScalePrice}$`,
+        `${roundScalePrice}$`,
       );
     });
   }

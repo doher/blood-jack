@@ -59,7 +59,7 @@ const INFO_LABELS_TYPES: InfoLabelType[] = [
   },
   {
     type: ShopBulletsType.YELLOW,
-    text: '???',
+    text: '50%50',
     backType: UiControlsFrame.YELLOW_BUTTON,
     textColor: 'black',
   },
@@ -272,7 +272,7 @@ export class ShopView extends Container {
           x: 0,
           y: 0,
         },
-        fontSize: 45,
+        fontSize: 55,
         origin: {
           x: 0.5,
           y: 0.5,
@@ -298,7 +298,7 @@ export class ShopView extends Container {
           x: 0,
           y: 0,
         },
-        fontSize: 48,
+        fontSize: 60,
         origin: {
           x: 0.5,
           y: 0.5,
@@ -324,7 +324,7 @@ export class ShopView extends Container {
           x: 0,
           y: 0,
         },
-        fontSize: 52,
+        fontSize: 66,
         origin: {
           x: 0.5,
           y: 0.5,

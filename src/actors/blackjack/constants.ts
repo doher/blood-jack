@@ -24,8 +24,8 @@ export const enum Rank {
 }
 
 export const enum BlackjackResult {
-  PLAYER_WIN = 'PLAYER_WIN',
-  DEALER_WIN = 'DEALER_WIN',
+  PLAYER_WIN = 'PLAYER WIN',
+  DEALER_WIN = 'DEALER WIN',
   PUSH = 'PUSH',
 }
 

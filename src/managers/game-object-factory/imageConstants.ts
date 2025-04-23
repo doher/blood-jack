@@ -49,6 +49,7 @@ export const enum ImageLoadingKey {
   UI_SHOP = 'UI_SHOP',
   SHOP_BACKGROUND = 'SHOP_BACKGROUND',
   ROULETTE_UI = 'ROULETTE_UI',
+  GAME_NAME = 'GAME_NAME',
 }
 
 export type ImageAsset = {
@@ -155,5 +156,9 @@ export const IMAGE_LAYOUTS: ImageAsset[] = [
   {
     key: ImageLoadingKey.SHOP_BACKGROUND,
     imagePath: 'images/shop/shop-background.png',
+  },
+  {
+    key: ImageLoadingKey.GAME_NAME,
+    imagePath: 'images/menu/gameName.png',
   },
 ];
