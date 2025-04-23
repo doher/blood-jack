@@ -239,7 +239,7 @@ export class PlayerUI extends Container {
     this.shop = new Button(
       this.scene,
       SHOP_BUTTON_POSITION,
-      UiControlsFrame.BLACK_BUTTON,
+      UiControlsFrame.YELLOW_BUTTON,
       {
         x: 0.65,
         y: 0.65,
