@@ -96,6 +96,7 @@ export class BlackjackManager {
   }
 
   private deal(): void {
+    this.isDealerCardOpened = false;
     EventBus.emit(UI_Event.DISABLE_ALL_BUTTONS);
 
     this.clearGameRoundState();
@@ -304,6 +305,7 @@ export class BlackjackManager {
     }
 
     if (playerHand.isBust()) {
+      this.isDealerCardOpened = false;
       this.hideGameRoundControls();
       this.endGameRound(BlackjackResult.DEALER_WIN);
     }
