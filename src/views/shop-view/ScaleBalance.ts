@@ -414,8 +414,6 @@ export class ScaleBalance extends Container {
       }
     });
 
-    console.log('maxAffordableIndex = ' + maxAffordableIndex); // Индекс самой большой доступной цены
-
     EventBus.emit(
       ShopEvent.SET_NEXT_ROUND,
       this.indexScaleBalance,

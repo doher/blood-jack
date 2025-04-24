@@ -193,7 +193,6 @@ export class DragElement {
         this.sprite.x = slot.x;
         this.sprite.y = slot.y;
         this.sprite.setData(DataKey.LOADED_TO, slotIndex);
-        console.log('DEV+LOAD+TO INDEX = ', slotIndex);
 
         EventBus.emit(RouletteEvent.FILL_SLOT, slotIndex);
         this.completeDrag(true);

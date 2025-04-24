@@ -108,7 +108,6 @@ export class RevolverCylinder extends Container {
       duration: 3800,
       ease: 'Cubic.easeOut',
       onComplete: () => {
-        console.log('RouletteEvent.SHOOT');
         EventBus.emit(RouletteEvent.SHOOT);
       },
     });
@@ -254,8 +253,6 @@ export class RevolverCylinder extends Container {
       }
     });
 
-    console.log(currentLoadedSlots);
-    console.log(SLOTS_POSITION.length);
     if (currentLoadedSlots === SLOTS_POSITION.length) {
       this.dragBullets.forEach((dragBullet) => {
         dragBullet.sprite.disableInteractive();

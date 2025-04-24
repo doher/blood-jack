@@ -521,7 +521,7 @@ export class RouletteView extends Container {
           x: 0.6,
           y: 0.6,
         },
-        UIElementName.SHOP_BULLET_INFO,
+        UIElementName.SHOP_BULLET_INFO + 'Roulette',
         {
           text: infoLabelType.text,
           position: {
