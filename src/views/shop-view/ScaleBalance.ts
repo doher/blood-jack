@@ -58,6 +58,8 @@ export class ScaleBalance extends Container {
 
   private scaleBeforeEffect: Scale;
 
+  public roundHelpText: Phaser.GameObjects.Text;
+
   constructor(
     public scene: Phaser.Scene,
     position: Position,
@@ -102,6 +104,23 @@ export class ScaleBalance extends Container {
       },
     });
 
+    this.roundHelpText = gameObjectFactory.createText(this.scene, {
+      fontSize: 17,
+      position: {
+        x: 0,
+        y: 290,
+      },
+      origin: {
+        x: 0.5,
+        y: 0.5,
+      },
+      text: 'Buy this bullets pack and start round 2 \n(last round before Russian Roulette)',
+      letterSpacing: 0,
+      lineSpacing: 8,
+    });
+
+    this.roundHelpText.setAlpha(0);
+
     this.bulletPack = new BulletsSideView(this.scene, this.bulletsType);
     this.bulletPack.setPosition(
       UNBALANCED_BULLETS_POSITION.x,
@@ -137,6 +156,7 @@ export class ScaleBalance extends Container {
       this.bulletPack,
       this.weightPack,
       this.textBalanced,
+      this.roundHelpText,
     ]);
 
     const badScaleBalance = 0;
@@ -178,6 +198,20 @@ export class ScaleBalance extends Container {
   }
 
   private handleSelect() {
+    this.scene.tweens.add({
+      targets: this.roundHelpText,
+      ease: Phaser.Math.Easing.Linear,
+      alpha: 1,
+      duration: 300,
+      onStart: () => {
+        if (MainGame.currentRoundIndex === 1) {
+          this.roundHelpText.setText(
+            'Buy this bullet pack and start Russian Roulette!',
+          );
+        }
+      },
+    });
+
     EventBus.emit(UI_Event.DISABLE_UI_ELEMENT_ + UIElementName.SHOP_BUY_BAD);
     EventBus.emit(UI_Event.DISABLE_UI_ELEMENT_ + UIElementName.SHOP_BUY_SO_SO);
     EventBus.emit(UI_Event.DISABLE_UI_ELEMENT_ + UIElementName.SHOP_BUY_GOOD);
@@ -203,6 +237,13 @@ export class ScaleBalance extends Container {
   }
 
   private handleDeSelect() {
+    this.scene.tweens.add({
+      targets: this.roundHelpText,
+      ease: Phaser.Math.Easing.Linear,
+      alpha: 0,
+      duration: 300,
+    });
+
     EventBus.emit(UI_Event.DISABLE_UI_ELEMENT_ + UIElementName.SHOP_CANCEL);
     EventBus.emit(UI_Event.DISABLE_UI_ELEMENT_ + UIElementName.SHOP_SUBMIT);
 
@@ -226,6 +267,8 @@ export class ScaleBalance extends Container {
   private handleSubmit() {
     if (this.isSelected) {
       this.isSelected = false;
+
+      this.roundHelpText.setAlpha(0);
 
       EventBus.emit(
         UI_Event.DISABLE_UI_ELEMENT_ + UIElementName.SHOP_CANCEL,

@@ -38,6 +38,17 @@ export class SoundManager {
     return false;
   };
 
+  public stop(key: string): Howl | undefined {
+    const sound = this.get(key);
+
+    if (!sound) {
+      return;
+    }
+
+    sound.stop();
+    return sound;
+  }
+
   public play = (
     key: string,
     loop = false,

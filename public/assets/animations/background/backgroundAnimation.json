@@ -4,8 +4,8 @@
 			"image": "backgroundAnimation-0.webp",
 			"format": "RGBA8888",
 			"size": {
-				"w": 1922,
-				"h": 1082
+				"w": 1924,
+				"h": 1084
 			},
 			"scale": 1,
 			"frames": [
@@ -24,8 +24,8 @@
 						"h": 1080
 					},
 					"frame": {
-						"x": 1,
-						"y": 1,
+						"x": 2,
+						"y": 2,
 						"w": 1920,
 						"h": 1080
 					}
@@ -45,8 +45,8 @@
 						"h": 1080
 					},
 					"frame": {
-						"x": 1,
-						"y": 1,
+						"x": 2,
+						"y": 2,
 						"w": 1920,
 						"h": 1080
 					}
@@ -57,8 +57,8 @@
 			"image": "backgroundAnimation-1.webp",
 			"format": "RGBA8888",
 			"size": {
-				"w": 1922,
-				"h": 1082
+				"w": 1924,
+				"h": 1084
 			},
 			"scale": 1,
 			"frames": [
@@ -77,8 +77,8 @@
 						"h": 1080
 					},
 					"frame": {
-						"x": 1,
-						"y": 1,
+						"x": 2,
+						"y": 2,
 						"w": 1920,
 						"h": 1080
 					}
@@ -89,8 +89,8 @@
 			"image": "backgroundAnimation-2.webp",
 			"format": "RGBA8888",
 			"size": {
-				"w": 1922,
-				"h": 1082
+				"w": 1924,
+				"h": 1084
 			},
 			"scale": 1,
 			"frames": [
@@ -109,8 +109,8 @@
 						"h": 1080
 					},
 					"frame": {
-						"x": 1,
-						"y": 1,
+						"x": 2,
+						"y": 2,
 						"w": 1920,
 						"h": 1080
 					}
@@ -121,8 +121,8 @@
 			"image": "backgroundAnimation-3.webp",
 			"format": "RGBA8888",
 			"size": {
-				"w": 1922,
-				"h": 1082
+				"w": 1924,
+				"h": 1084
 			},
 			"scale": 1,
 			"frames": [
@@ -141,8 +141,8 @@
 						"h": 1080
 					},
 					"frame": {
-						"x": 1,
-						"y": 1,
+						"x": 2,
+						"y": 2,
 						"w": 1920,
 						"h": 1080
 					}
@@ -153,8 +153,8 @@
 			"image": "backgroundAnimation-4.webp",
 			"format": "RGBA8888",
 			"size": {
-				"w": 1922,
-				"h": 1082
+				"w": 1924,
+				"h": 1084
 			},
 			"scale": 1,
 			"frames": [
@@ -173,8 +173,8 @@
 						"h": 1080
 					},
 					"frame": {
-						"x": 1,
-						"y": 1,
+						"x": 2,
+						"y": 2,
 						"w": 1920,
 						"h": 1080
 					}
@@ -185,8 +185,8 @@
 			"image": "backgroundAnimation-5.webp",
 			"format": "RGBA8888",
 			"size": {
-				"w": 1922,
-				"h": 1082
+				"w": 1924,
+				"h": 1084
 			},
 			"scale": 1,
 			"frames": [
@@ -205,8 +205,8 @@
 						"h": 1080
 					},
 					"frame": {
-						"x": 1,
-						"y": 1,
+						"x": 2,
+						"y": 2,
 						"w": 1920,
 						"h": 1080
 					}
@@ -217,8 +217,8 @@
 			"image": "backgroundAnimation-6.webp",
 			"format": "RGBA8888",
 			"size": {
-				"w": 1922,
-				"h": 1082
+				"w": 1924,
+				"h": 1084
 			},
 			"scale": 1,
 			"frames": [
@@ -237,8 +237,8 @@
 						"h": 1080
 					},
 					"frame": {
-						"x": 1,
-						"y": 1,
+						"x": 2,
+						"y": 2,
 						"w": 1920,
 						"h": 1080
 					}
@@ -249,8 +249,8 @@
 			"image": "backgroundAnimation-7.webp",
 			"format": "RGBA8888",
 			"size": {
-				"w": 1922,
-				"h": 1082
+				"w": 1924,
+				"h": 1084
 			},
 			"scale": 1,
 			"frames": [
@@ -269,8 +269,8 @@
 						"h": 1080
 					},
 					"frame": {
-						"x": 1,
-						"y": 1,
+						"x": 2,
+						"y": 2,
 						"w": 1920,
 						"h": 1080
 					}
@@ -281,8 +281,8 @@
 			"image": "backgroundAnimation-8.webp",
 			"format": "RGBA8888",
 			"size": {
-				"w": 1922,
-				"h": 1082
+				"w": 1924,
+				"h": 1084
 			},
 			"scale": 1,
 			"frames": [
@@ -301,8 +301,8 @@
 						"h": 1080
 					},
 					"frame": {
-						"x": 1,
-						"y": 1,
+						"x": 2,
+						"y": 2,
 						"w": 1920,
 						"h": 1080
 					}
@@ -313,8 +313,8 @@
 			"image": "backgroundAnimation-9.webp",
 			"format": "RGBA8888",
 			"size": {
-				"w": 1922,
-				"h": 1082
+				"w": 1924,
+				"h": 1084
 			},
 			"scale": 1,
 			"frames": [
@@ -333,8 +333,8 @@
 						"h": 1080
 					},
 					"frame": {
-						"x": 1,
-						"y": 1,
+						"x": 2,
+						"y": 2,
 						"w": 1920,
 						"h": 1080
 					}
@@ -345,8 +345,8 @@
 			"image": "backgroundAnimation-10.webp",
 			"format": "RGBA8888",
 			"size": {
-				"w": 1922,
-				"h": 1082
+				"w": 1924,
+				"h": 1084
 			},
 			"scale": 1,
 			"frames": [
@@ -365,8 +365,8 @@
 						"h": 1080
 					},
 					"frame": {
-						"x": 1,
-						"y": 1,
+						"x": 2,
+						"y": 2,
 						"w": 1920,
 						"h": 1080
 					}
@@ -377,8 +377,8 @@
 			"image": "backgroundAnimation-11.webp",
 			"format": "RGBA8888",
 			"size": {
-				"w": 1922,
-				"h": 1082
+				"w": 1924,
+				"h": 1084
 			},
 			"scale": 1,
 			"frames": [
@@ -397,8 +397,8 @@
 						"h": 1080
 					},
 					"frame": {
-						"x": 1,
-						"y": 1,
+						"x": 2,
+						"y": 2,
 						"w": 1920,
 						"h": 1080
 					}
@@ -409,8 +409,8 @@
 			"image": "backgroundAnimation-12.webp",
 			"format": "RGBA8888",
 			"size": {
-				"w": 1922,
-				"h": 1082
+				"w": 1924,
+				"h": 1084
 			},
 			"scale": 1,
 			"frames": [
@@ -429,8 +429,8 @@
 						"h": 1080
 					},
 					"frame": {
-						"x": 1,
-						"y": 1,
+						"x": 2,
+						"y": 2,
 						"w": 1920,
 						"h": 1080
 					}
@@ -441,8 +441,8 @@
 			"image": "backgroundAnimation-13.webp",
 			"format": "RGBA8888",
 			"size": {
-				"w": 1922,
-				"h": 1082
+				"w": 1924,
+				"h": 1084
 			},
 			"scale": 1,
 			"frames": [
@@ -461,8 +461,8 @@
 						"h": 1080
 					},
 					"frame": {
-						"x": 1,
-						"y": 1,
+						"x": 2,
+						"y": 2,
 						"w": 1920,
 						"h": 1080
 					}
@@ -473,8 +473,8 @@
 			"image": "backgroundAnimation-14.webp",
 			"format": "RGBA8888",
 			"size": {
-				"w": 1922,
-				"h": 1082
+				"w": 1924,
+				"h": 1084
 			},
 			"scale": 1,
 			"frames": [
@@ -493,8 +493,8 @@
 						"h": 1080
 					},
 					"frame": {
-						"x": 1,
-						"y": 1,
+						"x": 2,
+						"y": 2,
 						"w": 1920,
 						"h": 1080
 					}
@@ -505,8 +505,8 @@
 			"image": "backgroundAnimation-15.webp",
 			"format": "RGBA8888",
 			"size": {
-				"w": 1922,
-				"h": 1082
+				"w": 1924,
+				"h": 1084
 			},
 			"scale": 1,
 			"frames": [
@@ -525,8 +525,8 @@
 						"h": 1080
 					},
 					"frame": {
-						"x": 1,
-						"y": 1,
+						"x": 2,
+						"y": 2,
 						"w": 1920,
 						"h": 1080
 					}
@@ -537,6 +537,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:840805460c8dec5b8d73bbe87884b013:3e024e6e120601a5ce3a78c3d0aacbc3:b906c6baf3730c3d293edead9defa33b$"
+		"smartupdate": "$TexturePacker:SmartUpdate:18490df5f2e1957d0190198f1d67a467:3e024e6e120601a5ce3a78c3d0aacbc3:b906c6baf3730c3d293edead9defa33b$"
 	}
 }

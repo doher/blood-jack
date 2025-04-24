@@ -22,6 +22,9 @@ import { SwitchRoundTypeShadow } from './SwitchRoundTypeShadow.ts';
 
 import Container = Phaser.GameObjects.Container;
 import Sprite = Phaser.GameObjects.Sprite;
+import { Label } from '../ui/label/Label.ts';
+import { INFO_BULLET_START_POSITION } from '../shop-view/constants.ts';
+import { INFO_LABELS_TYPES } from '../shop-view/ShopView.ts';
 
 const DRUM_POSITION: Position = {
   x: 0,
@@ -61,6 +64,8 @@ export class RouletteView extends Container {
   private dealerLastAngleRotation = 0;
 
   private playerLastAngleRotation = 0;
+
+  private infoLabels: Label[] = [];
 
   private endGame: EndGame;
 
@@ -317,7 +322,7 @@ export class RouletteView extends Container {
     }
 
     if (this.currentStopBullet === RouletteBulletsType.YELLOW) {
-      const blankChance = Phaser.Math.Between(0, 1);
+      const blankChance = Phaser.Math.Between(0, 3);
       if (blankChance === 1) {
         this.shootLive();
         return;
@@ -406,6 +411,13 @@ export class RouletteView extends Container {
   }
 
   private showFullLoadedDrumScreen() {
+    this.scene.tweens.add({
+      targets: this.infoLabels,
+      ease: Phaser.Math.Easing.Linear,
+      alpha: 0,
+      duration: 600,
+    });
+
     this.scene.tweens.chain({
       tweens: [
         {
@@ -474,6 +486,68 @@ export class RouletteView extends Container {
     background.setInteractive();
     background.setName(SHADOW_TAG);
     this.add(background);
+
+    this.createInfoLabels();
+  }
+
+  private createInfoLabels() {
+    INFO_LABELS_TYPES.forEach((infoLabelType, index) => {
+      const bulletSprite = gameObjectFactory.createSprite(this.scene, {
+        key: ImageLoadingKey.UI_SHOP,
+        frame: infoLabelType.type,
+        position: {
+          x: 0,
+          y: 0,
+        },
+      });
+
+      const additionalBackground = gameObjectFactory.createSprite(this.scene, {
+        key: ImageLoadingKey.UI_CONTROLS,
+        frame: infoLabelType.backType,
+        position: {
+          x: 0,
+          y: 0,
+        },
+      });
+
+      const infoLabel = new Label(
+        this.scene,
+        {
+          x: INFO_BULLET_START_POSITION.x,
+          y: INFO_BULLET_START_POSITION.y + index * 100,
+        },
+        UiControlsFrame.GRAY_TEXT_BOX,
+        {
+          x: 0.6,
+          y: 0.6,
+        },
+        UIElementName.SHOP_BULLET_INFO,
+        {
+          text: infoLabelType.text,
+          position: {
+            x: 0,
+            y: 0,
+          },
+          fontSize: 60,
+          origin: {
+            x: 0.5,
+            y: 0.5,
+          },
+          color: infoLabelType.textColor,
+        },
+        false,
+        bulletSprite,
+        {
+          x: -200,
+          y: 0,
+        },
+        additionalBackground,
+      );
+
+      this.infoLabels.push(infoLabel);
+
+      this.add(infoLabel);
+    });
   }
 
   public show(

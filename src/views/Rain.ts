@@ -4,9 +4,11 @@ import { gameObjectFactory } from '../managers/game-object-factory/GameObjectFac
 import { SCREEN_HALF_H, SCREEN_HALF_W } from './constants.ts';
 import { SoundManager } from '../managers/sound-manager/SoundManager.ts';
 import { SoundLoadingKey } from '../managers/sound-manager/constants.ts';
+import { EventBus } from '../EventBus.ts';
+
+export const STOP_RAIN_SOUND = 'STOP_RAIN_SOUND';
 
 export class Rain {
-  ///TODO recreate to container
   constructor(private scene: Phaser.Scene) {
     this.create();
   }
@@ -27,5 +29,9 @@ export class Rain {
     rain.play(AnimationPlayingKey.RAIN_PLAY);
     SoundManager.getInstance().play(SoundLoadingKey.RAIN, true, false, 0.3);
     rain.setBlendMode(Phaser.BlendModes.LIGHTER);
+
+    EventBus.on(STOP_RAIN_SOUND, () => {
+      SoundManager.getInstance().stop(SoundLoadingKey.RAIN);
+    });
   }
 }

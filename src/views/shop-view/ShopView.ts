@@ -50,7 +50,7 @@ type InfoLabelType = {
   textColor: string;
 };
 
-const INFO_LABELS_TYPES: InfoLabelType[] = [
+export const INFO_LABELS_TYPES: InfoLabelType[] = [
   {
     type: ShopBulletsType.RED,
     text: 'LIVE',
@@ -87,7 +87,6 @@ export class ShopView extends Container {
   private cancel: Button;
 
   private helpText: Phaser.GameObjects.Text;
-
   constructor(
     public scene: Phaser.Scene,
     private blackjack: Blackjack,
@@ -139,7 +138,7 @@ export class ShopView extends Container {
       lineSpacing: 8,
     });
 
-    this.add(this.helpText);
+    this.add([this.helpText]);
 
     this.scene.add.existing(this);
   }

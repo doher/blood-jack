@@ -8,6 +8,7 @@ import type { Blackjack } from './blackjack/Blackjack.ts';
 import { BALANCES, BlackjackEvents, STAKE } from './blackjack/constants.ts';
 import { AnimationPlayingKey } from '../managers/animation-manager/AnimationManager.ts';
 import { DealerEvents } from './dealer/constants.ts';
+import { STOP_RAIN_SOUND } from '../views/Rain.ts';
 
 const RUSSIAN_ROULETTE_ROUND = 2;
 
@@ -43,6 +44,7 @@ export class Player {
     // MainGame.currentRoundIndex = RUSSIAN_ROULETTE_ROUND;
 
     if (MainGame.currentRoundIndex === RUSSIAN_ROULETTE_ROUND) {
+      this.hideFullPlayerUi();
       this.scene.time.delayedCall(1000, () => {
         EventBus.emit(
           DealerEvents.TALK_WITH_TEXT,
@@ -89,9 +91,39 @@ export class Player {
     });
   }
 
+  private hideFullPlayerUi() {
+    EventBus.emit(UI_Event.DISABLE_UI_ELEMENT_ + UIElementName.SHOP, true);
+    EventBus.emit(UI_Event.DISABLE_UI_ELEMENT_ + UIElementName.DEAL, true);
+    EventBus.emit(UI_Event.DISABLE_UI_ELEMENT_ + UIElementName.ALL_IN, true);
+    EventBus.emit(
+      UI_Event.DISABLE_UI_ELEMENT_ + UIElementName.INCREASE_STAKE,
+      true,
+    );
+    EventBus.emit(
+      UI_Event.DISABLE_UI_ELEMENT_ + UIElementName.DECREASE_STAKE,
+      true,
+    );
+    EventBus.emit(
+      UI_Event.DISABLE_UI_ELEMENT_ + UIElementName.DECREASE_STAKE,
+      true,
+    );
+    EventBus.emit(UI_Event.DISABLE_UI_ELEMENT_ + UIElementName.STAND, true);
+    EventBus.emit(UI_Event.DISABLE_UI_ELEMENT_ + UIElementName.HIT, true);
+    EventBus.emit(UI_Event.DISABLE_UI_ELEMENT_ + UIElementName.DOUBLE, true);
+    EventBus.emit(
+      UI_Event.DISABLE_UI_ELEMENT_ + UIElementName.PLAYER_BALANCE,
+      true,
+    );
+    EventBus.emit(
+      UI_Event.DISABLE_UI_ELEMENT_ + UIElementName.DEALER_BALANCE,
+      true,
+    );
+  }
+
   private initRouletteRound() {
     EventBus.emit(UI_Event.HIDE_BASE_UI, this);
-    /// TODO dealer talk about REZNYA!!!!
+
+    EventBus.emit(STOP_RAIN_SOUND);
     this.rouletteUI.show(this.playerBullets, this.dealerBullets);
   }
 
@@ -132,7 +164,7 @@ export class Player {
   }
 
   private updateDealText(newDeal: number) {
-    const newDealText = `DEAL \n${newDeal}$`;
+    const newDealText = `DEAL \n$${newDeal}`;
 
     EventBus.emit(
       UI_Event.UPDATE_TEXT_AT_ELEMENT_ + UIElementName.DEAL,
@@ -153,7 +185,7 @@ export class Player {
     getCurrentRoundScalesPrices.forEach((roundScalePrice, index) => {
       EventBus.emit(
         UI_Event.UPDATE_TEXT_AT_ELEMENT_ + scaleBalancedNames[index],
-        `${roundScalePrice}$`,
+        `$${roundScalePrice}`,
       );
     });
   }

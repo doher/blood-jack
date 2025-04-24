@@ -64,7 +64,7 @@ export class PlayerUI extends Container {
       },
       UIElementName.DEAL,
       {
-        text: 'DEAL \n5', /// TODO add default stake here
+        text: 'DEAL \n5',
         position: {
           x: 20,
           y: 0,
@@ -90,7 +90,7 @@ export class PlayerUI extends Container {
       },
       UIElementName.DECREASE_STAKE,
       {
-        text: '- 5', /// TODO add default stake here
+        text: '- 25',
         position: {
           x: 0,
           y: 0,
@@ -142,7 +142,7 @@ export class PlayerUI extends Container {
       },
       UIElementName.INCREASE_STAKE,
       {
-        text: '5 +', /// TODO add default stake here
+        text: '25 +',
         position: {
           x: 0,
           y: 0,
@@ -273,7 +273,7 @@ export class PlayerUI extends Container {
       },
       UIElementName.PLAYER_BALANCE,
       {
-        text: '0$', /// TODO change to real value
+        text: '0$',
         position: {
           x: 0,
           y: 0,
@@ -297,7 +297,7 @@ export class PlayerUI extends Container {
       },
       UIElementName.DEALER_BALANCE,
       {
-        text: '0$', /// TODO change to real value
+        text: '0$',
         position: {
           x: 0,
           y: 0,

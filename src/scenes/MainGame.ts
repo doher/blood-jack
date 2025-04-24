@@ -77,10 +77,8 @@ export class MainGame extends Scene {
         [
           'Hello prisoner #666',
           'We will play Blackjack with You',
-          'I advise you to win all my money',
-          "If you're lucky, you can buy blank cartridges...",
-          'Because as soon as you buy cartridges 2 times...',
-          'We will play...RUSSIAN ROULETTE',
+          'You need to win me and buy revolver cartridges',
+          'After that We will play ... RUSSIAN ROULETTE',
         ],
         AnimationPlayingKey.DEALER_ANGRY_TALK_PLAY,
       );
